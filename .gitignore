@@ -1,0 +1,84 @@
+########################
+# macOS 系統產生檔
+########################
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 可能出現在外接硬碟 / 網路磁碟
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+########################
+# Node.js / JavaScript
+########################
+
+# 套件
+node_modules/
+jspm_packages/
+
+# 打包 / build 輸出
+dist/
+build/
+out/
+tmp/
+temp/
+.cache/
+.eslintcache
+
+# 常見框架的輸出
+.next/
+.nuxt/
+.svelte-kit/
+.storybook/
+.vite/
+vite.config.ts.timestamp-*
+webpack-stats.json
+
+# 測試與覆蓋率
+coverage/
+.nyc_output/
+jest-html-reporters-*.html
+
+# 日誌
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+########################
+# 環境變數 & 機密設定
+########################
+.env
+.env.*
+!.env.example
+
+########################
+# 編輯器與 IDE
+########################
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# WebStorm / IntelliJ
+.idea/
+
+# 其他編輯器暫存
+*.swp
+*.swo
+*.tmp
+*~
+
+########################
+# 其他可忽略暫存
+########################
+.DS_Store?
+Thumbs.db
+*.pid
