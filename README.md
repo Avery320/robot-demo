@@ -1,6 +1,28 @@
-# demo
+# [robot-demo](https://avery320.github.io/robot-demo/ )
 
+## 1. 直接關節控制 (正向運動學)
 
-https://avery320.github.io/robot-demo/ 
+- 互動方式
+  - 將滑鼠游標懸停在機器人模型的任何部位，即可高亮顯示相關聯的關節。
+  - 透過左側 slider 控制。
 
-https://avery320.github.io/robot-demo/javascript/example/bundle/main.html
+## 2. 座標軸控制 (TCP)
+
+### 滑鼠操作
+- 機器人末端會有一個彩色座標軸 (Gizmo)
+- 拖曳箭頭：沿著 X/Y/Z 軸直線移動
+- 拖曳圓環：繞著 X/Y/Z 軸旋轉
+
+### 鍵盤操作
+
+- W / S：上下移動 (Y軸)
+- A / D：左右移動 (X軸)
+- E / Q：前後移動 (Z軸)
+- Shift + 按鍵：加速移動
+
+### 快捷鍵功能
+- T：切換成「平移」模式 (預設)
+- R：切換成「旋轉」模式
+- B：切換成「世界座標」模式 (以地面為基準)
+- N：顯示 / 隱藏座標軸
+
