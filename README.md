@@ -26,3 +26,4 @@
 - B：切換成「世界座標」模式 (以地面為基準)
 - N：顯示 / 隱藏座標軸
 
+![](assets/xbox_controller.png)
