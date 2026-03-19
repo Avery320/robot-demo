@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro">
+
+  <xacro:property name="DEG2RAD" value="0.017453292519943295"/>
+
+  <!-- Load configuration files -->
+  <xacro:property name="kinematics" value="${load_yaml('$(find kuka_kr300_support)/config/default_kinematics.yaml')}"/>
+  <xacro:property name="joint_limits" value="${load_yaml('$(find kuka_kr300_support)/config/joint_limits.yaml')}"/>
+
+  <xacro:macro name="kuka_kr300r2500ultra" params="prefix">
+    <!-- LINKS -->
+    <!-- base link -->
+    <link name="${prefix}base_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kr300_support/meshes/kr300r2500ultra/visual/base_link.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="0.001 0.001 0.001" filename="package://kuka_kr300_support/meshes/kr300r2500ultra/collision/base_link.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 1 (A1) -->
+    <link name="${prefix}link_1">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kr300_support/meshes/kr300r2500ultra/visual/link_1.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="0.001 0.001 0.001" filename="package://kuka_kr300_support/meshes/kr300r2500ultra/collision/link_1.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 2 -->
+    <link name="${prefix}link_2">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kr300_support/meshes/kr300r2500ultra/visual/link_2.stl"/>
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="0.001 0.001 0.001" filename="package://kuka_kr300_support/meshes/kr300r2500ultra/collision/link_2.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 3 -->
+    <link name="${prefix}link_3">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kr300_support/meshes/kr300r2500ultra/visual/link_3.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="0.001 0.001 0.001" filename="package://kuka_kr300_support/meshes/kr300r2500ultra/collision/link_3.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 4 -->
+    <link name="${prefix}link_4">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kr300_support/meshes/kr300r2500ultra/visual/link_4.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="0.001 0.001 0.001" filename="package://kuka_kr300_support/meshes/kr300r2500ultra/collision/link_4.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 5 -->
+    <link name="${prefix}link_5">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kr300_support/meshes/kr300r2500ultra/visual/link_5.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="0.001 0.001 0.001" filename="package://kuka_kr300_support/meshes/kr300r2500ultra/collision/link_5.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- link 6 -->
+    <link name="${prefix}link_6">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="2"/>
+        <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://kuka_kr300_support/meshes/kr300r2500ultra/visual/link_6.stl" />
+        </geometry>
+        <material name="">
+          <color rgba="1.0 1.0 1.0 1.0"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh scale="0.001 0.001 0.001" filename="package://kuka_kr300_support/meshes/kr300r2500ultra/collision/link_6.stl" />
+        </geometry>
+      </collision>
+    </link>
+    <!-- tool 0 -->
+    <!-- This frame corresponds to the $FLANGE coordinate system in KUKA KRC controllers. -->
+    <link name="${prefix}tool0"/>
+    <!-- END LINKS -->
+
+    <!-- JOINTS -->
+    <!-- joint 1 (A1) -->
+    <joint name="${prefix}joint_a1" type="revolute">
+      <origin xyz="${kinematics['kinematics']['joint_a1']['x']} ${kinematics['kinematics']['joint_a1']['y']} ${kinematics['kinematics']['joint_a1']['z']}" 
+              rpy="${kinematics['kinematics']['joint_a1']['roll']} ${kinematics['kinematics']['joint_a1']['pitch']} ${kinematics['kinematics']['joint_a1']['yaw']}"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}link_1"/>
+      <axis xyz="0 0 -1"/>
+      <limit effort="${joint_limits['joint_limits']['joint_a1']['max_effort']}" 
+             lower="${DEG2RAD * joint_limits['joint_limits']['joint_a1']['min_position']}" 
+             upper="${DEG2RAD * joint_limits['joint_limits']['joint_a1']['max_position']}" 
+             velocity="${DEG2RAD * joint_limits['joint_limits']['joint_a1']['max_velocity']}"/>
+    </joint>
+    <!-- joint 2 (A2) -->
+    <joint name="${prefix}joint_a2" type="revolute">
+      <origin xyz="${kinematics['kinematics']['joint_a2']['x']} ${kinematics['kinematics']['joint_a2']['y']} ${kinematics['kinematics']['joint_a2']['z']}" 
+              rpy="${kinematics['kinematics']['joint_a2']['roll']} ${kinematics['kinematics']['joint_a2']['pitch']} ${kinematics['kinematics']['joint_a2']['yaw']}"/>
+      <parent link="${prefix}link_1"/>
+      <child link="${prefix}link_2"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="${joint_limits['joint_limits']['joint_a2']['max_effort']}" 
+             lower="${DEG2RAD * joint_limits['joint_limits']['joint_a2']['min_position']}" 
+             upper="${DEG2RAD * joint_limits['joint_limits']['joint_a2']['max_position']}" 
+             velocity="${DEG2RAD * joint_limits['joint_limits']['joint_a2']['max_velocity']}"/>
+    </joint>
+    <!-- joint 3 (A3) -->
+    <joint name="${prefix}joint_a3" type="revolute">
+      <origin xyz="${kinematics['kinematics']['joint_a3']['x']} ${kinematics['kinematics']['joint_a3']['y']} ${kinematics['kinematics']['joint_a3']['z']}" 
+              rpy="${kinematics['kinematics']['joint_a3']['roll']} ${kinematics['kinematics']['joint_a3']['pitch']} ${kinematics['kinematics']['joint_a3']['yaw']}"/>
+      <parent link="${prefix}link_2"/>
+      <child link="${prefix}link_3"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="${joint_limits['joint_limits']['joint_a3']['max_effort']}" 
+             lower="${DEG2RAD * joint_limits['joint_limits']['joint_a3']['min_position']}" 
+             upper="${DEG2RAD * joint_limits['joint_limits']['joint_a3']['max_position']}" 
+             velocity="${DEG2RAD * joint_limits['joint_limits']['joint_a3']['max_velocity']}"/>
+    </joint>
+    <!-- joint 4 (A4) -->
+    <joint name="${prefix}joint_a4" type="revolute">
+      <origin xyz="${kinematics['kinematics']['joint_a4']['x']} ${kinematics['kinematics']['joint_a4']['y']} ${kinematics['kinematics']['joint_a4']['z']}" 
+              rpy="${kinematics['kinematics']['joint_a4']['roll']} ${kinematics['kinematics']['joint_a4']['pitch']} ${kinematics['kinematics']['joint_a4']['yaw']}"/>
+      <parent link="${prefix}link_3"/>
+      <child link="${prefix}link_4"/>
+      <axis xyz="-1 0 0"/>
+      <limit effort="${joint_limits['joint_limits']['joint_a4']['max_effort']}" 
+             lower="${DEG2RAD * joint_limits['joint_limits']['joint_a4']['min_position']}" 
+             upper="${DEG2RAD * joint_limits['joint_limits']['joint_a4']['max_position']}" 
+             velocity="${DEG2RAD * joint_limits['joint_limits']['joint_a4']['max_velocity']}"/>
+    </joint>
+    <!-- joint 5 (A5) -->
+    <joint name="${prefix}joint_a5" type="revolute">
+      <origin xyz="${kinematics['kinematics']['joint_a5']['x']} ${kinematics['kinematics']['joint_a5']['y']} ${kinematics['kinematics']['joint_a5']['z']}" 
+              rpy="${kinematics['kinematics']['joint_a5']['roll']} ${kinematics['kinematics']['joint_a5']['pitch']} ${kinematics['kinematics']['joint_a5']['yaw']}"/>
+      <parent link="${prefix}link_4"/>
+      <child link="${prefix}link_5"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="${joint_limits['joint_limits']['joint_a5']['max_effort']}" 
+             lower="${DEG2RAD * joint_limits['joint_limits']['joint_a5']['min_position']}" 
+             upper="${DEG2RAD * joint_limits['joint_limits']['joint_a5']['max_position']}" 
+             velocity="${DEG2RAD * joint_limits['joint_limits']['joint_a5']['max_velocity']}"/>
+    </joint>
+    <!-- joint 6 (A6) -->
+    <joint name="${prefix}joint_a6" type="revolute">
+      <origin xyz="${kinematics['kinematics']['joint_a6']['x']} ${kinematics['kinematics']['joint_a6']['y']} ${kinematics['kinematics']['joint_a6']['z']}" 
+              rpy="${kinematics['kinematics']['joint_a6']['roll']} ${kinematics['kinematics']['joint_a6']['pitch']} ${kinematics['kinematics']['joint_a6']['yaw']}"/>
+      <parent link="${prefix}link_5"/>
+      <child link="${prefix}link_6"/>
+      <axis xyz="-1 0 0"/>
+      <limit effort="${joint_limits['joint_limits']['joint_a6']['max_effort']}" 
+             lower="${DEG2RAD * joint_limits['joint_limits']['joint_a6']['min_position']}" 
+             upper="${DEG2RAD * joint_limits['joint_limits']['joint_a6']['max_position']}" 
+             velocity="${DEG2RAD * joint_limits['joint_limits']['joint_a6']['max_velocity']}"/>
+    </joint>
+    <!-- tool frame - fixed frame -->
+    <joint name="${prefix}joint_a6-tool0" type="fixed">
+      <origin xyz="${kinematics['kinematics']['joint_a6-tool0']['x']} ${kinematics['kinematics']['joint_a6-tool0']['y']} ${kinematics['kinematics']['joint_a6-tool0']['z']}" 
+              rpy="${kinematics['kinematics']['joint_a6-tool0']['roll']} ${kinematics['kinematics']['joint_a6-tool0']['pitch']} ${kinematics['kinematics']['joint_a6-tool0']['yaw']}"/>
+      <parent link="${prefix}link_6"/>
+      <child link="${prefix}tool0"/>
+    </joint>
+    <!-- END JOINTS -->
+
+    <!-- ROS base_link to KUKA $ROBROOT coordinate system transform -->
+    <link name="${prefix}base" />
+    <joint name="${prefix}base_link-base" type="fixed">
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}base"/>
+    </joint>
+
+  </xacro:macro>
+</robot>
+
+
