@@ -1,0 +1,362 @@
+.station-tree-panel {
+  --station-tree-row-height: 22px;
+  --station-tree-cell: 14px;
+  --station-tree-glyph: 12px;
+  --station-tree-icon-label-gap: 6px;
+  --station-tree-row-padding-left: 6px;
+  --station-tree-branch-line-inset: 7px;
+  --station-tree-scroll-bottom-rows: 5;
+
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+  color: var(--main-color);
+}
+
+.station-tree-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-small);
+}
+
+.station-tree-toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--panel-control-gap);
+}
+
+.station-tree-tree {
+  flex: 1 1 auto;
+  box-sizing: border-box;
+  min-height: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: auto;
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius-small);
+  background: var(--color-panel-strong);
+  padding: var(--pad-small);
+  color: #fff;
+}
+
+.station-tree-tree:focus {
+  outline: 1px solid rgba(255, 255, 255, 0.55);
+  outline-offset: 0;
+}
+
+.station-tree-content {
+  box-sizing: border-box;
+  min-width: 100%;
+  width: max-content;
+}
+
+.station-tree-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: max-content;
+}
+
+.station-tree-virtual-content {
+  min-height: 100%;
+}
+
+.station-tree-virtual-list {
+  box-sizing: border-box;
+}
+
+.station-tree-tree > .station-tree-content > .station-tree-list:not(.station-tree-virtual-list)::after {
+  content: '';
+  flex: 0 0 calc((var(--station-tree-row-height) + 1px) * var(--station-tree-scroll-bottom-rows));
+}
+
+.station-tree-secondary-window {
+  box-sizing: border-box;
+  display: block;
+  width: calc(100% - var(--station-tree-secondary-offset, 0px));
+  max-height: calc((var(--station-tree-row-height) + 1px) * var(--station-tree-secondary-row-limit));
+  margin: 2px 0 4px var(--station-tree-secondary-offset, 0px);
+  padding: 0;
+  overflow: auto;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-small);
+  background: transparent;
+}
+
+.station-tree-secondary-window:focus-within {
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.station-tree-secondary-window > .station-tree-content {
+  width: max-content;
+  min-width: 100%;
+}
+
+.station-tree-secondary-list {
+  box-sizing: border-box;
+}
+
+.station-tree-node-row {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+  height: var(--station-tree-row-height);
+  min-height: var(--station-tree-row-height);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0 0 0 var(--station-tree-row-padding-left);
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  background: transparent;
+  color: #fff;
+  cursor: default;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.station-tree-node-row[role='treeitem'] {
+  outline: none;
+}
+
+.station-tree-node-select-target:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.station-tree-node-row.is-selected .station-tree-node-select-target {
+  border-color: rgba(255, 255, 255, 0.38);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.station-tree-node-row.is-active .station-tree-node-select-target {
+  border-color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.station-tree-node-row.is-active-tcp .station-tree-node-name {
+  color: var(--color-warning);
+}
+
+.station-tree-node-row.is-drop-target {
+  border-color: rgba(92, 195, 255, 0.95);
+  background: rgba(92, 195, 255, 0.2);
+  box-shadow: inset 3px 0 0 #5cc3ff;
+}
+
+.station-tree-node-select-target.is-draggable {
+  cursor: grab;
+}
+
+.station-tree-node-select-target.is-draggable:active {
+  cursor: grabbing;
+}
+
+.station-tree-node-row.is-hidden .station-tree-node-select-target,
+.station-tree-node-row.is-locked .station-tree-node-select-target {
+  opacity: 0.58;
+}
+
+.station-tree-node-main {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 0;
+  padding-right: 0;
+}
+
+.station-tree-node-select-target {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--station-tree-icon-label-gap);
+  min-width: 0;
+  min-height: calc(var(--station-tree-row-height) - 2px);
+  padding: 1px 6px 1px 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius-small);
+  cursor: pointer;
+  color: inherit;
+}
+
+.station-tree-node-actions {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
+  min-width: 42px;
+  padding: 0 4px 0 0;
+  margin-left: auto;
+  background: linear-gradient(90deg, rgba(18, 24, 32, 0) 0%, rgba(18, 24, 32, 0.78) 34%, rgba(18, 24, 32, 0.96) 100%);
+}
+
+.station-tree-node-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  transition: background-color 0.16s ease, color 0.16s ease, opacity 0.16s ease;
+}
+
+.station-tree-node-action:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.station-tree-node-action.is-active {
+  color: #fff;
+}
+
+.station-tree-node-action.is-muted {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.station-tree-node-action.is-mixed {
+  color: rgba(255, 204, 102, 0.92);
+}
+
+.station-tree-node-action:disabled {
+  cursor: default;
+}
+
+.station-tree-node-action.is-readonly {
+  color: rgba(255, 255, 255, 0.44);
+}
+
+.station-tree-node-action-icon {
+  width: var(--station-tree-glyph);
+  height: var(--station-tree-glyph);
+  pointer-events: none;
+}
+
+.station-tree-prefix {
+  display: inline-flex;
+  align-items: center;
+  height: var(--station-tree-cell);
+}
+
+.station-tree-guide,
+.station-tree-branch {
+  position: relative;
+  width: var(--station-tree-cell);
+  min-width: var(--station-tree-cell);
+  height: var(--station-tree-cell);
+}
+
+.station-tree-guide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--station-tree-branch-line-inset);
+  border-left: 1px solid transparent;
+}
+
+.station-tree-guide.is-active::before {
+  border-left-color: #fff;
+}
+
+.station-tree-branch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--station-tree-branch-line-inset);
+  border-left: 1px solid #fff;
+}
+
+.station-tree-branch::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: var(--station-tree-branch-line-inset);
+  right: 0;
+  border-top: 1px solid #fff;
+}
+
+.station-tree-branch.is-last::before {
+  bottom: 50%;
+}
+
+.station-tree-node-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--station-tree-cell);
+  min-width: var(--station-tree-cell);
+  height: var(--station-tree-cell);
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: var(--station-tree-glyph);
+  line-height: 1;
+  cursor: pointer;
+}
+
+.station-tree-node-icon-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--station-tree-cell);
+  min-width: var(--station-tree-cell);
+  height: var(--station-tree-cell);
+  color: #d8e2f1;
+}
+
+.station-tree-node-icon {
+  width: var(--station-tree-glyph);
+  height: var(--station-tree-glyph);
+}
+
+.station-tree-node-name {
+  font-size: var(--font-sm);
+  color: #fff;
+}
+
+.station-tree-node-row.is-type-robot-link .station-tree-node-icon-slot {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.station-tree-node-input {
+  min-width: 160px;
+  height: 22px;
+  padding: 0 6px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: var(--radius-small);
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  font-size: var(--font-sm);
+}
+
+.station-tree-node-input:focus {
+  outline: none;
+  border-color: #5cc3ff;
+  box-shadow: 0 0 0 1px rgba(92, 195, 255, 0.45);
+}
+
+.station-tree-empty {
+  color: var(--color-text-muted);
+  font-size: var(--font-sm);
+}

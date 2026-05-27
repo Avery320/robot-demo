@@ -1,0 +1,102 @@
+/* gesture_panel.css - 手勢面板專屬樣式 */
+
+.gesture-panel-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+    gap: var(--gap-large);
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--color-text);
+}
+
+/* 啟用中的按鈕狀態 */
+.gesture-panel-content .btn.active {
+    background: var(--color-success);
+    border-color: var(--color-success);
+    color: var(--color-text-invert);
+    font-weight: 700;
+}
+
+.gesture-video-container {
+    position: relative;
+    aspect-ratio: 1/1;
+    background: var(--color-panel-stronger);
+    border-radius: var(--radius-large);
+    overflow: hidden;
+    border: 1px solid var(--color-panel-border);
+}
+
+.gesture-video,
+.gesture-canvas {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gesture-video {
+    display: none;
+}
+
+.gesture-hud {
+    position: absolute;
+    top: var(--gap-large);
+    left: var(--gap-large);
+    padding: var(--pad-small) var(--pad-large);
+    background: var(--color-backdrop);
+    border-radius: var(--radius-small);
+    pointer-events: none;
+    border: 1px solid var(--color-border-faint);
+    z-index: 10;
+}
+
+.gesture-status {
+    font-weight: 700;
+    font-size: var(--font-sm);
+    color: var(--color-text);
+    line-height: 1.2;
+}
+
+.gesture-axis-hint {
+    position: absolute;
+    color: var(--color-success);
+    font-weight: 700;
+    font-size: var(--font-sm);
+    text-shadow: 0 0 var(--pad-small) var(--color-backdrop-strong);
+    pointer-events: none;
+    z-index: 5;
+}
+
+.gesture-axis-top {
+    top: var(--gap-large);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.gesture-axis-bottom {
+    bottom: var(--gap-large);
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.gesture-axis-left {
+    top: 50%;
+    left: var(--gap-large);
+    transform: translateY(-50%);
+}
+
+.gesture-axis-right {
+    top: 50%;
+    right: var(--gap-large);
+    transform: translateY(-50%);
+}
+
+.gesture-actions {
+    margin-top: 0;
+}
+
+.gesture-toggle-btn {
+    width: 100%;
+}

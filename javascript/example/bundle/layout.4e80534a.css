@@ -1,1 +1,430 @@
-:root{--layout-min-left:240px;--layout-min-right:0px;--layout-max-right-ratio:1;--layout-min-bottom-ratio:0.2;--layout-max-bottom-ratio:0.5;--layout-breakpoint:640px;--dock-edge-hint-size:180px;--dock-edge-hit-bleed:50px;--dock-header-height:30px;--dock-tab-gap:4px;--dock-tab-row-height:calc(var(--size-md) + var(--dock-tab-gap));--dock-chrome-height:calc(var(--dock-header-height) + var(--dock-tab-row-height));--divider-color:var(--color-divider);--divider-color-hover:var(--color-divider-strong);--divider-color-active:var(--color-text);--divider-line-size:1px;--divider-line:var(--divider-line-size) solid var(--divider-color);--splitter-line-size:calc(var(--divider-line-size)*4)}.layout-flex{height:calc(100vh - var(--ribbon-height));background:var(--main-bg);font-family:var(--main-font);color:var(--main-color)}.layout-flex,.left-panel{display:flex;overflow:hidden;position:relative}.left-panel{flex:2;background:transparent;min-width:var(--layout-min-left);flex-direction:column;justify-content:space-between;align-items:stretch}.left-panel-layout{flex:1;display:flex;flex-direction:row;overflow:hidden}.viewer-wrapper{flex:1;display:flex;flex-direction:column;min-width:200px;overflow:hidden;position:relative}.layout-flex.drop-hint-right:after,.left-panel-layout.drop-hint-left:before,.viewer-wrapper.drop-hint-bottom:after{content:"";position:absolute;background:var(--color-primary-alpha25);box-shadow:0 0 24px rgba(59,130,246,.3);pointer-events:none;z-index:9999;transition:all .3s cubic-bezier(.4,0,.2,1);animation:edge-pulse .8s ease-in-out infinite alternate}.viewer-wrapper.drop-hint-bottom:after{bottom:0;left:0;right:0;height:var(--dock-edge-hint-size)}.left-panel-layout.drop-hint-left:before{top:0;left:0;bottom:0;width:var(--dock-edge-hint-size)}.layout-flex.drop-hint-right:after{top:0;right:0;bottom:0;width:var(--dock-edge-hint-size)}@keyframes edge-pulse{0%{opacity:.6}to{opacity:1}}.viewer-main{flex:1 1 auto;display:flex;flex-direction:column;min-height:200px;overflow:hidden}.viewer-container{width:100%;height:100%;position:relative;display:flex;justify-content:center;align-items:center;flex:1 1 0;min-height:0}.viewer-bottom{width:100%;display:flex;flex-direction:column;gap:var(--gap-small)}.panel-divider{width:100%;height:var(--divider-line-size);background:var(--divider-color)}.viewer-view-panel{width:100%;height:24px;padding:0 var(--pad-small);border-radius:var(--radius-small);border:none;align-items:center;justify-content:center;font-size:var(--btn-font-size-small)}.dock-bottom,.viewer-view-panel{background:transparent;box-sizing:border-box;display:flex}.dock-bottom{flex:0 0 auto;height:200px;min-height:80px;max-height:50%;flex-direction:column;border-top:var(--divider-line);overflow:hidden;padding:4px}.dock-splitter{flex:0 0 var(--splitter-line-size);cursor:row-resize;width:100%}.dock-splitter.hidden{display:none}.dock-tool-shell{flex:0 0 var(--dock-chrome-height);min-height:var(--dock-chrome-height);display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--color-border);border-radius:var(--border-radius);background:color-mix(in srgb,var(--color-backdrop) 88%,#000 12%);box-shadow:inset 0 1px 0 hsla(0,0%,100%,.03)}.dock-tool-header{flex:0 0 var(--dock-header-height);display:flex;align-items:center;min-height:var(--dock-header-height);padding:0;background:color-mix(in srgb,var(--color-backdrop) 94%,#000 6%);border-bottom:1px solid color-mix(in srgb,var(--color-border) 84%,hsla(0,0%,100%,.08) 16%);cursor:default;user-select:none}.dock-tool-title{padding:0 12px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:14px;font-weight:600;color:var(--main-color);letter-spacing:.02em}.dock-tabs{flex:0 0 var(--dock-tab-row-height);display:flex;align-items:center;gap:2px;min-height:var(--dock-tab-row-height);padding:0;background:color-mix(in srgb,var(--color-backdrop) 90%,#000 10%);border:0;border-radius:0;overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;box-sizing:border-box;scrollbar-width:none;-ms-overflow-style:none;margin:0}.dock-tabs::-webkit-scrollbar{display:none}.dock-tabs-list{position:relative;display:flex;align-items:flex-start;gap:2px;flex:0 0 auto;min-height:var(--dock-tab-row-height);min-width:100%;width:max-content;padding:0 0 var(--dock-tab-gap) 0;box-sizing:border-box}.dock-tab-btn{flex:0 0 auto;min-width:max-content;border-radius:calc(var(--border-radius) - 2px);cursor:grab;transition:background-color .2s ease,color .2s ease,opacity .2s ease,transform .18s ease}.dock-tab-btn.dragging,.dock-tab-btn:active{cursor:grabbing}.dock-tab-btn.drag-source-hidden{width:0!important;min-width:0!important;padding-left:0!important;padding-right:0!important;border-width:0!important;margin:0!important;opacity:0!important;pointer-events:none;overflow:hidden}.dock-tab-drop-ghost{position:absolute;margin:0;pointer-events:none;z-index:2}.dock-tab-drag-preview{position:fixed;margin:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}.dock-content-frame{flex:1 1 0%;display:flex;flex-direction:column;min-height:0;margin-top:4px;padding:4px;border:1px solid var(--color-border);border-radius:var(--border-radius);background:color-mix(in srgb,var(--main-bg) 96%,#000 4%);overflow:hidden;box-sizing:border-box}.dock-content{flex:1 1 auto;padding:var(--gap-large);min-height:0}.dock-content,.dock-panel{overflow:auto;background:transparent}.dock-panel{display:none;height:100%}.dock-panel.active{display:block}.dock-hidden{display:none!important}.dock-left{flex:0 0 auto;width:280px;min-width:120px;max-width:50%;display:flex;flex-direction:column;background:transparent;border-right:var(--divider-line);overflow:hidden;padding:4px;box-sizing:border-box}.dock-splitter-left{flex:0 0 var(--splitter-line-size);cursor:col-resize;height:100%}.floating-layer{position:absolute;inset:0;pointer-events:none;z-index:900}.floating-layer.floating-drop-active{box-shadow:inset 0 0 0 2px var(--color-primary-alpha25)}.floating-window{position:absolute;display:flex;flex-direction:column;--floating-handle-size:10px;min-width:320px;min-height:220px;background:var(--main-bg);border:var(--divider-line);border-radius:var(--border-radius);box-shadow:var(--shadow-2);overflow:hidden;pointer-events:auto}.floating-window .dock-tool-header{cursor:move;user-select:none;touch-action:none}.floating-window .dock-tab-btn{cursor:pointer}.floating-window-resize-handle{position:absolute;z-index:2;touch-action:none}.floating-window-resize-n,.floating-window-resize-s{left:var(--floating-handle-size);right:var(--floating-handle-size);height:var(--floating-handle-size)}.floating-window-resize-n{top:calc(var(--floating-handle-size)*-0.5);cursor:n-resize}.floating-window-resize-s{bottom:calc(var(--floating-handle-size)*-0.5);cursor:s-resize}.floating-window-resize-e,.floating-window-resize-w{top:var(--floating-handle-size);bottom:var(--floating-handle-size);width:var(--floating-handle-size)}.floating-window-resize-e{right:calc(var(--floating-handle-size)*-0.5);cursor:e-resize}.floating-window-resize-w{left:calc(var(--floating-handle-size)*-0.5);cursor:w-resize}.floating-window-resize-ne,.floating-window-resize-nw,.floating-window-resize-se,.floating-window-resize-sw{width:calc(var(--floating-handle-size)*1.5);height:calc(var(--floating-handle-size)*1.5)}.floating-window-resize-ne{top:calc(var(--floating-handle-size)*-0.5);right:calc(var(--floating-handle-size)*-0.5);cursor:ne-resize}.floating-window-resize-nw{top:calc(var(--floating-handle-size)*-0.5);left:calc(var(--floating-handle-size)*-0.5);cursor:nw-resize}.floating-window-resize-se{right:calc(var(--floating-handle-size)*-0.5);bottom:calc(var(--floating-handle-size)*-0.5);cursor:se-resize}.floating-window-resize-sw{left:calc(var(--floating-handle-size)*-0.5);bottom:calc(var(--floating-handle-size)*-0.5);cursor:sw-resize}.dock-right{flex:0 0 auto;min-width:0;min-height:0;display:flex;flex-direction:column;overflow:hidden;background:transparent;padding:4px;box-sizing:border-box}.dock-right .dock-content-frame{flex:1 1 auto}urdf-viewer{padding:0;margin:0;height:100%;width:100%;overflow:hidden}:where(.splitter-vertical,.splitter-horizontal){position:relative;background:transparent}:where(.splitter-vertical,.splitter-horizontal):before{content:"";position:absolute;background:var(--divider-color)}:where(.splitter-vertical,.splitter-horizontal):hover:before{background:var(--divider-color-hover)}:where(.splitter-vertical,.splitter-horizontal).active:before{background:var(--divider-color-active)}.splitter-vertical{flex:0 0 var(--splitter-line-size);cursor:col-resize;align-self:stretch}.splitter-vertical:before{top:0;bottom:0;left:50%;width:var(--splitter-line-size);transform:translateX(-50%)}.splitter-horizontal{flex:0 0 var(--splitter-line-size);cursor:row-resize;width:100%}.splitter-horizontal:before{left:0;right:0;top:50%;height:var(--splitter-line-size);transform:translateY(-50%)}@media (max-width:639px),(orientation:portrait){.layout-flex{flex-direction:column}.splitter-vertical{cursor:row-resize;width:100%;flex:0 0 var(--splitter-line-size)}.splitter-vertical:before{width:100%;height:var(--splitter-line-size);top:50%;left:0;bottom:auto;transform:translateY(-50%)}}
+/* ===== 佈局系統 ===== */
+/* 定義畫面配置結構、面板佈局、分隔條與響應式設計 */
+
+:root {
+    /* 佈局參數系統（JS 與 CSS 共用） */
+    --dock-size-min-ratio: 0.1;
+    --dock-size-default-ratio: 0.25;
+    --dock-size-max-ratio: 0.35;
+    --runtime-log-min-height: 0px;
+    --runtime-log-default-height: 144px;
+    --runtime-log-max-ratio: 0.35;
+    --dock-edge-hint-size: 180px;
+    --dock-edge-hit-bleed: 50px;
+    --dock-header-height: 30px;
+    --dock-tab-gap: 4px;
+    --dock-tab-row-height: calc(var(--size-md) + var(--dock-tab-gap));
+    --dock-chrome-height: calc(var(--dock-header-height) + var(--dock-tab-row-height));
+
+    /* 分隔線顏色系統 */
+    --divider-color: var(--color-divider);
+    --divider-color-hover: var(--color-divider-strong);
+    --divider-color-active: var(--color-text);
+
+    /* 分隔線尺寸 */
+    --divider-line-size: 1px;
+    --divider-line: var(--divider-line-size) solid var(--divider-color);
+    --splitter-line-size: calc(var(--divider-line-size) * 4);
+}
+
+/* ===== 主要容器結構 ===== */
+
+.layout-flex {
+    display: flex;
+    height: calc(100vh - var(--ribbon-height));
+    background: var(--main-bg);
+    font-family: var(--main-font);
+    color: var(--main-color);
+    overflow: hidden;
+    position: relative;
+}
+
+/* ===== Viewport 主區域 ===== */
+
+.viewport-panel {
+    flex: 1 1 auto;
+    position: relative;
+    background: transparent;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Viewer 包裝容器 */
+.viewer-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* 左側、右側吸附提示 (Drop Hints) - 僅在大面積熱區觸發時使用 */
+.layout-flex.drop-hint-left::before,
+.layout-flex.drop-hint-right::after {
+    content: '';
+    position: absolute;
+    background: var(--color-primary-alpha25);
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.3);
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: edge-pulse 0.8s ease-in-out infinite alternate;
+}
+
+.layout-flex.drop-hint-left::before {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--dock-edge-hint-size);
+}
+
+.layout-flex.drop-hint-right::after {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: var(--dock-edge-hint-size);
+}
+
+/* 邊緣提示動畫 */
+@keyframes edge-pulse {
+    from {
+        opacity: 0.6;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* ===== Viewer 主區域 ===== */
+
+.viewer-main {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;
+    overflow: hidden;
+}
+
+.runtime-log-host {
+    flex: 0 0 var(--runtime-log-default-height);
+    min-height: 0;
+    padding: var(--panel-container-padding);
+    border-top: var(--divider-line);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* ===== 檢視器區塊 ===== */
+
+.viewer-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+.viewer-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-small);
+}
+
+.panel-divider {
+    width: 100%;
+    height: var(--divider-line-size);
+    background: var(--divider-color);
+}
+
+.viewer-view-panel {
+    width: 100%;
+    height: 24px;
+    padding: 0 var(--pad-small);
+    border-radius: var(--radius-small);
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--btn-font-size-small);
+}
+
+/* Dock Tab 列 */
+.dock-tool-shell {
+    /* Dock chrome 固定占用上方高度，內容區永遠吃剩餘空間。 */
+    flex: 0 0 var(--dock-chrome-height);
+    min-height: var(--dock-chrome-height);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background: color-mix(in srgb, var(--color-backdrop) 88%, #000 12%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.dock-tool-header {
+    flex: 0 0 var(--dock-header-height);
+    display: flex;
+    align-items: center;
+    min-height: var(--dock-header-height);
+    padding: 0;
+    /* 工具名稱列與 tab 列維持同一塊容器，僅用細線區分層次。 */
+    background: color-mix(in srgb, var(--color-backdrop) 94%, #000 6%);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-border) 84%, rgba(255, 255, 255, 0.08) 16%);
+    cursor: default;
+    user-select: none;
+}
+
+.dock-tool-title {
+    padding: 0 12px;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--main-color);
+    letter-spacing: 0.02em;
+}
+
+.dock-tabs {
+    flex: 0 0 var(--dock-tab-row-height);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    min-height: var(--dock-tab-row-height);
+    padding: 0;
+    background: color-mix(in srgb, var(--color-backdrop) 90%, #000 10%);
+    border: 0;
+    border-radius: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin: 0;
+}
+
+.dock-tabs::-webkit-scrollbar {
+    display: none;
+}
+
+.dock-tabs-list {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    flex: 0 0 auto;
+    min-height: var(--dock-tab-row-height);
+    min-width: 100%;
+    width: max-content;
+    padding: 0 0 var(--dock-tab-gap) 0;
+    box-sizing: border-box;
+}
+
+/* Dock Tab 按鈕 - 繼承 .tab-btn 基礎樣式，僅覆寫佈局相關 */
+.dock-tab-btn {
+    /* 繼承自 .tab-btn，此處僅微調 */
+    flex: 0 0 auto;
+    min-width: max-content;
+    border-radius: calc(var(--border-radius) - 2px);
+    cursor: grab;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.18s ease;
+}
+
+.dock-tab-btn.is-icon-only {
+    min-width: var(--size-md);
+}
+
+.dock-tab-btn.is-icon-only>.ui-icon--image {
+    width: 18px;
+    height: 18px;
+}
+
+.dock-tab-btn:active,
+.dock-tab-btn.dragging {
+    cursor: grabbing;
+}
+
+.dock-tab-btn.drag-source-hidden {
+    width: 0 !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-width: 0 !important;
+    margin: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.dock-tab-drop-ghost {
+    flex: 0 0 auto;
+    margin: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.dock-tab-drag-preview {
+    position: fixed;
+    margin: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+}
+
+/* Dock 內容區 */
+.dock-content-frame {
+    /* panel 內容是唯一可伸縮區，避免壓縮上方 tool name / tab。 */
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    margin-top: 4px;
+    padding: 4px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    background: color-mix(in srgb, var(--main-bg) 96%, #000 4%);
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.dock-content {
+    flex: 1 1 auto;
+    overflow: auto;
+    overflow-x: hidden;
+    padding: var(--panel-container-padding);
+    min-height: 0;
+    min-width: 0;
+    background: transparent;
+}
+
+.dock-panel {
+    display: none;
+    height: 100%;
+    overflow: auto;
+    overflow-x: hidden;
+    min-width: 0;
+    background: transparent;
+}
+
+.dock-panel.active {
+    display: block;
+}
+
+/* Dock 動態顯示/隱藏 */
+.dock-hidden {
+    display: none !important;
+}
+
+/* ===== 左側 Dock 區域 ===== */
+
+.dock-left {
+    flex: 0 0 calc(var(--dock-size-default-ratio) * 100%);
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    border-right: var(--divider-line);
+    overflow: hidden;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+/* ===== 右側 Dock 區域 ===== */
+
+/* 右側 dock 自身就是外層 shell，不再包一層 controls 容器。 */
+.dock-right {
+    flex: 0 0 calc(var(--dock-size-default-ratio) * 100%);
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: transparent;
+    padding: 4px;
+    box-sizing: border-box;
+}
+
+.dock-right .dock-content-frame {
+    flex: 1 1 auto;
+}
+
+/* ===== URDF Viewer 元件 ===== */
+
+urdf-viewer {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* ===== 可拖曳分隔條 ===== */
+
+.splitter-vertical {
+    position: relative;
+    background: transparent;
+    flex: 0 0 var(--splitter-line-size);
+    cursor: col-resize;
+    align-self: stretch;
+}
+
+.splitter-vertical::before {
+    content: '';
+    position: absolute;
+    background: var(--divider-color);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: var(--splitter-line-size);
+    transform: translateX(-50%);
+}
+
+.splitter-vertical:hover::before {
+    background: var(--divider-color-hover);
+}
+
+.splitter-vertical.active::before {
+    background: var(--divider-color-active);
+}
+
+.splitter-horizontal {
+    position: relative;
+    background: transparent;
+    flex: 0 0 var(--splitter-line-size);
+    cursor: row-resize;
+    width: 100%;
+}
+
+.splitter-horizontal::before {
+    content: '';
+    position: absolute;
+    background: var(--divider-color);
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: var(--splitter-line-size);
+    transform: translateY(-50%);
+}
+
+.splitter-horizontal:hover::before {
+    background: var(--divider-color-hover);
+}
+
+.splitter-horizontal.active::before {
+    background: var(--divider-color-active);
+}

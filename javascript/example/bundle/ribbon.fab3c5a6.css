@@ -1,1 +1,267 @@
-:root{--ribbon-tab-height:36px;--ribbon-bar-height:36px;--ribbon-height:calc(var(--ribbon-tab-height) + var(--ribbon-bar-height))}body.has-ribbon{padding-top:var(--ribbon-height)}.app-ribbon{--ribbon-radius:4px;--ribbon-padding-x:10px;--ribbon-gap:8px;--ribbon-btn-height:28px;--ribbon-font-size:12px;--ribbon-font:"Noto Sans","Roboto",helvetica,arial,sans-serif;position:fixed;top:0;left:0;right:0;height:var(--ribbon-height);display:flex;flex-direction:column;background:var(--ribbon-bg);border-bottom:var(--ribbon-divider);z-index:1000;color:var(--ribbon-text);font-family:var(--ribbon-font)}.ribbon-tabs{height:var(--ribbon-tab-height);gap:6px;background:var(--ribbon-tab-bg);border-bottom:var(--ribbon-divider)}.ribbon-panels,.ribbon-tabs{display:flex;align-items:center;padding:0 var(--ribbon-padding-x)}.ribbon-panels{height:var(--ribbon-bar-height);gap:var(--ribbon-gap);background:var(--ribbon-bar-bg);overflow-x:auto}.ribbon-panel{display:none;align-items:center;gap:var(--ribbon-gap);height:100%;min-height:100%}.ribbon-panel.is-active{display:flex}.ribbon-group{display:flex;align-items:center;gap:8px;height:100%;padding:0 var(--ribbon-padding-x);border-right:var(--ribbon-divider)}.ribbon-group:last-child{border-right:none}.ribbon-label,.ribbon-muted,.ribbon-status{font-size:var(--ribbon-font-size);color:var(--ribbon-muted)}.ribbon-dot{width:8px;height:8px;border-radius:50%;background:var(--color-status-idle);display:inline-block}.ribbon-dot[data-state=connected]{background:var(--color-success)}.ribbon-dot[data-state=connecting]{background:var(--color-warning)}.ribbon-dot[data-state=error]{background:var(--color-error)}.app-ribbon :is(.ribbon-tab,.ribbon-btn,.ribbon-select,.ribbon-input){height:var(--ribbon-btn-height);font-size:var(--ribbon-font-size);border-radius:var(--ribbon-radius);font-family:var(--ribbon-font)}.app-ribbon :is(.ribbon-tab,.ribbon-btn){padding:0 10px;border:1px solid var(--ribbon-border);background:var(--ribbon-btn-bg);color:var(--ribbon-text);cursor:pointer;line-height:1;appearance:none;-webkit-appearance:none;box-shadow:none;display:inline-flex;align-items:center;justify-content:center}.app-ribbon .ribbon-tab{border-radius:var(--ribbon-radius) var(--ribbon-radius) 0 0;background:var(--ribbon-tab-btn-bg);border-color:transparent}.app-ribbon :is(.ribbon-tab,.ribbon-btn).is-active,.app-ribbon :is(.ribbon-tab,.ribbon-btn):active,.app-ribbon :is(.ribbon-tab,.ribbon-btn):hover{background:var(--ribbon-btn-bg-active);color:var(--ribbon-btn-text-active);border-color:var(--color-border-contrast)}.app-ribbon .ribbon-tab:is(:hover,:active,.is-active){border-bottom-color:transparent;box-shadow:inset 0 1px 0 var(--color-overlay-strong)}.app-ribbon .ribbon-select{appearance:none;-webkit-appearance:none}.app-ribbon .ribbon-input,.app-ribbon .ribbon-select{padding:0 8px;border:1px solid var(--ribbon-border);background:var(--ribbon-tab-btn-bg);color:var(--ribbon-text);box-shadow:none}.app-ribbon .ribbon-input{min-width:168px;width:196px}.app-ribbon .ribbon-input:hover{border-color:var(--input-border-hover)}.app-ribbon .ribbon-input:focus{outline:none;border-color:var(--input-border-focus)}
+/* ribbon.css - Scoped ribbon layout and controls */
+
+:root {
+    --ribbon-tab-height: 36px;
+    --ribbon-bar-height: 36px;
+    --ribbon-height: calc(var(--ribbon-tab-height) + var(--ribbon-bar-height));
+}
+
+body.has-ribbon {
+    padding-top: var(--ribbon-height);
+}
+
+.app-ribbon {
+    --ribbon-radius: 4px;
+    --ribbon-padding-x: 10px;
+    --ribbon-gap: 8px;
+    --ribbon-btn-height: 28px;
+    --ribbon-font-size: 12px;
+    --ribbon-font: 'Noto Sans', 'Roboto', helvetica, arial, sans-serif;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--ribbon-height);
+    display: flex;
+    flex-direction: column;
+    background: var(--ribbon-bg);
+    border-bottom: var(--ribbon-divider);
+    z-index: 1000;
+    color: var(--ribbon-text);
+    font-family: var(--ribbon-font);
+}
+
+.ribbon-tabs {
+    height: var(--ribbon-tab-height);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 var(--ribbon-padding-x);
+    background: var(--ribbon-tab-bg);
+    border-bottom: var(--ribbon-divider);
+}
+
+.ribbon-panels {
+    height: var(--ribbon-bar-height);
+    display: flex;
+    align-items: center;
+    padding: 0 var(--ribbon-padding-x);
+    gap: var(--ribbon-gap);
+    background: var(--ribbon-bar-bg);
+    overflow-x: auto;
+
+    /* 隱藏原生捲動軸但保持捲動功能 */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.ribbon-panels::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari and Opera */
+}
+
+.ribbon-panel {
+    display: none;
+    align-items: center;
+    gap: var(--ribbon-gap);
+    height: 100%;
+    min-height: 100%;
+}
+
+.ribbon-panel.is-active {
+    display: flex;
+}
+
+.ribbon-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 100%;
+    padding: 0 var(--ribbon-padding-x);
+    border-right: var(--ribbon-divider);
+}
+
+.ribbon-group:last-child {
+    border-right: none;
+}
+
+.ribbon-label,
+.ribbon-muted {
+    font-size: var(--ribbon-font-size);
+    color: var(--ribbon-muted);
+}
+
+.app-ribbon :is(.ribbon-tab, .ribbon-btn, .ribbon-select, .ribbon-input, .ribbon-label.is-icon-only) {
+    height: var(--ribbon-btn-height);
+    font-size: var(--ribbon-font-size);
+    border-radius: var(--ribbon-radius);
+    font-family: var(--ribbon-font);
+}
+
+.app-ribbon :is(.ribbon-tab, .ribbon-btn) {
+    padding: 0 10px;
+    border: 1px solid var(--ribbon-border);
+    background: var(--ribbon-btn-bg);
+    color: var(--ribbon-text);
+    cursor: pointer;
+    line-height: 1;
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-ribbon .ribbon-btn.is-icon-only {
+    width: var(--ribbon-btn-height);
+    min-width: var(--ribbon-btn-height);
+    padding: 0;
+    overflow: hidden;
+}
+
+/* 圖片 icon 視為按鈕內部圖示，而不是滿版底圖。 */
+.app-ribbon .ribbon-btn.is-icon-only > .ui-icon--image {
+    width: 20px;
+    height: 20px;
+}
+
+.app-ribbon .ribbon-label.is-icon-only > .ui-icon--image {
+    width: 24px;
+    height: 24px;
+}
+
+.app-ribbon .ribbon-label.is-icon-only {
+    width: var(--ribbon-btn-height);
+    min-width: var(--ribbon-btn-height);
+    padding: 0;
+    border: 1px solid var(--ribbon-border);
+    background: var(--ribbon-tab-btn-bg);
+    color: var(--ribbon-muted);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+.app-ribbon .ribbon-tab {
+    border-radius: var(--ribbon-radius) var(--ribbon-radius) 0 0;
+    background: var(--ribbon-tab-btn-bg);
+    border-color: transparent;
+}
+
+.app-ribbon .ribbon-tab:hover,
+.app-ribbon .ribbon-tab:active,
+.app-ribbon .ribbon-tab.is-active,
+.app-ribbon .ribbon-btn:hover:not([data-hover-suppressed="true"]),
+.app-ribbon .ribbon-btn:active,
+.app-ribbon .ribbon-btn.is-active {
+    background: var(--ribbon-btn-bg-active);
+    color: var(--ribbon-btn-text-active);
+    border-color: var(--color-border-contrast);
+}
+
+.app-ribbon .ribbon-tab:is(:hover, :active, .is-active) {
+    border-bottom-color: transparent;
+    box-shadow: inset 0 1px 0 var(--color-overlay-strong);
+}
+
+.app-ribbon .ribbon-select {
+    padding: 0 8px;
+    border: 1px solid var(--ribbon-border);
+    background: var(--ribbon-tab-btn-bg);
+    color: var(--ribbon-text);
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    width: 120px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.app-ribbon .ribbon-input {
+    padding: 0 8px;
+    width: 125px;
+    border: 1px solid var(--ribbon-border);
+    background: var(--ribbon-tab-btn-bg);
+    color: var(--ribbon-text);
+    box-shadow: none;
+}
+
+.app-ribbon .ribbon-input:hover {
+    border-color: var(--input-border-hover);
+}
+
+.app-ribbon .ribbon-input:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+}
+
+/* Popover 彈出面板（掛在 body，不在 .app-ribbon 內，font 需直接定義） */
+.ribbon-popover {
+    position: fixed;
+    z-index: 1100;
+    background: var(--ribbon-bar-bg);
+    border: 1px solid var(--ribbon-border);
+    border-radius: var(--radius-large);
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    font-family: 'Noto Sans', 'Roboto', helvetica, arial, sans-serif;
+    font-size: 12px;
+    color: var(--ribbon-text);
+}
+
+.ribbon-popover-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ribbon-popover-label {
+    color: var(--ribbon-muted);
+    white-space: nowrap;
+    user-select: none;
+}
+
+.ribbon-popover-slider {
+    width: 80px;
+    height: 4px;
+    cursor: pointer;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--ribbon-border);
+}
+
+.ribbon-popover-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ribbon-btn-text-active);
+    cursor: pointer;
+}
+
+.ribbon-popover-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--ribbon-btn-text-active);
+    border: none;
+    cursor: pointer;
+}
+
+.ribbon-popover-value {
+    min-width: 28px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}

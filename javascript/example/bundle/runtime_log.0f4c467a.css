@@ -1,0 +1,63 @@
+/* Runtime Log：固定在 viewport 下方，不走 DockManager。 */
+
+.runtime-log-panel {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    color: var(--main-color);
+}
+
+.runtime-log-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    padding: var(--pad-small);
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius-small);
+    background: var(--color-panel-strong);
+    font-family: var(--main-font);
+    font-size: var(--font-sm);
+    line-height: 1.45;
+    color: var(--color-text);
+}
+
+.runtime-log-item {
+    display: flex;
+    align-items: baseline;
+    gap: var(--gap-small);
+    min-height: 20px;
+    padding: 1px 2px;
+    border-bottom: 1px solid var(--color-border-faint);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.runtime-log-item:last-child {
+    border-bottom: none;
+}
+
+.runtime-log-item .log-level {
+    flex: 0 0 auto;
+    font-weight: 700;
+}
+
+.runtime-log-item .log-node {
+    flex: 0 0 auto;
+    color: var(--color-text-muted);
+    opacity: 0.65;
+}
+
+.runtime-log-item .log-msg {
+    min-width: 0;
+    color: var(--color-text);
+    opacity: 0.9;
+}
+
+.runtime-log-item.level-debug .log-level { color: var(--color-status-debug); }
+.runtime-log-item.level-info .log-level { color: var(--color-success); }
+.runtime-log-item.level-warn .log-level { color: var(--color-warning); }
+.runtime-log-item.level-error .log-level { color: var(--color-error); }
+.runtime-log-item.level-fatal .log-level { color: var(--color-danger-strong); }

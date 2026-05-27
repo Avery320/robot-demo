@@ -1,1 +1,89 @@
-:where(.topic-panel,.topic-panel--inline){box-sizing:border-box;background:var(--topic-bg);color:var(--topic-text);border-radius:var(--radius-large);padding:var(--pad-large);font-family:var(--main-font);display:flex;flex-direction:column;transition:max-height .3s ease,padding .3s ease;overflow:hidden}.topic-panel{position:fixed;top:100px;left:10px;width:280px;box-shadow:var(--shadow-2);z-index:9998;max-height:70vh}.topic-panel--inline{position:relative;top:auto;left:auto;width:100%;box-shadow:none;max-height:none;height:100%}.topic-panel__content{flex:1;min-height:0;overflow:auto}.topic-panel__divider{border-top:1px solid var(--topic-border);margin:var(--gap-large) 0}.topic-panel__section{margin-bottom:var(--gap-large)}.topic-panel__row{display:flex;gap:var(--gap-small);align-items:center;margin-bottom:var(--gap-small)}.topic-panel__label{font-weight:600;font-size:var(--font-sm);opacity:.85;min-width:56px}:where(.topic-panel__input,.topic-selector__input){padding:var(--pad-small) var(--pad-large);border-radius:var(--radius-small);border:1px solid var(--input-border);background:var(--input-bg);color:var(--main-color);height:var(--size-sm);outline:none;box-sizing:border-box;transition:border-color .2s ease,background-color .2s ease}.topic-panel__input{font-size:var(--font-sm);appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:none;box-shadow:none}.topic-panel__input:hover{border-color:var(--input-border-hover)}.topic-panel__input:focus{border-color:var(--input-border-focus);background:var(--color-overlay-strong)}.topic-panel__input--full{width:100%;box-sizing:border-box}.topic-panel__input--grow{flex:1;min-width:0}.topic-panel__list{display:flex;flex-direction:column;gap:var(--gap-small)}.topic-panel__section-title{font-weight:600;margin-bottom:var(--gap-small)}.topic-panel__button{padding:var(--btn-padding-sm);border-radius:var(--radius-small);border:none;cursor:pointer;color:var(--color-text);font-size:var(--font-sm);height:var(--size-sm);min-height:var(--size-sm);display:inline-flex;align-items:center;justify-content:center;transition:opacity .2s ease}.topic-panel__button:hover{opacity:.85}.topic-panel__button--muted{background:var(--topic-btn-muted)}.topic-panel__button--primary{background:var(--topic-btn-primary)}.topic-panel__button--success{background:var(--topic-btn-success)}.topic-panel__button--danger{background:var(--topic-btn-danger)}.topic-panel__image-container{width:100%;background:var(--topic-image-bg);border-radius:var(--radius-small);overflow:hidden;border:1px solid var(--topic-border)}.topic-panel__empty{font-size:var(--font-sm);opacity:.7}.topic-panel__list-row{display:flex;align-items:center;gap:var(--gap-small)}.topic-panel__tag{font-size:var(--font-sm);color:var(--topic-tag-text);background:var(--topic-tag-bg);border-radius:var(--radius-small);padding:var(--pad-small)}.topic-panel__topic-name{flex:1;font-size:var(--font-sm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.topic-panel__list-item{display:flex;flex-direction:column;gap:var(--gap-small);background:var(--topic-list-bg);border:1px solid var(--topic-border);border-radius:var(--radius-small);padding:var(--pad-small)}.topic-selector{display:flex;width:100%}.topic-selector__input{width:100%;font-size:var(--font-md);transition:border-color .2s ease}.topic-selector__input:focus{border-color:var(--input-border-focus)}.topic-selector__input::placeholder{color:var(--color-placeholder)}.topic-panel__row--full{width:100%}
+/* ROS Panel (Topic Panel) 專用樣式
+ * 僅保留標準 panel_markup 無法涵蓋的獨有元素：
+ * tag badge、image container、浮動模式定位、list-item 卡片 */
+
+/* 行內面板容器樣式：與外層 .dock-content 的 padding 完美對齊，不重複疊加內縮 */
+.topic-panel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--panel-stack-gap);
+  background: transparent;
+  box-sizing: border-box;
+}
+
+
+/* 訂閱列表 */
+.topic-panel__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+}
+
+/* 單一訂閱項目卡片 */
+.topic-panel__list-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-small);
+  border: 1px solid var(--color-panel-border);
+  border-radius: var(--radius-small);
+  padding: var(--pad-small);
+  background: var(--color-overlay);
+}
+
+/* 空列表提示 */
+.topic-panel__empty {
+  font-size: var(--font-sm);
+  color: var(--color-text-muted);
+  opacity: 0.7;
+}
+
+/* Topic 名稱（佔滿剩餘空間） */
+.topic-panel__topic-name {
+  flex: 1;
+  font-size: var(--font-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Tag badge（訂閱類型標籤） */
+.topic-panel__tag {
+  flex-shrink: 0;
+  font-size: var(--font-sm);
+  line-height: 1;
+  color: var(--color-text-invert);
+  background: var(--color-success);
+  border-radius: var(--radius-small);
+  padding: var(--pad-small);
+}
+
+/* 危險色按鈕覆蓋（取消訂閱） */
+.topic-panel__btn--danger {
+  background: var(--color-error);
+  color: var(--color-text);
+  font-size: var(--font-sm);
+}
+
+/* 顯示中狀態按鈕 */
+.topic-panel__btn--active {
+  background: var(--color-surface-5);
+}
+
+/* 圖片 Display 容器 */
+.topic-panel__image-container {
+  width: 100%;
+  background: var(--color-panel-stronger);
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  border: 1px solid var(--color-panel-border);
+  cursor: pointer;
+}
+
+/* Topic Selector wrapper（讓 input 撐滿 panel-icon-row） */
+.topic-selector {
+  display: contents;
+}
