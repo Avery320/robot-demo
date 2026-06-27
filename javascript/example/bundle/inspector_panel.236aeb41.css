@@ -57,6 +57,23 @@
   white-space: nowrap;
 }
 
+.inspector-compact-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.inspector-pose-grid .panel-form-input[type='number'] {
+  appearance: textfield;
+}
+
+.inspector-pose-grid .panel-form-input[type='number']::-webkit-inner-spin-button,
+.inspector-pose-grid .panel-form-input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
 .inspector-property-tree {
   display: flex;
   flex-direction: column;
@@ -151,10 +168,7 @@
   z-index: 1;
 }
 
-.inspector-property-tree-branch {
-  min-width: 0;
-}
-
+.inspector-property-tree-branch,
 .inspector-property-tree-children {
   min-width: 0;
 }

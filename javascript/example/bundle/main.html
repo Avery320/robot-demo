@@ -15,62 +15,74 @@
     <link href="layout.4e80534a.css" type="text/css" rel="stylesheet">
     <link href="ribbon.fab3c5a6.css" type="text/css" rel="stylesheet">
     <link href="card_programming.90dc9b5c.css" type="text/css" rel="stylesheet">
-    <link href="topic_panel.3c18b842.css" type="text/css" rel="stylesheet">
     <link href="station_tree.9ba6e726.css" type="text/css" rel="stylesheet">
     <link href="inspector_panel.236aeb41.css" type="text/css" rel="stylesheet">
+    <link href="color_picker.e3ef5ac4.css" type="text/css" rel="stylesheet">
     <link href="runtime_log.0f4c467a.css" type="text/css" rel="stylesheet">
     <link href="gesture_panel.160e8677.css" type="text/css" rel="stylesheet">
-
-    <script src="roslib.min.16ea8c34.js"></script>
+    <link href="popup_toolbar.90e53b61.css" type="text/css" rel="stylesheet">
 
 </head>
 
 <!-- 主要結構區塊 -->
 
-<body tabindex="0" class="has-ribbon">
+<body tabindex="0" class="app-shell">
     <!-- App Ribbon -->
     <header id="app-ribbon" class="app-ribbon" role="banner" aria-label="Main Toolbar"></header>
     <!-- 容器區塊 -->
-    <main class="container layout-flex app-root" role="main">
-        <!-- 左側 Dock 區域 -->
-        <div id="dock-left" class="dock-left dock-hidden" role="region" aria-label="Left Dock Panel"></div>
+    <main id="workbench-root" class="container app-root workbench-shell" role="main">
+        <div id="workbench-main" class="workbench-main">
+            <!-- 左側 Station Tree 工作面板 -->
+            <aside id="station-tree-workspace" class="workbench-region workbench-region-left station-tree-workspace" role="complementary" aria-label="Station Tree">
+                <div class="workspace-panel-frame station-tree-workspace-frame">
+                    <div id="station-tree-content" class="workspace-panel-content station-tree-workspace-content"></div>
+                </div>
+            </aside>
 
-        <div id="dock-splitter-left" class="splitter-vertical" role="separator" aria-orientation="vertical" aria-label="Resize left dock panel" tabindex="0" hidden=""></div>
-
-        <!-- Viewport 主區域 -->
-        <section class="viewport-panel" role="region" aria-label="3D Model Viewer">
-            <div class="viewer-wrapper">
-                <div class="viewer-main">
-                    <div class="viewer-container">
-                        <urdf-viewer display-shadow="" tabindex="1" aria-label="3D Robot Model Viewer"></urdf-viewer>
-                        <nav id="view-controls" role="navigation" aria-label="View Controls"></nav>
-                    </div>
-                    <div class="viewer-bottom">
-                        <div class="panel-divider" aria-hidden="true"></div>
-                        <!-- 視圖切換按鈕區塊 -->
-                        <div id="viewer-view-panel" class="viewer-view-panel" role="region" aria-label="Additional Viewer Views">
-                            <div class="viewer-view-toolbar">
-                                <div class="viewer-view-buttons" role="group" aria-label="Viewer Presets">
-                                    <button type="button" class="viewer-view-btn" data-view="perspective" aria-pressed="false">Perspective</button>
-                                    <button type="button" class="viewer-view-btn" data-view="top" aria-pressed="false">Top</button>
-                                    <button type="button" class="viewer-view-btn" data-view="front" aria-pressed="false">Front</button>
-                                    <button type="button" class="viewer-view-btn" data-view="right" aria-pressed="false">Right</button>
+            <div id="workbench-center" class="workbench-center">
+                <!-- Viewport 主區域 -->
+                <section id="viewport-workspace" class="workbench-region workbench-region-center viewport-panel" role="region" aria-label="3D Model Viewer">
+                    <div id="viewport-dock-container" class="viewport-dock-container"></div>
+                    <div id="main-3d-viewer-wrapper" class="viewer-wrapper">
+                        <div class="viewer-main">
+                            <div class="viewer-container">
+                                <urdf-viewer display-shadow="" tabindex="1" aria-label="3D Robot Model Viewer"></urdf-viewer>
+                                <nav id="view-controls" role="navigation" aria-label="View Controls"></nav>
+                            </div>
+                            <div class="viewer-bottom">
+                                <div class="panel-divider" aria-hidden="true"></div>
+                                <!-- 視圖切換按鈕區塊 -->
+                                <div id="viewer-view-panel" class="viewer-view-panel" role="region" aria-label="Additional Viewer Views">
+                                    <div class="viewer-view-toolbar">
+                                        <div class="viewer-view-buttons" role="group" aria-label="Viewer Presets">
+                                            <button type="button" class="viewer-view-btn" data-view="perspective" aria-pressed="false">Perspective</button>
+                                            <button type="button" class="viewer-view-btn" data-view="top" aria-pressed="false">Top</button>
+                                            <button type="button" class="viewer-view-btn" data-view="front" aria-pressed="false">Front</button>
+                                            <button type="button" class="viewer-view-btn" data-view="right" aria-pressed="false">Right</button>
+                                        </div>
+                                        <div id="viewer-toolbar-actions" class="viewer-view-actions" aria-label="Viewport Actions"></div>
+                                    </div>
                                 </div>
-                                <div id="runtime-log-toolbar-actions" class="viewer-view-actions" aria-label="Runtime Log Actions"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="runtime-log-splitter" class="splitter-horizontal" role="separator" aria-orientation="horizontal" aria-label="Resize runtime log" tabindex="0"></div>
-                <section id="runtime-log" class="runtime-log-host" role="region" aria-label="Runtime Log"></section>
+                </section>
+
+                <aside id="runtime-log-panel" class="workbench-region workbench-region-bottom runtime-log-panel-region" role="complementary" aria-label="Runtime Log">
+                    <section id="runtime-log" class="runtime-log-host" role="region" aria-label="Runtime Log"></section>
+                </aside>
             </div>
-        </section>
 
-        <div id="dock-splitter-right" class="splitter-vertical" role="separator" aria-orientation="vertical" aria-label="Resize right dock panel" tabindex="0" hidden=""></div>
-
-        <!-- 右側 Dock 區域 -->
-        <aside id="dock-right" class="dock-right dock-hidden" role="complementary" aria-label="Right Dock Panel">
-        </aside>
+            <!-- 右側工具面板區域 -->
+            <aside id="right-workbench-panel" class="workbench-region workbench-region-right right-workbench-panel" role="complementary" aria-label="Right Tool Panel" hidden="">
+                <div id="right-tool-panel" class="right-tool-panel"></div>
+            </aside>
+        </div>
+        <div id="workbench-sash-layer" class="workbench-sash-layer">
+            <div id="station-tree-splitter" class="workbench-sash workbench-sash-vertical" role="separator" aria-orientation="vertical" aria-label="Resize station tree panel" aria-controls="station-tree-workspace" tabindex="0"></div>
+            <div id="right-tool-panel-splitter" class="workbench-sash workbench-sash-vertical" role="separator" aria-orientation="vertical" aria-label="Resize right tool panel" aria-controls="right-workbench-panel" tabindex="0" hidden=""></div>
+            <div id="runtime-log-splitter" class="workbench-sash workbench-sash-horizontal" role="separator" aria-orientation="horizontal" aria-label="Resize runtime log" aria-controls="runtime-log-panel" tabindex="0"></div>
+        </div>
     </main>
 
 

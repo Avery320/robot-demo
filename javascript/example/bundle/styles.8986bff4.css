@@ -29,7 +29,7 @@
     --radius-large: 8px;
 
     /* ===== Panel 共用 Layout 參數 ===== */
-    --panel-container-padding: var(--gap-large);
+    --panel-container-padding: 4px;
     --panel-stack-gap: var(--gap-large);
     --panel-section-padding: var(--pad-large);
     --panel-control-height: var(--size-sm);
@@ -42,6 +42,10 @@ html,
 body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
     background: var(--main-bg);
     font-family: var(--main-font);
 }
@@ -198,6 +202,24 @@ body {
     min-width: 0;
 }
 
+.panel-pose-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--panel-control-gap);
+    min-width: 0;
+}
+
+.panel-pose-grid-row {
+    display: flex;
+    gap: var(--panel-control-gap);
+    min-width: 0;
+}
+
+.panel-pose-grid-row > * {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
 .panel-form-stack {
     display: flex;
     flex-direction: column;
@@ -269,6 +291,13 @@ body {
     background: var(--color-surface-5);
 }
 
+.panel-icon-button.is-active,
+.panel-icon-button[aria-pressed="true"] {
+    border-color: var(--input-border-focus);
+    background: var(--color-primary-alpha18);
+    color: var(--color-primary);
+}
+
 .panel-icon-button:focus-visible {
     outline: none;
     border-color: var(--input-border-focus);
@@ -281,13 +310,13 @@ body {
 }
 
 .panel-unit-field,
-.rosviz-ik-unit-field {
+.rosviz-joint-unit-field {
     position: relative;
     min-width: 0;
 }
 
 .panel-unit-field > .panel-form-input,
-.rosviz-ik-unit-field input[type="number"] {
+.rosviz-joint-unit-field input[type="number"] {
     width: 100%;
     padding-right: 42px;
     box-sizing: border-box;
@@ -302,7 +331,7 @@ body {
 }
 
 .panel-unit-label,
-.rosviz-ik-unit {
+.rosviz-joint-unit {
     position: absolute;
     top: 50%;
     right: 8px;
@@ -476,7 +505,7 @@ body {
     height: 14px;
 }
 
-.ui-icon--dock {
+.ui-icon--tool-panel {
     width: 16px;
     height: 16px;
 }
@@ -614,7 +643,7 @@ ul {
 
 /* ===== 右側面板佈局區 ===== */
 
-.dock-panel .btn {
+.tool-panel-page .btn {
     max-width: 100%;
     height: var(--panel-control-height);
     min-height: var(--panel-control-height);
@@ -706,7 +735,7 @@ ul {
 }
 
 #rosviz-content :is(.equal-row, .button-grid) :is(input, button, .btn, select),
-#rosviz-content .rosviz-ik-unit-field input[type="number"] {
+#rosviz-content .rosviz-joint-unit-field input[type="number"] {
     height: var(--panel-control-height);
     min-height: var(--panel-control-height);
     font-size: var(--font-sm);
@@ -873,8 +902,8 @@ ul {
     justify-content: center;
     text-align: center;
     line-height: 1;
-    width: 100px;
-    height: 100%;
+    width: 88px;
+    height: 24px;
     box-sizing: border-box;
 }
 
@@ -920,15 +949,8 @@ ul {
     height: var(--size-md);
 }
 
-.rosviz-ik-container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--panel-control-gap);
-    margin-top: 0;
-}
-
-.rosviz-ik-unit-field input[type="number"]::-webkit-inner-spin-button,
-.rosviz-ik-unit-field input[type="number"]::-webkit-outer-spin-button {
+.rosviz-joint-unit-field input[type="number"]::-webkit-inner-spin-button,
+.rosviz-joint-unit-field input[type="number"]::-webkit-outer-spin-button {
     margin: 0;
     appearance: none;
 }

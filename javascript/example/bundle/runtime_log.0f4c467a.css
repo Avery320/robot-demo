@@ -1,4 +1,4 @@
-/* Runtime Log：固定在 viewport 下方，不走 DockManager。 */
+/* Runtime Log：固定在 viewport 下方，不進入右側工具面板。 */
 
 .runtime-log-panel {
     box-sizing: border-box;
@@ -37,6 +37,8 @@
 
 .runtime-log-item:last-child {
     border-bottom: none;
+    background: var(--color-overlay-strong);
+    border-radius: var(--radius-small);
 }
 
 .runtime-log-item .log-level {
@@ -57,7 +59,11 @@
 }
 
 .runtime-log-item.level-debug .log-level { color: var(--color-status-debug); }
-.runtime-log-item.level-info .log-level { color: var(--color-success); }
+
+/* Info 等級依據來源區分顏色：ROS 為綠色，前端為藍色 */
+.runtime-log-item.level-info.origin-ros .log-level { color: var(--color-success); }
+.runtime-log-item.level-info.origin-front .log-level { color: var(--color-primary); }
+
 .runtime-log-item.level-warn .log-level { color: var(--color-warning); }
 .runtime-log-item.level-error .log-level { color: var(--color-error); }
 .runtime-log-item.level-fatal .log-level { color: var(--color-danger-strong); }

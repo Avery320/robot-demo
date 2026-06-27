@@ -6,27 +6,46 @@
     --ribbon-height: calc(var(--ribbon-tab-height) + var(--ribbon-bar-height));
 }
 
-body.has-ribbon {
-    padding-top: var(--ribbon-height);
+body.app-shell {
+    display: grid;
+    grid-template-rows: var(--ribbon-height) minmax(0, 1fr);
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+}
+
+body.app-shell::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--ribbon-height);
+    height: var(--splitter-line-size);
+    background: var(--divider-color);
+    pointer-events: none;
+    z-index: 900;
 }
 
 .app-ribbon {
     --ribbon-radius: 4px;
-    --ribbon-padding-x: 10px;
+    --ribbon-padding-x: calc(8px + var(--panel-container-padding));
     --ribbon-gap: 8px;
     --ribbon-btn-height: 28px;
     --ribbon-font-size: 12px;
     --ribbon-font: 'Noto Sans', 'Roboto', helvetica, arial, sans-serif;
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative;
+    grid-row: 1;
+    width: 100%;
     height: var(--ribbon-height);
+    min-width: 0;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     background: var(--ribbon-bg);
-    border-bottom: var(--ribbon-divider);
     z-index: 1000;
     color: var(--ribbon-text);
     font-family: var(--ribbon-font);
@@ -37,6 +56,7 @@ body.has-ribbon {
     display: flex;
     align-items: center;
     gap: 6px;
+    min-width: 0;
     padding: 0 var(--ribbon-padding-x);
     background: var(--ribbon-tab-bg);
     border-bottom: var(--ribbon-divider);
@@ -46,21 +66,27 @@ body.has-ribbon {
     height: var(--ribbon-bar-height);
     display: flex;
     align-items: center;
+    min-width: 0;
     padding: 0 var(--ribbon-padding-x);
     gap: var(--ribbon-gap);
     background: var(--ribbon-bar-bg);
-    overflow-x: auto;
-
-    /* 隱藏原生捲動軸但保持捲動功能 */
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
 }
 
+.ribbon-tabs,
+.ribbon-panels {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.ribbon-tabs::-webkit-scrollbar,
 .ribbon-panels::-webkit-scrollbar {
     display: none;
-    /* Chrome, Safari and Opera */
+}
+
+.ribbon-tab {
+    flex: 0 0 auto;
 }
 
 .ribbon-panel {
@@ -73,19 +99,26 @@ body.has-ribbon {
 
 .ribbon-panel.is-active {
     display: flex;
+    flex: 0 0 auto;
 }
 
 .ribbon-group {
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     gap: 8px;
     height: 100%;
-    padding: 0 var(--ribbon-padding-x);
+    padding: 0 10px;
     border-right: var(--ribbon-divider);
+}
+
+.ribbon-group:first-child {
+    padding-left: 0;
 }
 
 .ribbon-group:last-child {
     border-right: none;
+    padding-right: 0;
 }
 
 .ribbon-label,

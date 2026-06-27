@@ -31,9 +31,9 @@
     --color-border-emphasis: rgba(255, 255, 255, 0.85);
     --color-border-contrast: rgba(13, 15, 18, 1);
 
-    --color-divider: rgba(255, 255, 255, 0.35);
-    --color-divider-strong: rgba(255, 255, 255, 0.5);
-    --color-divider-dark: rgba(0, 0, 0, 0.35);
+    --color-divider: rgb(112, 115, 120);
+    --color-divider-strong: rgb(145, 147, 151);
+    --color-divider-dark: rgb(23, 25, 31);
     --color-panel-border: rgba(43, 50, 69, 1);
 
     /* ===== Overlay/遮罩 ===== */
@@ -115,19 +115,6 @@
     --ribbon-theme-btn-bg-hover: var(--btn-bg-hover);
     --ribbon-theme-btn-text: var(--btn-text);
     --ribbon-theme-btn-border: var(--btn-border);
-
-    /* ===== Topic Panel ===== */
-    --topic-bg: var(--color-panel);
-    --topic-text: var(--color-text);
-    --topic-border: var(--color-panel-border);
-    --topic-image-bg: var(--color-panel-stronger);
-    --topic-list-bg: var(--color-panel-strong);
-    --topic-tag-bg: var(--color-success);
-    --topic-tag-text: var(--color-text-invert);
-    --topic-btn-muted: rgba(92, 107, 122, 1);
-    --topic-btn-primary: var(--color-primary);
-    --topic-btn-success: var(--color-success);
-    --topic-btn-danger: var(--color-error);
 
     /* ===== Card Programming ===== */
     --mp-card-bg: var(--color-panel-2);
