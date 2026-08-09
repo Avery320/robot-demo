@@ -1,0 +1,174 @@
+<h1 id="parameter">Parameter</h1>
+<p>Parameter Nodes create basic numbers and Boolean values, and display, pass, or control data in the Node Editor.</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="number-slider">Number Slider</h3>
+<p>Creates a Number that can be adjusted with a Slider or entered as an exact value.</p>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Number</td>
+<td>—</td>
+<td>The currently configured Number.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control">Control</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Slider</td>
+<td>Default <code>1</code>; range <code>0</code> to <code>20</code>; step <code>0.1</code></td>
+<td>Sets the output Number. The Slider range and precision can also be adjusted.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="boolean">Boolean</h3>
+<p>Creates a fixed Boolean for controlling a Gate or another Input that expects <code>true</code> or <code>false</code>. The Output updates immediately when the Value Control is toggled.</p>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Boolean</td>
+<td>—</td>
+<td>The Boolean currently set by the Value Control.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-2">Control</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Boolean</td>
+<td>True / False</td>
+<td>Sets the output Boolean. The default is <code>false</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="panel">Panel</h3>
+<p>Displays connected data and passes the original data to the Output. When disconnected, it accepts multiline text and outputs that text.</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td>Value</td>
+<td>Empty text</td>
+<td>Data to display and pass through. When disconnected, the text entered in the Panel is used.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Output</td>
+<td>Value</td>
+<td>—</td>
+<td>The original connected data, or the entered text when disconnected.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="util"><em><strong>Util</strong></em></h2>
+<h3 id="value-gate">Value Gate</h3>
+<p>Uses a Boolean to determine whether a Value continues through the data flow. When Boolean is <code>true</code>, the Output preserves the input data. When Boolean is <code>false</code>, the Output is no-data.</p>
+<p>This Node is useful for enabling part of a data flow conditionally. For example, connect the result of Compare to Boolean to output a Point, Plane, Number, or another Value only when the comparison is true.</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Value</td>
+<td>no-data</td>
+<td>Original data to pass conditionally.</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Passes Value when <code>true</code>; blocks the output when <code>false</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Value</td>
+<td>—</td>
+<td>The original input Value when Boolean is <code>true</code>; otherwise no-data.</td>
+</tr>
+</tbody>
+</table>

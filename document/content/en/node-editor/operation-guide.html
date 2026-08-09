@@ -1,0 +1,342 @@
+<h1 id="node-editor-user-guide">Node Editor User Guide</h1>
+<p>The Node Editor is used to build data, geometry, and robot-control workflows. Nodes pass data through connections. Nodes with geometry outputs can preview their results directly in the Viewport or bake them into project geometry.</p>
+<h2 id="available-node-groups">Available Node Groups</h2>
+<p>Nodes are organized by Group in the palette on the left side of the Canvas.</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Fparameter-nodes" data-document="node-editor/user-guide/parameter-nodes" data-heading="">Parameter</a></td>
+<td>Creates numbers and Boolean values, and displays data.</td>
+</tr>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Fpoint-nodes" data-document="node-editor/user-guide/point-nodes" data-heading="">Point</a></td>
+<td>Creates, measures, and organizes 3D positions.</td>
+</tr>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Fplane-nodes" data-document="node-editor/user-guide/plane-nodes" data-heading="">Plane</a></td>
+<td>Creates, edits, and deconstructs Planes.</td>
+</tr>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Fcurve-nodes" data-document="node-editor/user-guide/curve-nodes" data-heading="">Curve</a></td>
+<td>Creates and processes Lines and Polylines.</td>
+</tr>
+<tr>
+<td>Mesh</td>
+<td>Retrieves Viewport Meshes and performs Mesh operations; documentation is not yet available.</td>
+</tr>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Folp-nodes" data-document="node-editor/user-guide/olp-nodes" data-heading="">OLP</a></td>
+<td>Creates robot instructions, previews poses, calculates programs, and controls playback.</td>
+</tr>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Fvector-nodes" data-document="node-editor/user-guide/vector-nodes" data-heading="">Vector</a></td>
+<td>Creates and operates on 3D directions.</td>
+</tr>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Fmath-nodes" data-document="node-editor/user-guide/math-nodes" data-heading="">Math</a></td>
+<td>Performs numerical operations and generates values.</td>
+</tr>
+<tr>
+<td><a href="./index.html?lang=en&amp;page=node-editor%2Fuser-guide%2Flist-nodes" data-document="node-editor/user-guide/list-nodes" data-heading="">List</a></td>
+<td>Operates on Lists and Data Trees.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="basic-node-operations">Basic Node Operations</h2>
+<h3 id="create-and-search">Create and Search</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search and create</td>
+<td>Double-click an empty area of the Canvas, or press <code>Space</code> while the Node Editor has focus.</td>
+<td>Enter a keyword to search by the complete <code>Group / Sub Group / Node</code> path.</td>
+</tr>
+<tr>
+<td>Locate an existing Node</td>
+<td>Hold <code>Command + Option</code> and left-click an existing Node.</td>
+<td>Opens the Node's Group and locates the corresponding item.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="edit-nodes">Edit Nodes</h3>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl/Command + C</code></td>
+<td>Copies the selected Nodes.</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + X</code></td>
+<td>Cuts the selected Nodes.</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + V</code></td>
+<td>Pastes Nodes.</td>
+</tr>
+<tr>
+<td><code>Delete</code> / <code>Backspace</code></td>
+<td>Deletes the selected Nodes, connections, or Group.</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Z</code></td>
+<td>Undoes the previous operation.</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Shift + Z</code></td>
+<td>Redoes the previous operation.</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Y</code></td>
+<td>Redoes the previous operation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="create-groups">Create Groups</h3>
+<p>A Group treats related Nodes as a single unit for editing. It does not participate in data evaluation.</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl/Command + G</code></td>
+<td>Creates a Group from the selected Nodes.</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Shift + G</code></td>
+<td>Removes the selected Nodes from their Group, or ungroups the selected Group.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="node-connections">Node Connections</h2>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create a connection</td>
+<td>Drag or click from an Output to an Input. A connection can also be started from an Input and completed at an Output.&lt;br&gt;By default, each Input keeps only its newest connection. Creating a new connection automatically removes the previous one.</td>
+</tr>
+<tr>
+<td>Create multiple connections</td>
+<td>Hold <code>Shift</code> while creating the second and subsequent connections to pass multiple sources into the same Input. Data order follows connection order.&lt;br&gt;When order affects the result, create the connections one at a time in the required sequence.</td>
+</tr>
+<tr>
+<td>Remove a connection</td>
+<td>Hold <code>Ctrl</code> or <code>Command</code> and reconnect the same Output and Input to remove that connection.&lt;br&gt;You can also select a connection and press <code>Delete</code> or <code>Backspace</code>.</td>
+</tr>
+<tr>
+<td>Add Inputs automatically</td>
+<td>Merge adds the next Input after a successful connection. Removing the final connection also removes redundant empty Inputs while keeping one Input available for the next connection.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node-status-and-hints">Node Status and Hints</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Display</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td>Standard project Node style</td>
+<td>Input data is valid and the Node has completed evaluation successfully.</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>Orange</td>
+<td>Some data could not be processed, but valid output is still available; a connection may also form a cyclic dependency.</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>Red</td>
+<td>No input data could be processed, no valid output could be produced, or an action failed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node-hints">Node Hints</h3>
+<p>Hover over a Node title or an Input / Output to view:</p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node name</td>
+<td>Shows the Node name and its primary purpose.</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>Describes the expected input data.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Describes the generated output data.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node-alignment-and-distribution">Node Alignment and Distribution</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input / Output alignment</td>
+<td>Drag a Node until an Input or Output approaches the corresponding Output or Input on another Node.</td>
+<td>Aligns the ports vertically and displays a horizontal guide. This does not snap the Node to the Canvas grid.</td>
+</tr>
+<tr>
+<td>Align multiple Nodes</td>
+<td>Drag a selection box across an empty area of the Canvas to select two or more Nodes.</td>
+<td>Alignment controls appear above and to the right of the selection. They provide left, horizontal-center, right, top, vertical-center, and bottom alignment.</td>
+</tr>
+<tr>
+<td>Distribute multiple Nodes</td>
+<td>Select three or more Nodes with a selection box.</td>
+<td>Distributes the selected Nodes evenly in the horizontal or vertical direction.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="node-specific-controls">Node-Specific Controls</h2>
+<h3 id="panel">Panel</h3>
+<p>A Panel displays data and can also provide text input.</p>
+<ul>
+<li>When disconnected, it accepts editable multiline text and outputs Text.</li>
+<li>When connected, it displays the Item, List, or Data Tree structure of the input.</li>
+<li>A Panel formats data for display without changing the original value passed downstream.</li>
+<li>Panel content can be scrolled when it exceeds the available area.</li>
+<li>Drag the Panel boundary to adjust its width and height.</li>
+</ul>
+<h3 id="number-slider">Number Slider</h3>
+<ul>
+<li>Drag the Slider to adjust its value.</li>
+<li>Double-click the displayed value to enter an exact number.</li>
+<li>Right-click a single Number Slider to set <code>Min</code>, <code>Max</code>, and <code>Value</code>.</li>
+<li>Drag the Node boundary horizontally to adjust the Slider width.</li>
+</ul>
+<h3 id="action">Action</h3>
+<p>Nodes with an Action display an operation button, such as <code>Run</code>.</p>
+<ul>
+<li>The corresponding operation runs only when the button is clicked.</li>
+<li>The button is temporarily disabled while the operation is running.</li>
+<li>If the operation fails, the Node enters the Error state and displays an error hint.</li>
+</ul>
+<h3 id="select">Select</h3>
+<p>Select controls choose Node options such as Tool Frame or Configuration. Options are supplied by the Node definition or the current project state.</p>
+<h2 id="display-operations">Display Operations</h2>
+<h3 id="node-display-settings">Node Display Settings</h3>
+<p>Right-click a Node to open its operation menu. If multiple Nodes are selected, the setting is applied to all selected Nodes.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preview</td>
+<td>Shows or hides the Node's geometry preview in the Viewport. This option is available only for Nodes with geometry outputs.</td>
+</tr>
+<tr>
+<td>Enable</td>
+<td>Enables or disables Node evaluation. A disabled Node produces no output.</td>
+</tr>
+<tr>
+<td>Bake</td>
+<td>Creates project geometry from the current result. This option is available only for geometry that can be previewed.</td>
+</tr>
+</tbody>
+</table>
+<p>Preview controls temporary display only. Project geometry created by Bake is not affected by the Preview mode.</p>
+<h3 id="viewport-preview">Viewport Preview</h3>
+<ul>
+<li>Geometry previews are displayed in red by default.</li>
+<li>When a Node is selected, its geometry preview is displayed in green.</li>
+<li>Closing the Node Editor window does not clear the Node Graph or its Viewport previews.</li>
+</ul>
+<h3 id="global-preview-modes">Global Preview Modes</h3>
+<p>The upper-right corner of the Canvas provides three global preview modes:</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Show all previews</td>
+<td>Shows geometry from every Node with Preview enabled.</td>
+</tr>
+<tr>
+<td>Show selected previews</td>
+<td>Shows geometry only from the currently selected Nodes.</td>
+</tr>
+<tr>
+<td>Hide all previews</td>
+<td>Hides all Node geometry previews.</td>
+</tr>
+</tbody>
+</table>
+<p>If Preview is disabled on an individual Node, that Node remains hidden even when the global mode is Show all previews.</p>
+<h2 id="canvas-operations">Canvas Operations</h2>
+<h3 id="zoom-operations">Zoom Operations</h3>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zoom All</td>
+<td>Click Zoom All in the upper-right corner of the Canvas to fit all Nodes into the current view.</td>
+</tr>
+<tr>
+<td>Zoom Selected</td>
+<td>Select Nodes or a Group, then click Zoom Selected to fit the valid selection into the current view. Selecting a Group includes all member Nodes in the calculation.</td>
+</tr>
+</tbody>
+</table>

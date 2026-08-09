@@ -1,0 +1,626 @@
+<h1 id="vector">Vector</h1>
+<p>Vector 節點用於建立與處理三維方向資料。Vector 由 X、Y、Z 三個分量組成，可表示方向、倍率或位移，但本身不代表空間中的固定位置；需要表示位置時應使用 Point。</p>
+<p>每個 Input 可接收單一資料、List 或 Data Tree。連接 List／Data Tree 時，系統會保留既有 Branch 結構並逐項運算。需要使用 Vector 表示固定距離方向時，應先使用 Normalize 將 Vector 轉為長度 <code>1</code> 的單位向量。</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="vector-xyz">Vector XYZ</h3>
+<p>由 X、Y、Z 三個分量建立 Vector。可直接在三個 Input 中輸入數值，或連接其他 Math 節點建立可變方向。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Vector 的 X 分量。</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Vector 的 Y 分量。</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Vector 的 Z 分量。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>由 X、Y、Z 組成的三維 Vector。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="sum"><em><strong>Sum</strong></em></h2>
+<h3 id="add-vectors">Add Vectors</h3>
+<p>將 A 與 B 的對應分量相加。適合合併多個方向或將位移增量加入既有 Vector。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>第一個 Vector。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>要加入 A 的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>A 與 B 逐分量相加後的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="base"><em><strong>Base</strong></em></h2>
+<h3 id="cross-product">Cross Product</h3>
+<p>計算 A 與 B 的叉積，取得同時垂直於兩個輸入方向的 Vector。輸出方向遵循右手定則，因此交換 A 與 B 會反轉結果方向。</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>叉積的第一個方向。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>叉積的第二個方向。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>依右手定則計算出的垂直 Vector。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="dot-product">Dot Product</h3>
+<p>計算 A 與 B 的內積並輸出 Number。內積可用於判斷兩個 Vector 的方向關係：結果為正表示方向較接近，為負表示方向相反，為 <code>0</code> 表示兩者垂直。</p>
+<p>Vector 的長度會影響輸出大小。若只需要比較方向，應先將 A 與 B Normalize。</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>內積的第一個 Vector。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>內積的第二個 Vector。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td>—</td>
+<td>A 與 B 各分量乘積的總和。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="subtract-vectors">Subtract Vectors</h3>
+<p>從 A 逐分量減去 B。此運算可用於取得兩個方向的差，或由兩個位置資料建立方向差值。</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>被減的 Vector。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>從 A 減去的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>A 減去 B 後的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="multiply-vector">Multiply Vector</h3>
+<p>將 Vector 的每個分量乘以 Scalar。適合保持原始方向並調整長度，或依比例放大與縮小位移量。</p>
+<p>Scalar 大於 <code>1</code> 時增加 Vector 長度，介於 <code>0</code> 與 <code>1</code> 時縮短，等於 <code>0</code> 時得到零向量；負值會同時反轉方向。</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>要調整倍率的 Vector。</td>
+</tr>
+<tr>
+<td>Scalar</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>套用至每個分量的倍率。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>每個分量乘以 Scalar 後的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="negate-vector">Negate Vector</h3>
+<p>反轉 Vector 的方向，同時保留原始長度。此節點會將每個分量的正負號反轉。</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>要反轉方向的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>方向反轉、長度不變的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="normalize">Normalize</h3>
+<p>將 Vector 轉換為長度 <code>1</code> 的單位向量，同時保留原始方向。適合在只需要方向、不希望原始長度影響後續運算時使用。</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>要保留方向並轉為單位長度的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>長度為 <code>1</code> 的單位向量；輸入接近零向量時無資料。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="vector-length">Vector Length</h3>
+<p>計算 Vector 從原點到 <code>[x, y, z]</code> 的直線長度。此節點只輸出大小，不保留方向。</p>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>要量測長度的 Vector。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-9">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Length</td>
+<td>Number</td>
+<td>—</td>
+<td>Vector 的三維長度。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="point-on-ray">Point On Ray</h3>
+<p>以 Point 為起點，沿 Vector 建立新的 Point。計算方式為 Point 加上 Vector 乘以 Distance，輸出的 Point 可在 Viewport 中 Preview 或 Bake。</p>
+<h4 id="input-10">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>射線的起點。</td>
+</tr>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>從 Point 出發的方向與倍率。</td>
+</tr>
+<tr>
+<td>Distance</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>套用至 Vector 的倍率；使用單位向量時代表實際位移長度。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-10">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>由起點與 Vector 位移建立的 Point。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="angles"><em><strong>Angles</strong></em></h2>
+<h3 id="vector-angle">Vector Angle</h3>
+<p>計算 A 與 B 之間不帶方向的最小夾角，結果介於 <code>0°</code> 與 <code>180°</code>。此節點適合量測兩個方向是否平行、垂直或相反。</p>
+<h4 id="input-11">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>夾角的起始方向。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>要與 A 比較的方向。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-11">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angle</td>
+<td>Number</td>
+<td>—</td>
+<td>A 與 B 之間 <code>0–180°</code> 的最小夾角。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="signed-vector-angle">Signed Vector Angle</h3>
+<p>依 Reference 判斷 A 旋轉至 B 的方向，並輸出 <code>0–360°</code> 的角度。Reference 通常使用旋轉平面的法向量，例如 XY 平面可使用 <code>[0, 0, 1]</code>。</p>
+<h4 id="input-12">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>旋轉的起始方向。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>旋轉的目標方向。</td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>Vector</td>
+<td><code>[0, 0, 1]</code></td>
+<td>用於判斷旋轉側向的參考方向。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-12">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angle</td>
+<td>Number</td>
+<td>—</td>
+<td>依 Reference 判斷的 <code>0–360°</code> 旋轉角度。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="distance"><em><strong>Distance</strong></em></h2>
+<h3 id="interpolate-vector">Interpolate Vector</h3>
+<p>依 Fraction 在 A 與 B 之間建立線性 Vector。Fraction 會作為 A 的權重，<code>1 - Fraction</code> 則作為 B 的權重。</p>
+<h4 id="input-13">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Fraction 權重所對應的 Vector。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td><code>1 - Fraction</code> 權重所對應的 Vector。</td>
+</tr>
+<tr>
+<td>Fraction</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>A 與 B 的線性權重。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-13">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>依 Fraction 計算出的線性 Vector。</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,1034 @@
+<h1 id="math">Math</h1>
+<p>Math 節點用於建立數值與比較運算流程。Number Input 可以直接在節點中輸入數值，或連接其他節點的 Number、List 或 Data Tree；連接 List／Data Tree 時，系統會依既有 Branch 結構逐項運算。</p>
+<p>若輸入超出運算定義，例如除以 <code>0</code>、對負數開平方根，或產生無限值，節點會顯示資料錯誤且不輸出無效 Number。</p>
+<h2 id="operations"><em><strong>Operations</strong></em></h2>
+<h3 id="two-numbers">Two Numbers</h3>
+<p>用於兩個數值之間的基本算術。將主要數值連接至 First、另一個運算值連接至 Second，再由 Operation 選擇計算方式。</p>
+<p>First 與 Second 的順序會影響 Subtract、Divide、Power 與 Modulus。例如 First 為 <code>10</code>、Second 為 <code>3</code> 時，Subtract 的結果是 <code>7</code>，Modulus 的結果是 <code>1</code>。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>主要運算值。</td>
+</tr>
+<tr>
+<td>Second</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>第二個運算值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>依 Operation 計算出的數值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operation</td>
+<td>Select</td>
+<td>Add</td>
+<td>將 First 與 Second 相加，適合計算總和或增加偏移量。預設選項。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Subtract</td>
+<td>從 First 減去 Second，適合計算兩個數值的差。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Multiply</td>
+<td>將 First 與 Second 相乘，適合套用倍率或比例。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Divide</td>
+<td>將 First 除以 Second，適合計算比例；Second 不可為 <code>0</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Power</td>
+<td>以 First 為底數、Second 為指數進行次方運算。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Modulus</td>
+<td>取得 First 除以 Second 的餘數，適合循環索引或週期判斷；Second 不可為 <code>0</code>。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="compare">Compare</h3>
+<p>依 Operator 比較 A 與 B，並輸出比較結果。數值大小比較通常使用 <code>&lt;</code>、<code>&lt;=</code>、<code>&gt;</code> 或 <code>&gt;=</code>；需要確認兩個值是否相同時，應優先使用 <code>===</code> 或 <code>!==</code>。</p>
+<p>A 與 B 是通用 Value，但不同 Operator 適用的資料不同。大小比較適合 Number 或 Text；Geometry Artifact 等 Object 不會比較幾何內容，嚴格相等只會判斷兩者是否為同一份物件資料。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Value</td>
+<td>no-data</td>
+<td>比較式左側的資料。</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Value</td>
+<td>no-data</td>
+<td>比較式右側的資料。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Boolean</td>
+<td>Boolean</td>
+<td>—</td>
+<td>A 與 B 是否符合 Operator 的比較結果。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-2">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operator</td>
+<td>Select</td>
+<td>&lt;</td>
+<td>A 小於 B 時輸出 <code>true</code>。預設選項。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>&lt;=</td>
+<td>A 小於或等於 B 時輸出 <code>true</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>&gt;</td>
+<td>A 大於 B 時輸出 <code>true</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>&gt;=</td>
+<td>A 大於或等於 B 時輸出 <code>true</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>===</td>
+<td>Primitive 的型別與值皆相同時輸出 <code>true</code>；Object 只比較是否為同一份資料。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>!==</td>
+<td>A 與 B 不符合嚴格相等時輸出 <code>true</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>==</td>
+<td>比較前允許 JavaScript 進行型別轉換，例如 Number <code>1</code> 與 Text <code>1</code> 會視為相同。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>!=</td>
+<td>比較前允許型別轉換，轉換後不同時輸出 <code>true</code>。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="round-to-decimals">Round To Decimals</h3>
+<p>將輸入數值四捨五入到指定的小數位。將原始數值連接至 Number，並以 Decimal Places 設定要保留的位數。</p>
+<p>例如 Number 為 <code>1.32156</code>、Decimal Places 為 <code>3</code> 時，Result 為 <code>1.322</code>。輸出仍是 Number，不會保留沒有數值意義的結尾 <code>0</code>；若需要固定格式的文字，請使用 To Fixed。</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td><code>1.123456</code></td>
+<td>要進行四捨五入的數值。</td>
+</tr>
+<tr>
+<td>Decimal Places</td>
+<td>Number</td>
+<td><code>2</code></td>
+<td>要保留的小數位數。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>四捨五入後可繼續參與數值運算的結果。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="one-number">One Number</h3>
+<p>用於只需要一個輸入值的數學運算。將數值連接至 Number，再由 Operation 選擇絕對值、對數、取整數、三角函數或角度轉換。</p>
+<p>三角函數 Sin、Cos、Tan 使用弧度；若輸入是角度，應先選擇 Degrees to Radians 轉換。部分運算有輸入範圍限制，超出範圍時不會輸出無效結果。</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>要套用 Operation 的數值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>套用所選 Operation 後的數值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-3">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operation</td>
+<td>Select</td>
+<td>Absolute</td>
+<td>移除負號並取得絕對值。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Negate</td>
+<td>反轉正負號。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ln</td>
+<td>計算以自然常數 e 為底的對數；Number 必須大於 <code>0</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Log10</td>
+<td>計算以 <code>10</code> 為底的對數；Number 必須大於 <code>0</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ten Pow</td>
+<td>以 <code>10</code> 為底數、Number 為指數。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Round</td>
+<td>四捨五入至最接近的整數。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Floor</td>
+<td>向負無限方向取整。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Ceil</td>
+<td>向正無限方向取整`。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Square Root</td>
+<td>計算平方根；Number 必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Sin</td>
+<td>計算弧度角的正弦值。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Cos</td>
+<td>計算弧度角的餘弦值。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Tan</td>
+<td>計算弧度角的正切值。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Asin</td>
+<td>由正弦值求弧度角；Number 必須位於 <code>-1</code> 至 <code>1</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Acos</td>
+<td>由餘弦值求弧度角；Number 必須位於 <code>-1</code> 至 <code>1</code>。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Atan</td>
+<td>由正切值求弧度角。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Exp</td>
+<td>以自然常數 e 為底數、Number 為指數。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Radians to Degrees</td>
+<td>將弧度轉換為角度。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Degrees to Radians</td>
+<td>將角度轉換為弧度，適合銜接 Sin、Cos 或 Tan。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="remap">Remap</h3>
+<p>將數值由一個區間等比例轉換到另一個區間。先以 Source Low／Source High 定義原始區間，再以 Target Low／Target High 定義輸出區間。</p>
+<p>例如將 <code>0–100</code> 轉換為 <code>0–1</code> 時，Number 為 <code>50</code> 會得到 <code>0.5</code>。Number 可位於來源區間之外，此時 Result 也會依相同比例延伸至目標區間之外；Source Low 與 Source High 不可相同。</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>要轉換的原始數值。</td>
+</tr>
+<tr>
+<td>Source Low</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>原始區間的起點。</td>
+</tr>
+<tr>
+<td>Source High</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>原始區間的終點，不可與 Source Low 相同。</td>
+</tr>
+<tr>
+<td>Target Low</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>目標區間的起點。</td>
+</tr>
+<tr>
+<td>Target High</td>
+<td>Number</td>
+<td><code>2</code></td>
+<td>目標區間的終點。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>Number 在目標區間中的等比例對應值。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="ease">Ease</h3>
+<p>將 <code>0–1</code> 之間的 X 轉換成具有加速、減速或彈性變化的數值，再映射到 Min 與 Max。適合控制動畫進度、漸變參數或不希望線性變化的運動數值。</p>
+<p>X 為 <code>0</code> 時位於變化起點，X 為 <code>1</code> 時位於終點。Ease In 主要調整起步方式，Ease Out 主要調整到達終點的方式，Ease In Out 同時調整兩端。Elastic 與 Back 曲線可能暫時超出 Min／Max，適合需要振盪或超越效果的流程。</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Number</td>
+<td><code>0.5</code>；範圍 <code>0</code> 至 <code>1</code></td>
+<td>曲線上的進度位置，<code>0</code> 代表起點、<code>1</code> 代表終點。</td>
+</tr>
+<tr>
+<td>Min</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>輸出範圍的起點。</td>
+</tr>
+<tr>
+<td>Max</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>輸出範圍的終點。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>依選定曲線計算並映射至 Min／Max 的數值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-4">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ease</td>
+<td>Select</td>
+<td>easeInSine</td>
+<td>正弦緩入，從平滑起步逐漸加速。預設選項。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutSine</td>
+<td>正弦緩出，接近終點時平滑減速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutSine</td>
+<td>正弦緩入／緩出，起點與終點均平滑。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInQuad</td>
+<td>二次方緩入，起步慢並持續加速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutQuad</td>
+<td>二次方緩出，快速起步後持續減速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutQuad</td>
+<td>二次方緩入／緩出，兩端平滑且變化較溫和。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInCubic</td>
+<td>三次方緩入，比 Quad 具有更明顯的加速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutCubic</td>
+<td>三次方緩出，比 Quad 具有更明顯的減速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutCubic</td>
+<td>三次方緩入／緩出，中段變化較快。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInQuart</td>
+<td>四次方緩入，起步更慢、後段加速更明顯。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutQuart</td>
+<td>四次方緩出，前段較快、終點減速更明顯。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutQuart</td>
+<td>四次方緩入／緩出，變化集中於中段。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInQuint</td>
+<td>五次方緩入，提供更強烈的後段加速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutQuint</td>
+<td>五次方緩出，提供更強烈的終點減速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutQuint</td>
+<td>五次方緩入／緩出，兩端停留感最明顯。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInExpo</td>
+<td>指數緩入，起點接近靜止後快速加速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutExpo</td>
+<td>指數緩出，快速起步後接近終點時大幅減速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutExpo</td>
+<td>指數緩入／緩出，起點與終點均接近靜止。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInCirc</td>
+<td>圓弧緩入，以圓弧式變化逐漸加速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutCirc</td>
+<td>圓弧緩出，以圓弧式變化逐漸減速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutCirc</td>
+<td>圓弧緩入／緩出，兩端平滑且中段轉換較快。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInElastic</td>
+<td>彈性緩入，起點附近先振盪再向終點加速。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutElastic</td>
+<td>彈性緩出，到達終點前後產生振盪。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutElastic</td>
+<td>彈性緩入／緩出，在起點與終點附近都產生振盪。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInBack</td>
+<td>回拉緩入，起步時先向反方向偏移再前進。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutBack</td>
+<td>超越緩出，超過終點後再返回。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutBack</td>
+<td>回拉／超越，在起點反向偏移並於終點超出後返回。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInBounce</td>
+<td>反彈緩入，在起點區段產生反彈後前進。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeOutBounce</td>
+<td>反彈緩出，在抵達終點前產生落地反彈效果。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>easeInOutBounce</td>
+<td>反彈緩入／緩出，在起點與終點區段都產生反彈。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="clamp">Clamp</h3>
+<p>將 Number 限制在 Min 與 Max 之間。數值低於 Min 時輸出 Min，高於 Max 時輸出 Max，位於範圍內時保持原值。</p>
+<p>此節點適合限制百分比、速度、尺寸或其他不可超出指定上下限的參數。例如 Min 為 <code>0</code>、Max 為 <code>10</code> 時，輸入 <code>15</code> 會得到 <code>10</code>。使用時應讓 Min 小於或等於 Max。</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>要檢查並限制的數值。</td>
+</tr>
+<tr>
+<td>Min</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>允許輸出的最小值。</td>
+</tr>
+<tr>
+<td>Max</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>允許輸出的最大值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>限制在 Min 與 Max 之間的數值。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="lerp">Lerp</h3>
+<p>依 T 計算 Start 到 End 之間的線性位置。T 為 <code>0</code> 時輸出 Start，T 為 <code>1</code> 時輸出 End，T 為 <code>0.5</code> 時輸出兩者中間值。</p>
+<p>T 不會自動限制於 <code>0–1</code>。小於 <code>0</code> 或大於 <code>1</code> 時，Result 會沿相同方向延伸到 Start／End 範圍之外。</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>線性變化的起始值。</td>
+</tr>
+<tr>
+<td>End</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>線性變化的終點值。</td>
+</tr>
+<tr>
+<td>T</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>Start 到 End 的位置比例。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>依 T 計算出的線性插值或延伸值。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="sign">Sign</h3>
+<p>判斷 Number 的方向，不保留原始大小。負數輸出 <code>-1</code>、零輸出 <code>0</code>、正數輸出 <code>1</code>。</p>
+<p>此結果適合用於判斷移動方向、建立正負方向倍率，或配合 Compare 與 Value Gate 控制資料流程。</p>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>要判斷正負方向的數值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-9">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>Number 的符號值：<code>-1</code>、<code>0</code> 或 <code>1</code>。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="to-fixed">To Fixed</h3>
+<p>將 Number 轉換為具有固定小數位數的 Text。與 Round To Decimals 不同，此節點會保留結尾的 <code>0</code>，適合顯示、標籤或輸出固定格式文字。</p>
+<p>例如 Number 為 <code>5</code>、Decimal Places 為 <code>3</code> 時，Text 為 <code>5.000</code>。輸出型別是 Text，不能直接當作 Number 繼續進行數值運算。</p>
+<h4 id="input-10">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>要轉換為固定格式文字的數值。</td>
+</tr>
+<tr>
+<td>Decimal Places</td>
+<td>Number</td>
+<td><code>2</code></td>
+<td>文字中固定顯示的小數位數；應使用 <code>0</code> 至 <code>100</code> 的整數。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-10">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text</td>
+<td>Text</td>
+<td>—</td>
+<td>保留指定小數位與結尾 <code>0</code> 的文字。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="generate"><em><strong>Generate</strong></em></h2>
+<h3 id="random-numbers">Random Numbers</h3>
+<p>依指定範圍與數量建立一組可重現的偽隨機數值。先以 Low／High 設定範圍、Count 設定數量，再以 Seed 決定序列。</p>
+<p>相同的 Low、High、Count 與 Seed 會產生相同結果，因此 Canvas 重新運算時不會任意改變數值。需要另一組序列時，只要更改 Seed；兩個設定完全相同的 Random Numbers 節點也會輸出相同序列。</p>
+<h4 id="input-11">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>每個隨機數值的範圍起點。</td>
+</tr>
+<tr>
+<td>High</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>每個隨機數值的範圍終點。</td>
+</tr>
+<tr>
+<td>Count</td>
+<td>Number</td>
+<td><code>10</code></td>
+<td>要產生的數值數量，必須為非負整數。</td>
+</tr>
+<tr>
+<td>Seed</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>決定序列內容的整數；更改 Seed 可取得另一組結果。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-11">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numbers</td>
+<td>Number List</td>
+<td>—</td>
+<td>依範圍、數量與 Seed 產生的數值序列。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="pi">Pi</h3>
+<p>將輸入的 Number 乘以圓周率 π。Number 可作為 π 的倍率：輸入 <code>1</code> 得到 π，輸入 <code>2</code> 得到 <code>2π</code>。</p>
+<p>此節點可用於建立以 π 表示的角度或圓形計算；例如要取得半圈的弧度值，可輸入 <code>1</code>，要取得完整一圈則輸入 <code>2</code>。</p>
+<h4 id="input-12">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>π 的倍率。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-12">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>Number</td>
+<td>—</td>
+<td>Number 與 π 的乘積。</td>
+</tr>
+</tbody>
+</table>

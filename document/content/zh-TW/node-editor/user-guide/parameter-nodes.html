@@ -1,0 +1,174 @@
+<h1 id="parameter">Parameter</h1>
+<p>Parameter 節點用於建立基礎數值與 Boolean，以及檢視、傳遞或控制 Node Editor 中的資料。</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="number-slider">Number Slider</h3>
+<p>建立一個可由 Slider 或精確數值輸入調整的 Number。</p>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Number</td>
+<td>—</td>
+<td>目前設定的 Number。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Slider</td>
+<td>預設 <code>1</code>；範圍 <code>0</code> 至 <code>20</code>；間隔 <code>0.1</code></td>
+<td>設定輸出的 Number，並可調整 Slider 範圍與精度。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="boolean">Boolean</h3>
+<p>建立固定的 Boolean，適合控制 Gate 或其他需要 <code>true</code>／<code>false</code> 的 Input。使用 Value Control 切換狀態後，Output 會立即更新。</p>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Boolean</td>
+<td>—</td>
+<td>Value Control 目前設定的 Boolean。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-2">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Boolean</td>
+<td>True/False</td>
+<td>設定輸出的 Boolean，預設為 <code>false</code>。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="panel">Panel</h3>
+<p>顯示連接的資料並將原始資料傳遞至 Output。未連線時可輸入多行文字，並將文字作為 Output。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input</td>
+<td>Value</td>
+<td>空白文字</td>
+<td>要顯示與傳遞的資料；未連線時使用 Panel 中輸入的文字。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Output</td>
+<td>Value</td>
+<td>—</td>
+<td>連接的原始資料，或未連線時輸入的文字。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="util"><em><strong>Util</strong></em></h2>
+<h3 id="value-gate">Value Gate</h3>
+<p>使用 Boolean 決定 Value 是否繼續傳遞。Boolean 為 <code>true</code> 時，Output 保留輸入資料；Boolean 為 <code>false</code> 時，Output 為 no-data。</p>
+<p>此節點適合依條件啟用部分資料流程。例如將 Compare 的結果連接至 Boolean，即可只在比較成立時輸出 Point、Plane、Number 或其他 Value。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Value</td>
+<td>no-data</td>
+<td>要依條件傳遞的原始資料。</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td><code>true</code> 時傳遞 Value，<code>false</code> 時阻止輸出。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Value</td>
+<td>Value</td>
+<td>—</td>
+<td>Boolean 為 <code>true</code> 時輸入的原始 Value；否則為 no-data。</td>
+</tr>
+</tbody>
+</table>

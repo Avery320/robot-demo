@@ -1,0 +1,321 @@
+<h1 id="curve">Curve</h1>
+<p>Curve Nodes create and process Lines and Polylines. A Line consists of a start and end Point. A Polyline connects a Point List in order and can be set to Closed. The resulting geometry can be previewed in the Viewport or baked into the project. Lengths are displayed in the current project length unit.</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="line-2pt">Line 2Pt</h3>
+<p>Creates a Line from Start and End. If both Points are identical, the resulting length is <code>0</code>.</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Start Point.</td>
+</tr>
+<tr>
+<td>End</td>
+<td>Point</td>
+<td><code>(1, 0, 0)</code></td>
+<td>End Point.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Line</td>
+<td>Line</td>
+<td>—</td>
+<td>Line segment connecting the two input positions.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="construct-polyline">Construct Polyline</h3>
+<p>Connects Points in the order of the input Point List. When Closed is enabled, the display and segment output connect the last Point to the first. Fewer than two Points do not form a segment.</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>Ordered Point List.</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Creates a closed result when enabled.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Polyline</td>
+<td>Polyline</td>
+<td>—</td>
+<td>Polyline created in the input order.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="get"><em><strong>Get</strong></em></h2>
+<h3 id="deconstruct-line">Deconstruct Line</h3>
+<p>Returns the start and end Points of a Line.</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Line</td>
+<td>Line</td>
+<td>—</td>
+<td>Line segment to deconstruct.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start</td>
+<td>Point</td>
+<td>—</td>
+<td>Start position.</td>
+</tr>
+<tr>
+<td>End</td>
+<td>Point</td>
+<td>—</td>
+<td>End position.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="point-on-line">Point On Line</h3>
+<p>Returns a position on a Line at the specified Parameter. <code>0</code> corresponds to the start Point and <code>1</code> to the end Point. Values below <code>0</code> or above <code>1</code> extend beyond the segment along its direction.</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Line</td>
+<td>Line</td>
+<td>—</td>
+<td>Line segment to evaluate.</td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>Proportional position along the Line.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>Position corresponding to Parameter.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="deconstruct-polyline">Deconstruct Polyline</h3>
+<p>Returns the Points and segment Lines of a Polyline. When Closed is enabled, the closing segment is included. If the last Point already coincides with the first, that segment is not created twice.</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Polyline</td>
+<td>Polyline</td>
+<td>—</td>
+<td>Polyline to deconstruct.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>Ordered positions that define the Polyline.</td>
+</tr>
+<tr>
+<td>Lines</td>
+<td>Line List</td>
+<td>—</td>
+<td>Segments formed by adjacent positions.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="curve-length">Curve Length</h3>
+<p>Measures the length of a Line or Polyline. For a Polyline, the lengths of adjacent segments in the Point List are added together. A Closed Polyline currently does not include the distance from the last Point back to the first.</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curve</td>
+<td>Curve</td>
+<td>—</td>
+<td>Line or Polyline to measure.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Length</td>
+<td>Number</td>
+<td>—</td>
+<td>Length of the input geometry.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="operations"><em><strong>Operations</strong></em></h2>
+<h3 id="reverse-curve">Reverse Curve</h3>
+<p>Reverses the direction of a Line or Polyline. A Line swaps its start and end Points. A Polyline reverses its Point List while preserving its Closed setting.</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curve</td>
+<td>Curve</td>
+<td>—</td>
+<td>Line or Polyline to reverse.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curve</td>
+<td>Curve</td>
+<td>—</td>
+<td>Reversed result with the same type as the input.</td>
+</tr>
+</tbody>
+</table>

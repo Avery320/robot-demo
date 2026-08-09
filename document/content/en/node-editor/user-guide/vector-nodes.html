@@ -1,0 +1,626 @@
+<h1 id="vector">Vector</h1>
+<p>Vector Nodes create and process three-dimensional directional data. A Vector consists of X, Y, and Z components and can represent a direction, scale, or displacement, but not a fixed position in space. Use a Point when a position is required.</p>
+<p>Each Input can accept an Item, List, or Data Tree. When a List or Data Tree is connected, the system preserves the existing Branch structure and processes each item. To use a Vector as a direction with a fixed magnitude, first use Normalize to convert it to a unit vector of length <code>1</code>.</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="vector-xyz">Vector XYZ</h3>
+<p>Creates a Vector from X, Y, and Z components. Values can be entered directly in the three Inputs or supplied by other Math Nodes to create a variable direction.</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>X component of the Vector.</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Y component of the Vector.</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Z component of the Vector.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Three-dimensional Vector composed of X, Y, and Z.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="sum"><em><strong>Sum</strong></em></h2>
+<h3 id="add-vectors">Add Vectors</h3>
+<p>Adds the corresponding components of A and B. Use it to combine directions or add a displacement increment to an existing Vector.</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>First Vector.</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector to add to A.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Vector produced by adding A and B component by component.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="base"><em><strong>Base</strong></em></h2>
+<h3 id="cross-product">Cross Product</h3>
+<p>Calculates the cross product of A and B, producing a Vector perpendicular to both input directions. The output follows the right-hand rule, so swapping A and B reverses its direction.</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>First direction of the cross product.</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Second direction of the cross product.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Perpendicular Vector calculated using the right-hand rule.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="dot-product">Dot Product</h3>
+<p>Calculates the dot product of A and B and outputs a Number. The result indicates the directional relationship between the Vectors: a positive value means they point in similar directions, a negative value means they point in opposing directions, and <code>0</code> means they are perpendicular.</p>
+<p>Vector lengths affect the result. Normalize A and B first when only their directions should be compared.</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>First Vector of the dot product.</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Second Vector of the dot product.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number</td>
+<td>Number</td>
+<td>—</td>
+<td>Sum of the products of the corresponding components of A and B.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="subtract-vectors">Subtract Vectors</h3>
+<p>Subtracts B from A component by component. Use it to find the difference between two directions or to derive a directional difference from positional data.</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector from which B is subtracted.</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector subtracted from A.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Vector produced by subtracting B from A.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="multiply-vector">Multiply Vector</h3>
+<p>Multiplies every component of a Vector by a Scalar. Use it to preserve the original direction while changing the length, or to scale a displacement proportionally.</p>
+<p>A Scalar greater than <code>1</code> increases the Vector length, a value between <code>0</code> and <code>1</code> shortens it, and <code>0</code> produces a zero vector. A negative value also reverses the direction.</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector to scale.</td>
+</tr>
+<tr>
+<td>Scalar</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>Scale applied to every component.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Vector after every component has been multiplied by Scalar.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="negate-vector">Negate Vector</h3>
+<p>Reverses a Vector while preserving its original length by changing the sign of every component.</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector whose direction will be reversed.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Vector with reversed direction and unchanged length.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="normalize">Normalize</h3>
+<p>Converts a Vector into a unit vector of length <code>1</code> while preserving its direction. Use it when only the direction is needed and the original length should not affect subsequent operations.</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector whose direction will be preserved and length normalized.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Unit vector of length <code>1</code>; a near-zero input produces no-data.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="vector-length">Vector Length</h3>
+<p>Calculates the straight-line length from the origin to <code>[x, y, z]</code>. This Node outputs only the magnitude and does not preserve direction.</p>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector to measure.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-9">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Length</td>
+<td>Number</td>
+<td>—</td>
+<td>Three-dimensional length of the Vector.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="point-on-ray">Point On Ray</h3>
+<p>Creates a new Point from a starting Point and a Vector. The calculation adds the Vector multiplied by Distance to the Point. The resulting Point can be previewed in the Viewport or baked into the project.</p>
+<h4 id="input-10">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Starting Point of the ray.</td>
+</tr>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Direction and scale from the Point.</td>
+</tr>
+<tr>
+<td>Distance</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>Scale applied to the Vector. When the Vector is normalized, this represents the actual displacement length.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-10">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>Point created from the starting position and Vector displacement.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="angles"><em><strong>Angles</strong></em></h2>
+<h3 id="vector-angle">Vector Angle</h3>
+<p>Calculates the smallest unsigned angle between A and B, ranging from <code>0°</code> to <code>180°</code>. Use it to determine whether two directions are parallel, perpendicular, or opposite.</p>
+<h4 id="input-11">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Starting direction of the angle.</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Direction to compare with A.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-11">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angle</td>
+<td>Number</td>
+<td>—</td>
+<td>Smallest angle between A and B in the range <code>0–180°</code>.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="signed-vector-angle">Signed Vector Angle</h3>
+<p>Uses Reference to determine the rotational direction from A to B and outputs an angle from <code>0–360°</code>. Reference is typically the normal of the rotation plane; for example, use <code>[0, 0, 1]</code> for the XY plane.</p>
+<h4 id="input-12">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Starting direction of the rotation.</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Target direction of the rotation.</td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>Vector</td>
+<td><code>[0, 0, 1]</code></td>
+<td>Reference direction used to determine the rotational side.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-12">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Angle</td>
+<td>Number</td>
+<td>—</td>
+<td>Rotation angle in the range <code>0–360°</code>, oriented by Reference.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="distance"><em><strong>Distance</strong></em></h2>
+<h3 id="interpolate-vector">Interpolate Vector</h3>
+<p>Creates a linear Vector between A and B using Fraction. Fraction is used as the weight of A, while <code>1 - Fraction</code> is used as the weight of B.</p>
+<h4 id="input-13">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector weighted by Fraction.</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Vector</td>
+<td><code>[0, 0, 0]</code></td>
+<td>Vector weighted by <code>1 - Fraction</code>.</td>
+</tr>
+<tr>
+<td>Fraction</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>Linear weight applied to A and B.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-13">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vector</td>
+<td>Vector</td>
+<td>—</td>
+<td>Linearly weighted Vector calculated from Fraction.</td>
+</tr>
+</tbody>
+</table>

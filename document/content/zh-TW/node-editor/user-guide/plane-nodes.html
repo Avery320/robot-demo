@@ -1,0 +1,345 @@
+<h1 id="plane">Plane</h1>
+<p>Plane 用來表示三維空間中的位置與方向，由 Origin（原點）、Direction（X 軸）與 Normal（Z 軸）組成。可用於幾何操作及機器人目標姿態；建立結果可在 Viewport 中預覽，也可 Bake 至專案。</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="construct-plane">Construct Plane</h3>
+<p>使用原點、法向量與方向向量建立 Plane。Normal 指定 Z 軸，Direction 指定 X 軸方向。兩個方向向量不能為零或互相平行。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>指定原點位置。</td>
+</tr>
+<tr>
+<td>Normal</td>
+<td>Vector</td>
+<td><code>[0, 0, 1]</code></td>
+<td>指定 Z 軸方向。</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Vector</td>
+<td><code>[1, 0, 0]</code></td>
+<td>指定 X 軸方向。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>可連接至其他需要 Plane 的節點。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="xy-plane">XY Plane</h3>
+<p>在指定位置建立與世界 XY 平面對齊的 Plane。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>指定建立位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>與世界 XY 平面對齊的結果。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="xz-plane">XZ Plane</h3>
+<p>在指定位置建立與世界 XZ 平面對齊的 Plane。</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>指定建立位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>與世界 XZ 平面對齊的結果。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="yz-plane">YZ Plane</h3>
+<p>在指定位置建立與世界 YZ 平面對齊的 Plane。</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>指定建立位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>與世界 YZ 平面對齊的結果。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="plane-3pt">Plane 3Pt</h3>
+<p>使用三個點指定原點、X 軸方向與平面朝向。輸入點重合或三點共線時無法建立 Plane。</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point 1</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>指定原點。</td>
+</tr>
+<tr>
+<td>Point 2</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>與 Point 1 共同指定 X 軸方向。</td>
+</tr>
+<tr>
+<td>Point 3</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>指定平面朝向。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>由三個點建立的結果。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="edit"><em><strong>Edit</strong></em></h2>
+<h3 id="flip-plane">Flip Plane</h3>
+<p>調整 Plane 的軸向。可分別反轉 X、Y 軸，或交換兩個軸的方向。</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>要調整的資料。</td>
+</tr>
+<tr>
+<td>Reverse X</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>啟用後反轉 X 軸。</td>
+</tr>
+<tr>
+<td>Reverse Y</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>啟用後反轉 Y 軸。</td>
+</tr>
+<tr>
+<td>Swap Axes</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>啟用後交換 X、Y 軸。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>軸向調整後的結果。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="get"><em><strong>Get</strong></em></h2>
+<h3 id="deconstruct-plane">Deconstruct Plane</h3>
+<p>取得 Plane 的原點、法向量與方向向量，供後續節點分別使用。</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>要拆解的資料。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td>—</td>
+<td>原點位置。</td>
+</tr>
+<tr>
+<td>Normal</td>
+<td>Vector</td>
+<td>—</td>
+<td>Z 軸方向。</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Vector</td>
+<td>—</td>
+<td>X 軸方向。</td>
+</tr>
+</tbody>
+</table>

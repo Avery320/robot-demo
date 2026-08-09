@@ -1,0 +1,373 @@
+<h1 id="robosim-olp-instruction-parameters">RoboSim OLP Instruction Parameters</h1>
+<p>本文說明 RoboSim OLP Program 目前支援的五種指令：MoveJ、MoveL、MoveAbsJ、WAIT、DO。這些參數會儲存在 Station Tree node 的 <code>meta.programInstruction</code>，並由 OLP Input Builder 轉換後送入 OLP Engine。</p>
+<h2 id="通用規則">通用規則</h2>
+<ul>
+<li><code>Target</code> 放在 <code>MoveJ</code> 或 <code>MoveL</code> 底下，表示該運動指令要到達的位置。</li>
+<li>Target 的 <code>x, y, z, roll, pitch, yaw</code> 是相對於所在 Frame 的 local pose；OLP Engine 會依 Frame hierarchy、Robot Base、Tool/TCP 完成 pose resolution。</li>
+<li>角度輸入使用 degree；進入 ik solver 前會轉成 quaternion。</li>
+<li>關節運算使用 rad；位置運算使用 m；速度欄位依下列參數單位處理。</li>
+<li><code>speed.time = 0</code> 表示由速度限制計算運動時間；大於 <code>0</code> 時表示指定該指令的目標時間。</li>
+<li><code>zone.distance = 0</code> 表示精準停點；<code>zone.distance &gt; 0</code> 表示 fly-by / blend / approximation。</li>
+<li>RoboSim 新建 MoveJ / MoveL / MoveAbsJ 指令時，<code>zone.distance</code> 預設為 <code>20 mm</code>，作為保守的平滑過渡起點；需要精準停點時手動設為 <code>0</code>。</li>
+<li>Zone 已進入 OLP Engine 與 Program Result trace，但不直接改變 IK 解算、MoveL 切片或 Playback sampling。這與 Robots 原專案一致，Zone 主要供後續 post processor 轉換控制器語法。</li>
+</ul>
+<h2 id="movej">MoveJ</h2>
+<p>MoveJ 使用 joint-space 插值，適合點到點移動。MoveJ 的路徑不保證 TCP 在空間中走直線。</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>moveJ</code></td>
+<td>-</td>
+<td>指令類型。</td>
+</tr>
+<tr>
+<td><code>targetId</code></td>
+<td style="text-align:right">由子層 Target 自動解析</td>
+<td>-</td>
+<td>指令底下 Target node 的 id。</td>
+</tr>
+<tr>
+<td><code>segments</code></td>
+<td style="text-align:right"><code>20</code></td>
+<td>count</td>
+<td>RoboSim 內部 playback sampling 預設值；MoveJ Inspector 不提供手動調整。</td>
+</tr>
+<tr>
+<td><code>speed.translation</code></td>
+<td style="text-align:right"><code>100</code></td>
+<td>mm/s</td>
+<td>TCP 平移速度上限，用於時間估算。</td>
+</tr>
+<tr>
+<td><code>speed.rotation</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s</td>
+<td>TCP 旋轉速度上限，用於時間估算。</td>
+</tr>
+<tr>
+<td><code>speed.translationExternal</code></td>
+<td style="text-align:right"><code>5000</code></td>
+<td>mm/s</td>
+<td>外部直線軸速度上限，預留給外部軸。</td>
+</tr>
+<tr>
+<td><code>speed.rotationExternal</code></td>
+<td style="text-align:right"><code>18.84956</code></td>
+<td>rad/s</td>
+<td>外部旋轉軸速度上限，預留給外部軸。</td>
+</tr>
+<tr>
+<td><code>speed.translationAccel</code></td>
+<td style="text-align:right"><code>1000</code></td>
+<td>mm/s²</td>
+<td>TCP 平移加速度，預留給加速度模型。</td>
+</tr>
+<tr>
+<td><code>speed.axisAccel</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s²</td>
+<td>關節軸加速度，預留給加速度模型。</td>
+</tr>
+<tr>
+<td><code>speed.time</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>s</td>
+<td>指定運動時間；<code>0</code> 表示自動計算。</td>
+</tr>
+<tr>
+<td><code>zone.distance</code></td>
+<td style="text-align:right"><code>10</code></td>
+<td>mm</td>
+<td>通用 Zone 距離；<code>0</code> 為 stop point，大於 <code>0</code> 為 fly-by。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="movel">MoveL</h2>
+<p>MoveL 使用 Cartesian TCP 線性插值，適合要求 TCP 在空間中接近直線的移動。「Cartesian target -&gt; TCP 直線切片 -&gt; 每一片解 IK」。切片數量邏輯是：</p>
+<ol>
+<li>如果 segments &gt; 0，優先使用 segments。</li>
+<li>否則用 distance / stepSize 自動計算。</li>
+<li>如果都沒有，就用預設 DefaultMoveLSegments = 20。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>moveL</code></td>
+<td>-</td>
+<td>指令類型。</td>
+</tr>
+<tr>
+<td><code>targetId</code></td>
+<td style="text-align:right">由子層 Target 自動解析</td>
+<td>-</td>
+<td>指令底下 Target node 的 id。</td>
+</tr>
+<tr>
+<td><code>segments</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>count</td>
+<td>固定取樣段數；<code>0</code> 表示依 <code>stepSize</code> 自動計算。</td>
+</tr>
+<tr>
+<td><code>stepSize</code></td>
+<td style="text-align:right"><code>0.01</code></td>
+<td>m</td>
+<td>Cartesian 路徑取樣距離，預設為 10 mm。</td>
+</tr>
+<tr>
+<td><code>speed.translation</code></td>
+<td style="text-align:right"><code>100</code></td>
+<td>mm/s</td>
+<td>TCP 平移速度上限，用於時間估算。</td>
+</tr>
+<tr>
+<td><code>speed.rotation</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s</td>
+<td>TCP 旋轉速度上限，用於時間估算。</td>
+</tr>
+<tr>
+<td><code>speed.translationExternal</code></td>
+<td style="text-align:right"><code>5000</code></td>
+<td>mm/s</td>
+<td>外部直線軸速度上限，預留給外部軸。</td>
+</tr>
+<tr>
+<td><code>speed.rotationExternal</code></td>
+<td style="text-align:right"><code>18.84956</code></td>
+<td>rad/s</td>
+<td>外部旋轉軸速度上限，預留給外部軸。</td>
+</tr>
+<tr>
+<td><code>speed.translationAccel</code></td>
+<td style="text-align:right"><code>1000</code></td>
+<td>mm/s²</td>
+<td>TCP 平移加速度，預留給加速度模型。</td>
+</tr>
+<tr>
+<td><code>speed.axisAccel</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s²</td>
+<td>關節軸加速度，預留給加速度模型。</td>
+</tr>
+<tr>
+<td><code>speed.time</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>s</td>
+<td>指定運動時間；<code>0</code> 表示自動計算。</td>
+</tr>
+<tr>
+<td><code>zone.distance</code></td>
+<td style="text-align:right"><code>10</code></td>
+<td>mm</td>
+<td>通用 Zone 距離；<code>0</code> 為 stop point，大於 <code>0</code> 為 fly-by。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="moveabsj">MoveAbsJ</h2>
+<p>MoveAbsJ 使用指定關節角度作為目標，適合明確指定六軸姿態。MoveAbsJ 的路徑不保證 TCP 在空間中走直線。</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>moveAbsJ</code></td>
+<td>-</td>
+<td>指令類型。</td>
+</tr>
+<tr>
+<td><code>targetId</code></td>
+<td style="text-align:right">由子層 Joint Target 自動解析</td>
+<td>-</td>
+<td>指令底下 Joint Target node 的 id。</td>
+</tr>
+<tr>
+<td><code>segments</code></td>
+<td style="text-align:right"><code>20</code></td>
+<td>count</td>
+<td>RoboSim 內部 playback sampling 預設值；MoveAbsJ Inspector 不提供手動調整。</td>
+</tr>
+<tr>
+<td><code>speed.translation</code></td>
+<td style="text-align:right"><code>100</code></td>
+<td>mm/s</td>
+<td>TCP 平移速度上限，用於時間估算。</td>
+</tr>
+<tr>
+<td><code>speed.rotation</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s</td>
+<td>TCP 旋轉速度上限，用於時間估算。</td>
+</tr>
+<tr>
+<td><code>speed.translationExternal</code></td>
+<td style="text-align:right"><code>5000</code></td>
+<td>mm/s</td>
+<td>外部直線軸速度上限，預留給外部軸。</td>
+</tr>
+<tr>
+<td><code>speed.rotationExternal</code></td>
+<td style="text-align:right"><code>18.84956</code></td>
+<td>rad/s</td>
+<td>外部旋轉軸速度上限，預留給外部軸。</td>
+</tr>
+<tr>
+<td><code>speed.translationAccel</code></td>
+<td style="text-align:right"><code>1000</code></td>
+<td>mm/s²</td>
+<td>TCP 平移加速度，預留給加速度模型。</td>
+</tr>
+<tr>
+<td><code>speed.axisAccel</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s²</td>
+<td>關節軸加速度，預留給加速度模型。</td>
+</tr>
+<tr>
+<td><code>speed.time</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>s</td>
+<td>指定運動時間；<code>0</code> 表示自動計算。</td>
+</tr>
+<tr>
+<td><code>zone.distance</code></td>
+<td style="text-align:right"><code>10</code></td>
+<td>mm</td>
+<td>通用 Zone 距離；<code>0</code> 為 stop point，大於 <code>0</code> 為 fly-by。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wait">WAIT</h2>
+<p>WAIT 會在 Program Result 中產生事件，並把 playback 時間往後推移。</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>wait</code></td>
+<td>-</td>
+<td>指令類型。</td>
+</tr>
+<tr>
+<td><code>seconds</code></td>
+<td style="text-align:right"><code>1</code></td>
+<td>s</td>
+<td>等待時間。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="do">DO</h2>
+<p>DO 表示 Digital Output 狀態切換。現階段會在 Program Result 中產生事件，供後續 controller exporter 或 playback UI 使用。</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>digitalOutput</code></td>
+<td>-</td>
+<td>指令類型。</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td style="text-align:right"><code>1</code></td>
+<td>index</td>
+<td>數位輸出通道。</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td style="text-align:right"><code>true</code></td>
+<td>boolean</td>
+<td>輸出狀態。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="program-result-時間欄位">Program Result 時間欄位</h2>
+<p>每個 trajectory point 會保留下列時間相關欄位，供 playback 與後續 exporter 使用：</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>time</code></td>
+<td>從 Program 開始累積的時間，單位為秒。</td>
+</tr>
+<tr>
+<td><code>deltaTime</code></td>
+<td>當前 motion instruction 的總運動時間。</td>
+</tr>
+<tr>
+<td><code>minTime</code></td>
+<td>依關節速度限制推得的最小時間。</td>
+</tr>
+<tr>
+<td><code>speedType</code></td>
+<td>主要限制來源，目前可能為 <code>axis</code>、<code>tcp</code>、<code>rotation</code>。</td>
+</tr>
+<tr>
+<td><code>leadingJoint</code></td>
+<td>造成 <code>axis</code> 時間限制的關節索引；沒有主導關節時為 <code>-1</code>。</td>
+</tr>
+<tr>
+<td><code>zone</code></td>
+<td>該 trajectory point 所屬 motion instruction 的 Zone trace，包含 <code>distanceMm</code>、<code>rotationRad</code>、<code>rotationExternalRad</code>、<code>isFlyBy</code>。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="zone-與-robots-對齊">Zone 與 Robots 對齊</h2>
+<ul>
+<li><code>distance</code> 是 TCP 線性容差，單位 mm。</li>
+<li><code>rotation</code> 是 tool reorientation 容差，單位 rad；若未指定，依 <code>distance / 10</code> degrees 推導。</li>
+<li><code>rotationExternal</code> 是外部旋轉軸容差，單位 rad；若未指定，沿用 <code>rotation</code>。</li>
+<li><code>isFlyBy</code> 由 <code>distanceMm &gt; 0.001</code> 判斷。</li>
+<li>engine 的 missing-zone fallback 仍是 <code>0 mm</code>，避免外部或舊 JSON 未明確提供 Zone 時被自動改成 fly-by。RoboSim 前端新建指令才使用 <code>10 mm</code> 作為產品預設。</li>
+</ul>
+<p>品牌控制器語法不寫入通用資料模型：</p>
+<ul>
+<li>KUKA <code>C_PTP / C_DIS / C_VEL</code> 是 KUKA exporter 的輸出語法。</li>
+<li>ABB <code>zonedata / fine</code> 是 ABB exporter 的輸出語法。</li>
+<li>UR <code>r=</code> 是 UR exporter 的輸出語法。</li>
+</ul>
+<p>因此 Inspector 目前只顯示 <code>Zone Distance</code>。<code>rotation</code> 與 <code>rotationExternal</code> 自動推導，等 exporter 階段需要進階控制時再開放 UI。</p>

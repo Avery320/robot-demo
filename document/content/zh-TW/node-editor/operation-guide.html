@@ -1,0 +1,342 @@
+<h1 id="node-editor-操作指南">Node Editor 操作指南</h1>
+<p>Node Editor 用於建立資料、幾何與機器人控制流程。Node 之間以連線傳遞資料；具有幾何輸出的 Node 可直接在 Viewport 預覽，或 Bake 為專案幾何。</p>
+<h2 id="現有開發的-node-分類">現有開發的 Node 分類</h2>
+<p>Node 會放置於 Canvas 左側，依 Group 的方式分類不同功能的 Node。</p>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Fparameter-nodes" data-document="node-editor/user-guide/parameter-nodes" data-heading="">Parameter</a></td>
+<td>建立數值、布林值與檢視資料。</td>
+</tr>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Fpoint-nodes" data-document="node-editor/user-guide/point-nodes" data-heading="">Point</a></td>
+<td>建立、量測與整理三維位置。</td>
+</tr>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Fplane-nodes" data-document="node-editor/user-guide/plane-nodes" data-heading="">Plane</a></td>
+<td>建立、調整與拆解 Plane。</td>
+</tr>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Fcurve-nodes" data-document="node-editor/user-guide/curve-nodes" data-heading="">Curve</a></td>
+<td>建立與處理 Line、Polyline。</td>
+</tr>
+<tr>
+<td>Mesh</td>
+<td>取得 Viewport Mesh 與執行 Mesh 操作；功能文件待補。</td>
+</tr>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Folp-nodes" data-document="node-editor/user-guide/olp-nodes" data-heading="">OLP</a></td>
+<td>建立機器人指令、預覽姿態、計算與播放。</td>
+</tr>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Fvector-nodes" data-document="node-editor/user-guide/vector-nodes" data-heading="">Vector</a></td>
+<td>建立與運算三維方向。</td>
+</tr>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Fmath-nodes" data-document="node-editor/user-guide/math-nodes" data-heading="">Math</a></td>
+<td>執行數值運算與產生數值。</td>
+</tr>
+<tr>
+<td><a href="./index.html?page=node-editor%2Fuser-guide%2Flist-nodes" data-document="node-editor/user-guide/list-nodes" data-heading="">List</a></td>
+<td>操作 List 與 Data Tree。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="node-基本操作">Node 基本操作</h2>
+<h3 id="建立與搜尋">建立與搜尋</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>操作方式</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>搜尋與建立</td>
+<td>在 Canvas 空白處按滑鼠左鍵兩下，或讓 Node Editor 取得焦點後按 <code>Space</code>。</td>
+<td>輸入關鍵字後，搜尋結果會顯示完整的 <code>Group / Sub Group / Node</code> 路徑。</td>
+</tr>
+<tr>
+<td>搜尋現有 Node</td>
+<td>在既有 Node 上按住 <code>Command + Option</code> 並按滑鼠左鍵。</td>
+<td>開啟該 Node 所屬的 Group，並定位其分類項目。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="編輯-node">編輯 Node</h3>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl/Command + C</code></td>
+<td>複製選取的 Node。</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + X</code></td>
+<td>剪下選取的 Node。</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + V</code></td>
+<td>貼上 Node。</td>
+</tr>
+<tr>
+<td><code>Delete</code>／<code>Backspace</code></td>
+<td>刪除選取的 Node、連線或 Group。</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Z</code></td>
+<td>復原。</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Shift + Z</code></td>
+<td>重做。</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Y</code></td>
+<td>重做。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="建立-group">建立 Group</h3>
+<p>Group 用於將相關 Node 視為同一組操作，不參與資料運算。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ctrl/Command + G</code></td>
+<td>將選取的 Node 建立為 Group。</td>
+</tr>
+<tr>
+<td><code>Ctrl/Command + Shift + G</code></td>
+<td>取消選取 Node 所屬的 Group，或取消選取的 Group。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="node-連線操作">Node 連線操作</h2>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>建立連線</td>
+<td>從 Output 拖曳或點選至 Input，即可建立連線。也可由 Input 開始，再連接至 Output。&lt;br&gt;同一個 Input 預設只保留最新連線；建立新連線時，原有連線會自動移除。</td>
+</tr>
+<tr>
+<td>多重連線</td>
+<td>按住 <code>Shift</code> 建立第二條以上的連線，可將多個來源依連線建立順序傳入同一個 Input。資料順序以連線順序為準。&lt;br&gt;若順序會影響結果，應依預期順序逐一建立連線。</td>
+</tr>
+<tr>
+<td>取消連線</td>
+<td>按住 <code>Ctrl</code> 或 <code>Command</code>，再次連接相同的 Output 與 Input，可移除該條連線。&lt;br&gt;也可先選取連線，再按 <code>Delete</code> 或 <code>Backspace</code>。</td>
+</tr>
+<tr>
+<td>自動增加輸入</td>
+<td>Merge 會在成功連線後自動增加下一個 Input。移除尾端連線後，多餘的空白 Input 會自動移除，並保留一個可繼續連接的 Input。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node-狀態與提示">Node 狀態與提示</h3>
+<table>
+<thead>
+<tr>
+<th>狀態</th>
+<th>顯示</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td>專案標準 Node 樣式</td>
+<td>輸入資料有效，Node 已正常完成運算。</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>橘色</td>
+<td>部分資料無法處理，但仍有有效輸出；或連線形成循環依賴。</td>
+</tr>
+<tr>
+<td>Error</td>
+<td>紅色</td>
+<td>全部資料無法處理、無法產生有效輸出，或執行動作失敗。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node-提示">Node 提示</h3>
+<p>將指標停留在 Node 標題或 Input／Output 上，可查看：</p>
+<table>
+<thead>
+<tr>
+<th>內容</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node 名稱</td>
+<td>顯示目前 Node 的名稱與主要用途。</td>
+</tr>
+<tr>
+<td>Input</td>
+<td>說明該輸入的資料。</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>說明輸出的資料。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="node-對齊與排列">Node 對齊與排列</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>操作方式</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Input／Output 自動對齊</td>
+<td>拖曳 Node，讓 Input 或 Output 接近另一個 Node 的 Output 或 Input。</td>
+<td>Node 會自動對齊兩者的高度，並顯示水平參考線。此功能不會將 Node 吸附至 Canvas 格點。</td>
+</tr>
+<tr>
+<td>多個 Node 對齊</td>
+<td>在 Canvas 空白處拖曳選取框，選取兩個以上的 Node。</td>
+<td>選取範圍上方與右側會顯示排列工具，可進行靠左、水平置中、靠右、靠上、垂直置中與靠下對齊。</td>
+</tr>
+<tr>
+<td>多個 Node 平均分布</td>
+<td>使用選取框選取三個以上的 Node。</td>
+<td>可依目前選取範圍進行水平或垂直平均分布。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="node-特有操作">Node 特有操作</h2>
+<h3 id="panel">Panel</h3>
+<p>Panel 可檢視資料，也可作為文字輸入。</p>
+<ul>
+<li>未連線時，可直接編輯多行文字並輸出 Text。</li>
+<li>連線後，顯示輸入資料的 Item、List 或 Data Tree 結構。</li>
+<li>Panel 只格式化顯示內容，不會改變傳出的原始資料。</li>
+<li>內容超出 Panel 時可在內部捲動。</li>
+<li>可拖曳 Panel 邊界調整寬度與高度。</li>
+</ul>
+<h3 id="number-slider">Number Slider</h3>
+<ul>
+<li>拖曳 Slider 調整數值。</li>
+<li>在顯示數值上按滑鼠左鍵兩下，可輸入精確數值。</li>
+<li>在單一 Number Slider 上按滑鼠右鍵，可設定 <code>Min</code>、<code>Max</code> 與 <code>Value</code>。</li>
+<li>可水平拖曳 Node 邊界調整 Slider 寬度。</li>
+</ul>
+<h3 id="action">Action</h3>
+<p>具有 Action 的 Node 會顯示操作按鈕，例如 <code>Run</code>。</p>
+<ul>
+<li>點選按鈕後才執行對應功能。</li>
+<li>執行期間按鈕會暫時停用。</li>
+<li>執行失敗時，Node 會進入 Error 狀態並顯示錯誤提示。</li>
+</ul>
+<h3 id="select">Select</h3>
+<p>Select 用於選擇 Node 的控制選項，例如 Tool Frame 或 Configuration。選項由 Node 定義或目前專案狀態提供。</p>
+<h2 id="顯示操作">顯示操作</h2>
+<h3 id="node-顯示設定">Node 顯示設定</h3>
+<p>在 Node 上按滑鼠右鍵可開啟操作選單。若已選取多個 Node，設定會套用至全部已選取 Node。</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Preview</td>
+<td>顯示或隱藏該 Node 的 Viewport 幾何預覽；只有具備幾何輸出的 Node 會顯示此項目。</td>
+</tr>
+<tr>
+<td>Enable</td>
+<td>啟用或停用 Node 執行。停用後不產生輸出。</td>
+</tr>
+<tr>
+<td>Bake</td>
+<td>將目前幾何結果建立為專案幾何；只有可預覽幾何的 Node 會顯示此項目。</td>
+</tr>
+</tbody>
+</table>
+<p>Preview 只控制暫時顯示；Bake 建立的專案幾何不受 Preview 模式影響。</p>
+<h3 id="viewport-預覽">Viewport 預覽</h3>
+<ul>
+<li>一般幾何預覽以紅色顯示。</li>
+<li>選取 Node 時，該 Node 的幾何預覽以綠色顯示。</li>
+<li>關閉 Node Editor 視窗不會自動清除 Node Graph 或 Viewport 預覽。</li>
+</ul>
+<h3 id="全域預覽模式">全域預覽模式</h3>
+<p>Canvas 右上角提供三種全域預覽模式：</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Show all previews</td>
+<td>顯示所有已開啟 Preview 的幾何 Node。</td>
+</tr>
+<tr>
+<td>Show selected previews</td>
+<td>只顯示目前選取 Node 的幾何結果。</td>
+</tr>
+<tr>
+<td>Hide all previews</td>
+<td>隱藏全部 Node 幾何預覽。</td>
+</tr>
+</tbody>
+</table>
+<p>Node 自身的 Preview 關閉時，即使全域模式為 Show all previews，也不會顯示該 Node。</p>
+<h2 id="canvas-操作">Canvas 操作</h2>
+<h3 id="zoom-操作">Zoom 操作</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zoom All</td>
+<td>點選 Canvas 右上角的 Zoom All，將全部 Node 納入目前畫面。</td>
+</tr>
+<tr>
+<td>Zoom Selected</td>
+<td>選取 Node 或 Group 後，點選 Zoom Selected，將有效選取內容納入目前畫面。選取 Group 時，其成員 Node 會一併計算。</td>
+</tr>
+</tbody>
+</table>

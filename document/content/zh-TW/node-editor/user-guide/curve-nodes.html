@@ -1,0 +1,321 @@
+<h1 id="curve">Curve</h1>
+<p>Curve 節點用來建立及處理 Line 與 Polyline。Line 由起點和終點組成；Polyline 依 Point List 的順序連接各點，並可設定為 Closed。相關幾何可在 Viewport 中預覽，也可 Bake 至專案；長度會依目前專案的長度單位顯示。</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="line-2pt">Line 2Pt</h3>
+<p>使用 Start 與 End 建立一條 Line。兩點相同時，建立結果的長度為 <code>0</code>。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>指定起點。</td>
+</tr>
+<tr>
+<td>End</td>
+<td>Point</td>
+<td><code>(1, 0, 0)</code></td>
+<td>指定終點。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Line</td>
+<td>Line</td>
+<td>—</td>
+<td>連接兩個輸入位置的線段。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="construct-polyline">Construct Polyline</h3>
+<p>依 Point List 的順序連接各點。啟用 Closed 後，顯示與分段結果會連接最後一點和第一點；少於兩個點時不會形成線段。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>依序排列的 Point List。</td>
+</tr>
+<tr>
+<td>Closed</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>啟用後建立封閉結果。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Polyline</td>
+<td>Polyline</td>
+<td>—</td>
+<td>依輸入順序建立的折線。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="get"><em><strong>Get</strong></em></h2>
+<h3 id="deconstruct-line">Deconstruct Line</h3>
+<p>取得 Line 的起點與終點。</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Line</td>
+<td>Line</td>
+<td>—</td>
+<td>要拆解的線段。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start</td>
+<td>Point</td>
+<td>—</td>
+<td>起點位置。</td>
+</tr>
+<tr>
+<td>End</td>
+<td>Point</td>
+<td>—</td>
+<td>終點位置。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="point-on-line">Point On Line</h3>
+<p>依 Parameter 取得 Line 上的位置。<code>0</code> 對應起點，<code>1</code> 對應終點；小於 <code>0</code> 或大於 <code>1</code> 時會沿線段方向向外延伸。</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Line</td>
+<td>Line</td>
+<td>—</td>
+<td>要取得位置的線段。</td>
+</tr>
+<tr>
+<td>Parameter</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>指定線段上的比例位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>Parameter 對應的位置。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="deconstruct-polyline">Deconstruct Polyline</h3>
+<p>取得 Polyline 的 Points 與分段 Lines。Closed 啟用時會包含首尾連接線；若最後一點已與第一點重合，則不重複建立該線段。</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Polyline</td>
+<td>Polyline</td>
+<td>—</td>
+<td>要拆解的折線。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>組成折線的有序位置。</td>
+</tr>
+<tr>
+<td>Lines</td>
+<td>Line List</td>
+<td>—</td>
+<td>相鄰位置形成的線段。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="curve-length">Curve Length</h3>
+<p>量測 Line 或 Polyline 的長度。Polyline 會加總 Point List 中的相鄰線段；Closed Polyline 目前不包含最後一點回到第一點的距離。</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curve</td>
+<td>Curve</td>
+<td>—</td>
+<td>要量測的 Line 或 Polyline。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Length</td>
+<td>Number</td>
+<td>—</td>
+<td>輸入幾何的長度。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="operations"><em><strong>Operations</strong></em></h2>
+<h3 id="reverse-curve">Reverse Curve</h3>
+<p>反轉 Line 或 Polyline 的方向。Line 會交換起點與終點；Polyline 會反轉 Point List，並保留原本的 Closed 設定。</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curve</td>
+<td>Curve</td>
+<td>—</td>
+<td>要反轉的 Line 或 Polyline。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Curve</td>
+<td>Curve</td>
+<td>—</td>
+<td>與輸入相同型別的反轉結果。</td>
+</tr>
+</tbody>
+</table>

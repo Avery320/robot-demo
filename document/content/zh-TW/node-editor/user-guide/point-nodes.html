@@ -1,0 +1,452 @@
+<h1 id="point">Point</h1>
+<p>Point 用來表示三維空間中的位置。相關節點可建立、量測、拆解及整理位置資料；座標、距離與容差會依目前專案的長度單位輸入與顯示。</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="point-xyz">Point XYZ</h3>
+<p>使用 X、Y、Z 座標建立 Point。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>X 軸座標。</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Y 軸座標。</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Z 軸座標。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>建立的三維位置。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="normal-from-three-points">Normal From Three Points</h3>
+<p>使用三個點計算法向量。點的輸入順序決定方向；輸入點重合或三點共線時無法計算。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point 1</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>第一個參考點。</td>
+</tr>
+<tr>
+<td>Point 2</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>第二個參考點。</td>
+</tr>
+<tr>
+<td>Point 3</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>第三個參考點。</td>
+</tr>
+<tr>
+<td>Reverse Normal</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>啟用後反轉法向量。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td>Vector</td>
+<td>—</td>
+<td>垂直於三點所在平面的單位向量。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="measure"><em><strong>Measure</strong></em></h2>
+<h3 id="point-distance">Point Distance</h3>
+<p>量測 Start Point 與 End Point 之間的直線距離。</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>距離量測的起點。</td>
+</tr>
+<tr>
+<td>End Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>距離量測的終點。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Distance</td>
+<td>Number</td>
+<td>—</td>
+<td>兩點之間的距離。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="extract"><em><strong>Extract</strong></em></h2>
+<h3 id="deconstruct-point">Deconstruct Point</h3>
+<p>取得輸入位置的 X、Y、Z 座標。</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>要拆解的位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Number</td>
+<td>—</td>
+<td>X 軸座標。</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Number</td>
+<td>—</td>
+<td>Y 軸座標。</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>Number</td>
+<td>—</td>
+<td>Z 軸座標。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="average-point">Average Point</h3>
+<p>計算 Point List 中所有位置的平均值。輸入 List 不可為空。</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>要計算平均位置的 Point List。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>所有輸入位置的平均值。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="closest-point">Closest Point</h3>
+<p>在 Point List 中尋找最接近指定位置的項目。若多個項目的距離相同，輸出排列最前的項目。</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>用於搜尋的非空 Point List。</td>
+</tr>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>搜尋的參考位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>距離參考位置最近的項目。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="closest-point-distance">Closest Point Distance</h3>
+<p>量測指定位置與 Point List 中最近項目的距離。輸入 List 不可為空。</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>用於搜尋的非空 Point List。</td>
+</tr>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>搜尋的參考位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Distance</td>
+<td>Number</td>
+<td>—</td>
+<td>參考位置與最近項目的距離。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="closest-point-index">Closest Point Index</h3>
+<p>取得 Point List 中最近項目的 Index。Index 從 <code>0</code> 開始；若多個項目的距離相同，輸出排列最前的 Index。</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>用於搜尋的非空 Point List。</td>
+</tr>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>搜尋的參考位置。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Index</td>
+<td>Number</td>
+<td>—</td>
+<td>最近項目在輸入 List 中的位置。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="clean"><em><strong>Clean</strong></em></h2>
+<h3 id="remove-consecutive-point-duplicates">Remove Consecutive Point Duplicates</h3>
+<p>依 Tolerance 移除相鄰的重複點，非相鄰的重複項目會保留。</p>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>要整理的 Point List。</td>
+</tr>
+<tr>
+<td>Tolerance</td>
+<td>Number</td>
+<td><code>0.0000001</code></td>
+<td>判斷重複位置的容差，必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td>Check First And Last</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>啟用後同時比較第一個與最後一個項目；重複時移除最後一個。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-9">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>移除相鄰重複項目後的 List。</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,373 @@
+<h1 id="robosim-olp-instruction-parameters">RoboSim OLP Instruction Parameters</h1>
+<p>This document describes the five instructions currently supported by RoboSim OLP: MoveJ, MoveL, MoveAbsJ, WAIT, and DO. These parameters are stored in <code>meta.programInstruction</code> on Station Tree nodes, then converted by the OLP Input Builder and sent to the OLP Engine.</p>
+<h2 id="general-rules">General Rules</h2>
+<ul>
+<li>A <code>Target</code> placed under <code>MoveJ</code> or <code>MoveL</code> defines the destination of that motion instruction.</li>
+<li>A Target's <code>x, y, z, roll, pitch, yaw</code> values define a local pose relative to its Frame. The OLP Engine resolves the pose through the Frame hierarchy, Robot Base, and Tool / TCP.</li>
+<li>Angular inputs use degrees and are converted to quaternions before entering the IK solver.</li>
+<li>Joint calculations use radians, positional calculations use meters, and speed fields use the units specified below.</li>
+<li><code>speed.time = 0</code> calculates the motion duration from the speed limits. A value greater than <code>0</code> specifies the target duration of the instruction.</li>
+<li><code>zone.distance = 0</code> specifies an exact stop. <code>zone.distance &gt; 0</code> specifies fly-by, blending, or approximation.</li>
+<li>New MoveJ, MoveL, and MoveAbsJ instructions in RoboSim use a default <code>zone.distance</code> of <code>20 mm</code> as a conservative starting point for smooth transitions. Set it to <code>0</code> manually when an exact stop is required.</li>
+<li>Zone data is included in the OLP Engine and Program Result trace, but it does not directly alter IK solving, MoveL segmentation, or Playback sampling. This matches the Robots project, where Zone primarily supports later post-processing into controller syntax.</li>
+</ul>
+<h2 id="movej">MoveJ</h2>
+<p>MoveJ uses joint-space interpolation and is suitable for point-to-point motion. Its path does not guarantee that the TCP moves along a straight line in space.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>moveJ</code></td>
+<td>-</td>
+<td>Instruction type.</td>
+</tr>
+<tr>
+<td><code>targetId</code></td>
+<td style="text-align:right">Resolved automatically from the child Target</td>
+<td>-</td>
+<td>ID of the Target node under the instruction.</td>
+</tr>
+<tr>
+<td><code>segments</code></td>
+<td style="text-align:right"><code>20</code></td>
+<td>count</td>
+<td>Default RoboSim playback sampling value. The MoveJ Inspector does not provide manual adjustment.</td>
+</tr>
+<tr>
+<td><code>speed.translation</code></td>
+<td style="text-align:right"><code>100</code></td>
+<td>mm/s</td>
+<td>TCP translational speed limit used for duration estimation.</td>
+</tr>
+<tr>
+<td><code>speed.rotation</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s</td>
+<td>TCP rotational speed limit used for duration estimation.</td>
+</tr>
+<tr>
+<td><code>speed.translationExternal</code></td>
+<td style="text-align:right"><code>5000</code></td>
+<td>mm/s</td>
+<td>External linear-axis speed limit reserved for external axes.</td>
+</tr>
+<tr>
+<td><code>speed.rotationExternal</code></td>
+<td style="text-align:right"><code>18.84956</code></td>
+<td>rad/s</td>
+<td>External rotary-axis speed limit reserved for external axes.</td>
+</tr>
+<tr>
+<td><code>speed.translationAccel</code></td>
+<td style="text-align:right"><code>1000</code></td>
+<td>mm/s²</td>
+<td>TCP translational acceleration reserved for the acceleration model.</td>
+</tr>
+<tr>
+<td><code>speed.axisAccel</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s²</td>
+<td>Joint-axis acceleration reserved for the acceleration model.</td>
+</tr>
+<tr>
+<td><code>speed.time</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>s</td>
+<td>Specified motion duration. <code>0</code> enables automatic calculation.</td>
+</tr>
+<tr>
+<td><code>zone.distance</code></td>
+<td style="text-align:right"><code>10</code></td>
+<td>mm</td>
+<td>General Zone distance. <code>0</code> specifies a stop point; a value greater than <code>0</code> specifies fly-by.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="movel">MoveL</h2>
+<p>MoveL uses Cartesian TCP linear interpolation and is suitable when the TCP should follow an approximately straight path through space: Cartesian target → TCP linear segmentation → IK solved at every segment. The segment count follows this order:</p>
+<ol>
+<li>If segments &gt; 0, use segments.</li>
+<li>Otherwise, calculate the count from distance / stepSize.</li>
+<li>If neither is available, use DefaultMoveLSegments = 20.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>moveL</code></td>
+<td>-</td>
+<td>Instruction type.</td>
+</tr>
+<tr>
+<td><code>targetId</code></td>
+<td style="text-align:right">Resolved automatically from the child Target</td>
+<td>-</td>
+<td>ID of the Target node under the instruction.</td>
+</tr>
+<tr>
+<td><code>segments</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>count</td>
+<td>Fixed sampling segment count. <code>0</code> calculates the count automatically from <code>stepSize</code>.</td>
+</tr>
+<tr>
+<td><code>stepSize</code></td>
+<td style="text-align:right"><code>0.01</code></td>
+<td>m</td>
+<td>Cartesian path sampling distance. The default is 10 mm.</td>
+</tr>
+<tr>
+<td><code>speed.translation</code></td>
+<td style="text-align:right"><code>100</code></td>
+<td>mm/s</td>
+<td>TCP translational speed limit used for duration estimation.</td>
+</tr>
+<tr>
+<td><code>speed.rotation</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s</td>
+<td>TCP rotational speed limit used for duration estimation.</td>
+</tr>
+<tr>
+<td><code>speed.translationExternal</code></td>
+<td style="text-align:right"><code>5000</code></td>
+<td>mm/s</td>
+<td>External linear-axis speed limit reserved for external axes.</td>
+</tr>
+<tr>
+<td><code>speed.rotationExternal</code></td>
+<td style="text-align:right"><code>18.84956</code></td>
+<td>rad/s</td>
+<td>External rotary-axis speed limit reserved for external axes.</td>
+</tr>
+<tr>
+<td><code>speed.translationAccel</code></td>
+<td style="text-align:right"><code>1000</code></td>
+<td>mm/s²</td>
+<td>TCP translational acceleration reserved for the acceleration model.</td>
+</tr>
+<tr>
+<td><code>speed.axisAccel</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s²</td>
+<td>Joint-axis acceleration reserved for the acceleration model.</td>
+</tr>
+<tr>
+<td><code>speed.time</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>s</td>
+<td>Specified motion duration. <code>0</code> enables automatic calculation.</td>
+</tr>
+<tr>
+<td><code>zone.distance</code></td>
+<td style="text-align:right"><code>10</code></td>
+<td>mm</td>
+<td>General Zone distance. <code>0</code> specifies a stop point; a value greater than <code>0</code> specifies fly-by.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="moveabsj">MoveAbsJ</h2>
+<p>MoveAbsJ uses specified joint angles as its target and is suitable for explicitly defining a six-axis pose. Its path does not guarantee that the TCP moves along a straight line in space.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>moveAbsJ</code></td>
+<td>-</td>
+<td>Instruction type.</td>
+</tr>
+<tr>
+<td><code>targetId</code></td>
+<td style="text-align:right">Resolved automatically from the child Joint Target</td>
+<td>-</td>
+<td>ID of the Joint Target node under the instruction.</td>
+</tr>
+<tr>
+<td><code>segments</code></td>
+<td style="text-align:right"><code>20</code></td>
+<td>count</td>
+<td>Default RoboSim playback sampling value. The MoveAbsJ Inspector does not provide manual adjustment.</td>
+</tr>
+<tr>
+<td><code>speed.translation</code></td>
+<td style="text-align:right"><code>100</code></td>
+<td>mm/s</td>
+<td>TCP translational speed limit used for duration estimation.</td>
+</tr>
+<tr>
+<td><code>speed.rotation</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s</td>
+<td>TCP rotational speed limit used for duration estimation.</td>
+</tr>
+<tr>
+<td><code>speed.translationExternal</code></td>
+<td style="text-align:right"><code>5000</code></td>
+<td>mm/s</td>
+<td>External linear-axis speed limit reserved for external axes.</td>
+</tr>
+<tr>
+<td><code>speed.rotationExternal</code></td>
+<td style="text-align:right"><code>18.84956</code></td>
+<td>rad/s</td>
+<td>External rotary-axis speed limit reserved for external axes.</td>
+</tr>
+<tr>
+<td><code>speed.translationAccel</code></td>
+<td style="text-align:right"><code>1000</code></td>
+<td>mm/s²</td>
+<td>TCP translational acceleration reserved for the acceleration model.</td>
+</tr>
+<tr>
+<td><code>speed.axisAccel</code></td>
+<td style="text-align:right"><code>3.14159</code></td>
+<td>rad/s²</td>
+<td>Joint-axis acceleration reserved for the acceleration model.</td>
+</tr>
+<tr>
+<td><code>speed.time</code></td>
+<td style="text-align:right"><code>0</code></td>
+<td>s</td>
+<td>Specified motion duration. <code>0</code> enables automatic calculation.</td>
+</tr>
+<tr>
+<td><code>zone.distance</code></td>
+<td style="text-align:right"><code>10</code></td>
+<td>mm</td>
+<td>General Zone distance. <code>0</code> specifies a stop point; a value greater than <code>0</code> specifies fly-by.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wait">WAIT</h2>
+<p>WAIT creates an event in the Program Result and advances the playback time.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>wait</code></td>
+<td>-</td>
+<td>Instruction type.</td>
+</tr>
+<tr>
+<td><code>seconds</code></td>
+<td style="text-align:right"><code>1</code></td>
+<td>s</td>
+<td>Wait duration.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="do">DO</h2>
+<p>DO changes a Digital Output state. It currently creates an event in the Program Result for use by a future controller exporter or playback UI.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th style="text-align:right">Default</th>
+<th>Unit</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>type</code></td>
+<td style="text-align:right"><code>digitalOutput</code></td>
+<td>-</td>
+<td>Instruction type.</td>
+</tr>
+<tr>
+<td><code>channel</code></td>
+<td style="text-align:right"><code>1</code></td>
+<td>index</td>
+<td>Digital Output channel.</td>
+</tr>
+<tr>
+<td><code>value</code></td>
+<td style="text-align:right"><code>true</code></td>
+<td>boolean</td>
+<td>Output state.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="program-result-time-fields">Program Result Time Fields</h2>
+<p>Every trajectory point preserves the following timing fields for Playback and future exporters:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>time</code></td>
+<td>Accumulated time from the start of the Program, in seconds.</td>
+</tr>
+<tr>
+<td><code>deltaTime</code></td>
+<td>Total motion duration of the current motion instruction.</td>
+</tr>
+<tr>
+<td><code>minTime</code></td>
+<td>Minimum duration derived from joint speed limits.</td>
+</tr>
+<tr>
+<td><code>speedType</code></td>
+<td>Primary limiting source. Current values may be <code>axis</code>, <code>tcp</code>, or <code>rotation</code>.</td>
+</tr>
+<tr>
+<td><code>leadingJoint</code></td>
+<td>Index of the joint responsible for an <code>axis</code> time limit. <code>-1</code> indicates that no joint is dominant.</td>
+</tr>
+<tr>
+<td><code>zone</code></td>
+<td>Zone trace of the motion instruction associated with the trajectory point. Includes <code>distanceMm</code>, <code>rotationRad</code>, <code>rotationExternalRad</code>, and <code>isFlyBy</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="zone-alignment-with-robots">Zone Alignment with Robots</h2>
+<ul>
+<li><code>distance</code> is the TCP linear tolerance in mm.</li>
+<li><code>rotation</code> is the tool reorientation tolerance in rad. When omitted, it is derived from <code>distance / 10</code> degrees.</li>
+<li><code>rotationExternal</code> is the external rotary-axis tolerance in rad. When omitted, it uses <code>rotation</code>.</li>
+<li><code>isFlyBy</code> is determined by <code>distanceMm &gt; 0.001</code>.</li>
+<li>The engine's missing-zone fallback remains <code>0 mm</code>, preventing external or older JSON without an explicit Zone from being changed automatically to fly-by. Only new instructions created by the RoboSim frontend use <code>10 mm</code> as the product default.</li>
+</ul>
+<p>Controller-specific syntax is not stored in the general data model:</p>
+<ul>
+<li>KUKA <code>C_PTP / C_DIS / C_VEL</code> is output syntax generated by the KUKA exporter.</li>
+<li>ABB <code>zonedata / fine</code> is output syntax generated by the ABB exporter.</li>
+<li>UR <code>r=</code> is output syntax generated by the UR exporter.</li>
+</ul>
+<p>For this reason, the Inspector currently displays only <code>Zone Distance</code>. <code>rotation</code> and <code>rotationExternal</code> are derived automatically. Their UI controls can be added later if advanced control is required during exporter development.</p>

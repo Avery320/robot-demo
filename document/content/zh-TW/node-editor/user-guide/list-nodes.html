@@ -1,0 +1,689 @@
+<h1 id="list">List</h1>
+<p>List 節點用於建立、選取與調整有順序的資料。Tree 類別操作完整 Data Tree；其他類別會分別處理每個 Branch 內的 List。Index 從 <code>0</code> 開始。</p>
+<h2 id="tree"><em><strong>Tree</strong></em></h2>
+<h3 id="merge">Merge</h3>
+<p>依 Input 由上而下的順序合併 Data Tree。相同 Path 的 Items 會依序接續，不同 Path 會保留原有層級。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree 0…N</td>
+<td>Data Tree</td>
+<td>至少兩個 Inputs</td>
+<td>連線後自動增加下一個 Input；取消連線後移除多餘的 Input。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree</td>
+<td>Data Tree</td>
+<td>—</td>
+<td>合併完成的 Data Tree。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="flatten">Flatten</h3>
+<p>依 Branch Path 順序收集全部 Items，並放入單一根 Branch <code>{0}</code>。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree</td>
+<td>Data Tree</td>
+<td>—</td>
+<td>要展平的 Data Tree。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree</td>
+<td>Data Tree</td>
+<td>—</td>
+<td>所有 Items 位於 <code>{0}</code> 的 Data Tree。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="graft">Graft</h3>
+<p>將每個 Item 放入自己的子 Branch。新的 Path 會在原 Path 後加入該 Item 的 Index；空 Branch 會保留。</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree</td>
+<td>Data Tree</td>
+<td>—</td>
+<td>要增加層級的 Data Tree。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree</td>
+<td>Data Tree</td>
+<td>—</td>
+<td>每個 Item 各自位於子 Branch 的 Data Tree。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="branch">Branch</h3>
+<p>依 Path 取得指定 Branch 的 Items。找不到 Path 時輸出空 List。</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tree</td>
+<td>Data Tree</td>
+<td>—</td>
+<td>要查詢的 Data Tree。</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>Text</td>
+<td><code>{0}</code></td>
+<td>Branch Path，例如 <code>{0;1}</code>；每一層必須是非負整數。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>指定 Branch 中的 Items。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="get"><em><strong>Get</strong></em></h2>
+<h3 id="list-item">List Item</h3>
+<p>依 Index 取得一個 Item。Index 超出 List 範圍時產生錯誤。</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>要查詢的 List。</td>
+</tr>
+<tr>
+<td>Index</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Item 位置，必須為非負整數。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Item</td>
+<td>Value</td>
+<td>—</td>
+<td>指定位置的原始資料。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="sub-list">Sub List</h3>
+<p>取得 Start 至 End 之間的 Items，結果包含 Start、但不包含 End。</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>要擷取的 List。</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>起始 Index，必須為非負整數。</td>
+</tr>
+<tr>
+<td>End</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>結束 Index，必須為非負整數且不包含在結果中。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>指定範圍內的 Items。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="by-pattern">By Pattern</h3>
+<p>依 Boolean Pattern 篩選 Items。Pattern 短於 List 時會循環使用；Pattern 為空或包含非 Boolean 資料時產生錯誤。</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>要篩選的 List。</td>
+</tr>
+<tr>
+<td>Pattern</td>
+<td>Boolean List</td>
+<td>—</td>
+<td><code>true</code> 保留對應 Item，<code>false</code> 排除對應 Item。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>Pattern 篩選後的 List。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="list-length">List Length</h3>
+<p>取得 List 的 Item 數量。</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>要計算的 List。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Length</td>
+<td>Number</td>
+<td>—</td>
+<td>List 中的 Item 數量。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="edit"><em><strong>Edit</strong></em></h2>
+<h3 id="reverse">Reverse</h3>
+<p>反轉 List 的 Item 順序。</p>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>要反轉的 List。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-9">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>順序反轉後的 List。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="shuffle">Shuffle</h3>
+<p>隨機重排 List 的 Item 順序。此節點沒有 Seed，每次重新運算可能得到不同結果。</p>
+<h4 id="input-10">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>要重新排列的 List。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-10">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>隨機排列後的 List。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="add"><em><strong>Add</strong></em></h2>
+<h3 id="insert-items">Insert Items</h3>
+<p>將 Items 插入指定 Indexes。Index 等於 List 長度時會加在末端；超出範圍的 Index 不會插入資料。</p>
+<h4 id="input-11">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>原始 List。</td>
+</tr>
+<tr>
+<td>Items</td>
+<td>List</td>
+<td>—</td>
+<td>要插入的 Items。</td>
+</tr>
+<tr>
+<td>Indexes</td>
+<td>Number List</td>
+<td>—</td>
+<td>插入位置，必須為非負整數。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-11">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>插入完成的 List。</td>
+</tr>
+</tbody>
+</table>
+<p>配對方式：</p>
+<ul>
+<li>一個 Item 與多個 Indexes：將同一個 Item 插入每個位置。</li>
+<li>多個 Items 與一個 Index：由該位置依序插入全部 Items。</li>
+<li>Items 與 Indexes 數量相同：依序一對一插入，Indexes 必須由小到大排列。</li>
+<li>其他數量組合會產生錯誤。</li>
+</ul>
+<hr>
+<h2 id="remove"><em><strong>Remove</strong></em></h2>
+<h3 id="remove-items">Remove Items</h3>
+<p>依 Indexes 移除 Items。超出 List 範圍的 Index 會被忽略。</p>
+<h4 id="input-12">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>原始 List。</td>
+</tr>
+<tr>
+<td>Indexes</td>
+<td>Number List</td>
+<td>—</td>
+<td>要移除的位置，必須為非負整數。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-12">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>移除指定 Items 後的 List。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="remove-duplicates">Remove Duplicates</h3>
+<p>使用嚴格相等比較移除重複 Items，並保留第一次出現的資料。Object 只有在參考相同時才視為重複。</p>
+<h4 id="input-13">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>要去除重複資料的 List。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-13">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>List</td>
+<td>—</td>
+<td>保留第一次出現 Item 的 List。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="sorting"><em><strong>Sorting</strong></em></h2>
+<h3 id="sort-numbers">Sort Numbers</h3>
+<p>依數值大小排列 Number List。List 中包含非有限 Number 時會產生錯誤。</p>
+<h4 id="input-14">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>Number List</td>
+<td>—</td>
+<td>要排序的有限 Number List。</td>
+</tr>
+<tr>
+<td>Ascending</td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td><code>true</code> 為升冪，<code>false</code> 為降冪。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-14">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>Number List</td>
+<td>—</td>
+<td>排序後的 Number List。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="sort-texts">Sort Texts</h3>
+<p>依 JavaScript 字串順序排列 Text List。List 中包含非 Text 資料時會產生錯誤。</p>
+<h4 id="input-15">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>Text List</td>
+<td>—</td>
+<td>要排序的 Text List。</td>
+</tr>
+<tr>
+<td>Ascending</td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td><code>true</code> 為升冪，<code>false</code> 為降冪。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-15">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>List</td>
+<td>Text List</td>
+<td>—</td>
+<td>排序後的 Text List。</td>
+</tr>
+</tbody>
+</table>

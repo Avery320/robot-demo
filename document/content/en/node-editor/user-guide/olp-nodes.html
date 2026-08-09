@@ -1,0 +1,683 @@
+<h1 id="olp">OLP</h1>
+<p>OLP Nodes turn Planes or Joint Targets into robot instructions that RoboSim can calculate, preview, or play back. A Plane defines the target position and orientation, a Joint Target defines six joint values, and Program Settings defines the start and end states used for calculation.</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="joint">Joint</h3>
+<p>Creates a Joint Target from six joint values. This Node creates joint data only; it does not define Speed, Zone, or a motion type.</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint 1</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Joint value for axis 1, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 2</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Joint value for axis 2, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 3</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Joint value for axis 3, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 4</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Joint value for axis 4, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 5</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Joint value for axis 5, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 6</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Joint value for axis 6, in degrees.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint Target</td>
+<td>OLP Joint Target</td>
+<td>—</td>
+<td>Target data containing all six joint values.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="start--end-settings">Start / End Settings</h3>
+<p>Defines the start and end states used for OLP calculation.</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Joint</td>
+<td>OLP Joint Target</td>
+<td>—</td>
+<td>Joint state at the beginning of the program.</td>
+</tr>
+<tr>
+<td>End Joint</td>
+<td>OLP Joint Target</td>
+<td>—</td>
+<td>Joint state at the end of the program.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Program Settings</td>
+<td>OLP Program Settings</td>
+<td>—</td>
+<td>Calculation settings containing the Start Joint and End Joint.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="movej">MoveJ</h3>
+<p>Creates a joint-interpolated instruction from a Plane. The robot moves to the target in joint space; the TCP path is not guaranteed to be linear.</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Target position and orientation for the robot.</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Number</td>
+<td><code>100</code></td>
+<td>TCP translational speed in mm/s. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Rotation Speed</td>
+<td>Number</td>
+<td><code>π</code></td>
+<td>TCP rotational speed in rad/s. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>Number</td>
+<td><code>50</code></td>
+<td>Path blending distance in mm; <code>0</code> specifies an exact stop.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>MoveJ instruction.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control">Control</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool Frame</td>
+<td>Select</td>
+<td>Tool Frames from the Ribbon</td>
+<td>Specifies which TCP the Plane represents. A new Node uses the currently active Tool Frame by default.</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Select</td>
+<td>Auto</td>
+<td>Allows the OLP solver to select the joint configuration automatically.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>None</td>
+<td>Does not specify a Shoulder, Elbow, or Wrist configuration.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder</td>
+<td>Specifies the Shoulder configuration.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Elbow</td>
+<td>Specifies the Elbow configuration.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Wrist</td>
+<td>Specifies the Wrist configuration.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder + Elbow</td>
+<td>Specifies both the Shoulder and Elbow configurations.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder + Wrist</td>
+<td>Specifies both the Shoulder and Wrist configurations.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Elbow + Wrist</td>
+<td>Specifies both the Elbow and Wrist configurations.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder + Elbow + Wrist</td>
+<td>Specifies the Shoulder, Elbow, and Wrist configurations.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="movel">MoveL</h3>
+<p>Creates a linearly interpolated instruction from a Plane. OLP samples the Cartesian path and solves the joint state at each sample.</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Target position and orientation for the robot.</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Number</td>
+<td><code>100</code></td>
+<td>TCP translational speed in mm/s. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Rotation Speed</td>
+<td>Number</td>
+<td><code>π</code></td>
+<td>TCP rotational speed in rad/s. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>Number</td>
+<td><code>50</code></td>
+<td>Path blending distance in mm; <code>0</code> specifies an exact stop.</td>
+</tr>
+<tr>
+<td>Segments</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Fixed number of sampling segments. Values greater than <code>0</code> use a fixed segment count; <code>0</code> calculates the count from Step Size.</td>
+</tr>
+<tr>
+<td>Step Size</td>
+<td>Number</td>
+<td><code>0.01</code></td>
+<td>Sampling interval used when Segments is <code>0</code>, entered in the current project display unit.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>MoveL instruction.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-2">Control</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool Frame</td>
+<td>Select</td>
+<td>Tool Frames from the Ribbon</td>
+<td>Specifies which TCP the Plane represents. A new Node uses the currently active Tool Frame by default.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="moveabsj">MoveAbsJ</h3>
+<p>Creates an absolute joint-motion instruction from six joint values.</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint 1</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Target angle for axis 1, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 2</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Target angle for axis 2, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 3</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Target angle for axis 3, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 4</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Target angle for axis 4, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 5</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Target angle for axis 5, in degrees.</td>
+</tr>
+<tr>
+<td>Joint 6</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Target angle for axis 6, in degrees.</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Number</td>
+<td><code>100</code></td>
+<td>Translational speed setting in mm/s. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Rotation Speed</td>
+<td>Number</td>
+<td><code>π</code></td>
+<td>Rotational speed setting in rad/s. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>Number</td>
+<td><code>50</code></td>
+<td>Path blending distance in mm; <code>0</code> specifies an exact stop.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>MoveAbsJ instruction.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="wait">Wait</h3>
+<p>Creates an instruction that waits for a specified duration.</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Duration</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>Wait duration in seconds. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>Wait instruction.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="do">DO</h3>
+<p>Creates an instruction that sets a Digital Output.</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Channel</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>Digital Output channel. Must be an integer greater than or equal to <code>1</code>.</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>Output state assigned to the channel.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>Digital Output instruction.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execute"><em><strong>Execute</strong></em></h2>
+<h3 id="calculate">Calculate</h3>
+<p>Combines one or more OLP Instructions into a program in input order, then calculates the program using the current Station, Robot, and Program Settings. Calculate does not run automatically; click Run to start the calculation.</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instructions</td>
+<td>OLP Instruction List</td>
+<td>—</td>
+<td>Instructions executed in order. They must be supplied in a single List containing at least one Instruction.</td>
+</tr>
+<tr>
+<td>Program Settings</td>
+<td>OLP Program Settings</td>
+<td>Start / End Joints 1–6 are all <code>0</code></td>
+<td>Defines the program's start and end joint states. When disconnected, fixed zero values are used.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>OLP Result</td>
+<td>—</td>
+<td>Completed calculation result used by Playback.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-3">Control</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run</td>
+<td>Action</td>
+<td>—</td>
+<td>Calculates the OLP program using the current Instructions and Program Settings.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="robot-preview">Robot Preview</h3>
+<p>Applies a single motion instruction directly to the Viewport Robot for a quick preview of a MoveJ, MoveL, or MoveAbsJ target state. This Node does not perform a complete OLP calculation and does not produce a Result.</p>
+<ul>
+<li>MoveJ / MoveL: Uses the instruction's Plane and Tool Frame to update the Robot through the Viewport TCP controls and IK solver.</li>
+<li>MoveAbsJ: Applies the six joint values directly to the Viewport Robot.</li>
+</ul>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>One MoveJ, MoveL, or MoveAbsJ instruction.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-4">Control</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run</td>
+<td>Action</td>
+<td>—</td>
+<td>Immediately updates the Viewport Robot and joint display. An error is shown if Program Playback is active or the target cannot be applied.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="playback">Playback</h3>
+<p>Plays an OLP Result produced by Calculate. The Result must still exist in the current execution session. After recalculation, use the new Result.</p>
+<h4 id="input-10">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>OLP Result</td>
+<td>—</td>
+<td>Completed calculation result from Calculate.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-5">Control</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run / Pause</td>
+<td>Action</td>
+<td>—</td>
+<td>Loads the Result and toggles playback or pause.</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Select</td>
+<td><code>0.5x</code>, <code>1x</code>, <code>2x</code>, <code>5x</code>, <code>20x</code>, <code>50x</code>, <code>100x</code>, <code>200x</code></td>
+<td>Sets the playback speed. The default is <code>5x</code>.</td>
+</tr>
+<tr>
+<td>Timeline</td>
+<td>Slider</td>
+<td><code>0</code> to the total Result duration</td>
+<td>Adjusts the playback time. Interaction pauses playback and uses an interval of <code>0.01</code>.</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,452 @@
+<h1 id="point">Point</h1>
+<p>A Point represents a position in three-dimensional space. Point Nodes create, measure, deconstruct, and organize positional data. Coordinates, distances, and tolerances use the current project length unit for input and display.</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="point-xyz">Point XYZ</h3>
+<p>Creates a Point from X, Y, and Z coordinates.</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Coordinate on the X axis.</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Coordinate on the Y axis.</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>Coordinate on the Z axis.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>The resulting position in three-dimensional space.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="normal-from-three-points">Normal From Three Points</h3>
+<p>Calculates a normal vector from three Points. The input order determines its direction. The calculation fails if any input Points coincide or all three Points are collinear.</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point 1</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>First reference Point.</td>
+</tr>
+<tr>
+<td>Point 2</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Second reference Point.</td>
+</tr>
+<tr>
+<td>Point 3</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Third reference Point.</td>
+</tr>
+<tr>
+<td>Reverse Normal</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Reverses the normal vector when enabled.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal</td>
+<td>Vector</td>
+<td>—</td>
+<td>Unit vector perpendicular to the plane defined by the three Points.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="measure"><em><strong>Measure</strong></em></h2>
+<h3 id="point-distance">Point Distance</h3>
+<p>Measures the straight-line distance between Start Point and End Point.</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Starting position of the measurement.</td>
+</tr>
+<tr>
+<td>End Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Ending position of the measurement.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Distance</td>
+<td>Number</td>
+<td>—</td>
+<td>Distance between the two Points.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="extract"><em><strong>Extract</strong></em></h2>
+<h3 id="deconstruct-point">Deconstruct Point</h3>
+<p>Returns the X, Y, and Z coordinates of the input position.</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Position to deconstruct.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>Number</td>
+<td>—</td>
+<td>Coordinate on the X axis.</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>Number</td>
+<td>—</td>
+<td>Coordinate on the Y axis.</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>Number</td>
+<td>—</td>
+<td>Coordinate on the Z axis.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="average-point">Average Point</h3>
+<p>Calculates the average position of all Points in a Point List. The input List cannot be empty.</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>Point List whose average position will be calculated.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>Average of all input positions.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="closest-point">Closest Point</h3>
+<p>Finds the item in a Point List that is closest to a specified position. If multiple items are equally close, the first item is returned.</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>Non-empty Point List to search.</td>
+</tr>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Reference position for the search.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td>—</td>
+<td>Item closest to the reference position.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="closest-point-distance">Closest Point Distance</h3>
+<p>Measures the distance between a specified position and the closest item in a Point List. The input List cannot be empty.</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>Non-empty Point List to search.</td>
+</tr>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Reference position for the search.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Distance</td>
+<td>Number</td>
+<td>—</td>
+<td>Distance between the reference position and the closest item.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="closest-point-index">Closest Point Index</h3>
+<p>Returns the Index of the closest item in a Point List. Indexes are zero-based. If multiple items are equally close, the first Index is returned.</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>Non-empty Point List to search.</td>
+</tr>
+<tr>
+<td>Point</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Reference position for the search.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Index</td>
+<td>Number</td>
+<td>—</td>
+<td>Position of the closest item in the input List.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="clean"><em><strong>Clean</strong></em></h2>
+<h3 id="remove-consecutive-point-duplicates">Remove Consecutive Point Duplicates</h3>
+<p>Removes adjacent duplicate Points within a specified Tolerance. Duplicate items that are not adjacent are preserved.</p>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>Point List to clean.</td>
+</tr>
+<tr>
+<td>Tolerance</td>
+<td>Number</td>
+<td><code>0.0000001</code></td>
+<td>Tolerance used to identify duplicate positions. Must be greater than or equal to <code>0</code>.</td>
+</tr>
+<tr>
+<td>Check First And Last</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Also compares the first and last items when enabled. If they are duplicates, the last item is removed.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-9">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points</td>
+<td>Point List</td>
+<td>—</td>
+<td>List after adjacent duplicate items have been removed.</td>
+</tr>
+</tbody>
+</table>

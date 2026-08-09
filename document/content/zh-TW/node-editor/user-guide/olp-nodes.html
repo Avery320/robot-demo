@@ -1,0 +1,683 @@
+<h1 id="olp">OLP</h1>
+<p>OLP 節點將 Plane 或 Joint Target 組成機器人指令，再由 RoboSim 計算、預覽或播放。Plane 提供目標位置與姿態；Joint Target 提供六軸關節值；Program Settings 設定計算使用的起點與終點。</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="joint">Joint</h3>
+<p>由六個關節值建立 Joint Target。本節點只建立關節資料，不包含 Speed、Zone 或運動方式。</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint 1</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第一軸關節值，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 2</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第二軸關節值，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 3</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第三軸關節值，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 4</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第四軸關節值，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 5</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第五軸關節值，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 6</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第六軸關節值，單位為 degree。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint Target</td>
+<td>OLP Joint Target</td>
+<td>—</td>
+<td>包含六軸關節值的目標資料。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="start--end-settings">Start / End Settings</h3>
+<p>設定 OLP 計算的起始與結束姿態。</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Start Joint</td>
+<td>OLP Joint Target</td>
+<td>—</td>
+<td>程式開始時的關節姿態。</td>
+</tr>
+<tr>
+<td>End Joint</td>
+<td>OLP Joint Target</td>
+<td>—</td>
+<td>程式結束時的關節姿態。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Program Settings</td>
+<td>OLP Program Settings</td>
+<td>—</td>
+<td>包含 Start Joint 與 End Joint 的計算設定。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="movej">MoveJ</h3>
+<p>由 Plane 建立關節插補指令。機器人以關節空間移動至目標，TCP 路徑不保證為直線。</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>機器人目標位置與姿態。</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Number</td>
+<td><code>100</code></td>
+<td>TCP 平移速度，單位為 mm/s，必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td>Rotation Speed</td>
+<td>Number</td>
+<td><code>π</code></td>
+<td>TCP 旋轉速度，單位為 rad/s，必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>Number</td>
+<td><code>50</code></td>
+<td>路徑轉接距離，單位為 mm；<code>0</code> 表示精準停點。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>MoveJ 指令。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool Frame</td>
+<td>Select</td>
+<td>Ribbon 的 Tool Frame 清單</td>
+<td>指定 Plane 所代表的 TCP。新節點預設使用目前啟用的 Tool Frame。</td>
+</tr>
+<tr>
+<td>Configuration</td>
+<td>Select</td>
+<td>Auto</td>
+<td>由 OLP 求解器自動選擇關節組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>None</td>
+<td>不指定 Shoulder、Elbow 或 Wrist 組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder</td>
+<td>指定 Shoulder 組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Elbow</td>
+<td>指定 Elbow 組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Wrist</td>
+<td>指定 Wrist 組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder + Elbow</td>
+<td>同時指定 Shoulder 與 Elbow 組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder + Wrist</td>
+<td>同時指定 Shoulder 與 Wrist 組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Elbow + Wrist</td>
+<td>同時指定 Elbow 與 Wrist 組態。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Shoulder + Elbow + Wrist</td>
+<td>同時指定 Shoulder、Elbow 與 Wrist 組態。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="movel">MoveL</h3>
+<p>由 Plane 建立線性插補指令。OLP 會沿 Cartesian 路徑取樣並求解各取樣點的關節姿態。</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>機器人目標位置與姿態。</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Number</td>
+<td><code>100</code></td>
+<td>TCP 平移速度，單位為 mm/s，必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td>Rotation Speed</td>
+<td>Number</td>
+<td><code>π</code></td>
+<td>TCP 旋轉速度，單位為 rad/s，必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>Number</td>
+<td><code>50</code></td>
+<td>路徑轉接距離，單位為 mm；<code>0</code> 表示精準停點。</td>
+</tr>
+<tr>
+<td>Segments</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>固定取樣段數。大於 <code>0</code> 時使用固定段數；<code>0</code> 表示依 Step Size 計算。</td>
+</tr>
+<tr>
+<td>Step Size</td>
+<td>Number</td>
+<td><code>0.01</code></td>
+<td>Segments 為 <code>0</code> 時使用的取樣間距，依專案長度顯示單位輸入。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>MoveL 指令。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-2">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tool Frame</td>
+<td>Select</td>
+<td>Ribbon 的 Tool Frame 清單</td>
+<td>指定 Plane 所代表的 TCP。新節點預設使用目前啟用的 Tool Frame。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="moveabsj">MoveAbsJ</h3>
+<p>由六個關節值建立絕對關節運動指令。</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Joint 1</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第一軸目標角度，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 2</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第二軸目標角度，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 3</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第三軸目標角度，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 4</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第四軸目標角度，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 5</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第五軸目標角度，單位為 degree。</td>
+</tr>
+<tr>
+<td>Joint 6</td>
+<td>Number</td>
+<td><code>0</code></td>
+<td>第六軸目標角度，單位為 degree。</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Number</td>
+<td><code>100</code></td>
+<td>平移速度設定，單位為 mm/s，必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td>Rotation Speed</td>
+<td>Number</td>
+<td><code>π</code></td>
+<td>旋轉速度設定，單位為 rad/s，必須大於或等於 <code>0</code>。</td>
+</tr>
+<tr>
+<td>Zone</td>
+<td>Number</td>
+<td><code>50</code></td>
+<td>路徑轉接距離，單位為 mm；<code>0</code> 表示精準停點。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>MoveAbsJ 指令。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="wait">Wait</h3>
+<p>建立等待指定時間的指令。</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Duration</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>等待時間，單位為秒，必須大於或等於 <code>0</code>。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>Wait 指令。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="do">DO</h3>
+<p>建立設定 Digital Output 的指令。</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Channel</td>
+<td>Number</td>
+<td><code>1</code></td>
+<td>Digital Output channel，必須為大於或等於 <code>1</code> 的整數。</td>
+</tr>
+<tr>
+<td>Value</td>
+<td>Boolean</td>
+<td><code>true</code></td>
+<td>設定該 channel 的輸出狀態。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>Digital Output 指令。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="execute"><em><strong>Execute</strong></em></h2>
+<h3 id="calculate">Calculate</h3>
+<p>依輸入順序將一個以上的 OLP Instructions 組成程式，並使用目前的 Station、Robot 與 Program Settings 進行計算。Calculate 不會自動執行，必須按下 Run。</p>
+<h4 id="input-8">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instructions</td>
+<td>OLP Instruction List</td>
+<td>—</td>
+<td>依序執行的指令。必須位於單一 List，且至少包含一個 Instruction。</td>
+</tr>
+<tr>
+<td>Program Settings</td>
+<td>OLP Program Settings</td>
+<td>Start／End Joint 1–6 均為 <code>0</code></td>
+<td>設定程式開始與結束的關節姿態；未連線時使用固定零值。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-8">Output</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>OLP Result</td>
+<td>—</td>
+<td>計算完成後提供給 Playback 使用的結果。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-3">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run</td>
+<td>Action</td>
+<td>—</td>
+<td>使用目前的 Instructions 與 Program Settings 執行 OLP 計算。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="robot-preview">Robot Preview</h3>
+<p>將單一運動指令直接套用至 Viewport Robot，用於快速查看 MoveJ、MoveL 或 MoveAbsJ 的目標姿態。此節點不執行完整 OLP 計算，也不產生 Result。</p>
+<ul>
+<li>MoveJ／MoveL：使用指令中的 Plane 與 Tool Frame，透過 Viewport 的 TCP 控制與 IK 求解更新 Robot。</li>
+<li>MoveAbsJ：將六軸關節值直接套用至 Viewport Robot。</li>
+</ul>
+<h4 id="input-9">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Instruction</td>
+<td>OLP Instruction</td>
+<td>—</td>
+<td>一個 MoveJ、MoveL 或 MoveAbsJ 指令。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-4">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run</td>
+<td>Action</td>
+<td>—</td>
+<td>立即更新 Viewport Robot 與 Joint 顯示。Program Playback 執行中或目標無法套用時會顯示錯誤。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="playback">Playback</h3>
+<p>播放 Calculate 產生的 OLP Result。Result 必須仍存在於目前執行階段；重新計算後應使用新的 Result。</p>
+<h4 id="input-10">Input</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>型別</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Result</td>
+<td>OLP Result</td>
+<td>—</td>
+<td>Calculate 已完成的計算結果。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="control-5">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Run / Pause</td>
+<td>Action</td>
+<td>—</td>
+<td>載入 Result，並切換播放或暫停。</td>
+</tr>
+<tr>
+<td>Speed</td>
+<td>Select</td>
+<td><code>0.5x</code>、<code>1x</code>、<code>2x</code>、<code>5x</code>、<code>20x</code>、<code>50x</code>、<code>100x</code>、<code>200x</code></td>
+<td>設定播放速度，預設為 <code>5x</code>。</td>
+</tr>
+<tr>
+<td>Timeline</td>
+<td>Slider</td>
+<td><code>0</code> 至 Result 總時間</td>
+<td>調整播放時間；操作時會暫停播放，間隔為 <code>0.01</code>。</td>
+</tr>
+</tbody>
+</table>

@@ -1,0 +1,345 @@
+<h1 id="plane">Plane</h1>
+<p>A Plane represents a position and orientation in three-dimensional space using an Origin, a Direction for its X axis, and a Normal for its Z axis. Planes can define geometry operations and robot target poses. Results can be previewed in the Viewport or baked into the project.</p>
+<h2 id="create"><em><strong>Create</strong></em></h2>
+<h3 id="construct-plane">Construct Plane</h3>
+<p>Creates a Plane from an Origin, Normal, and Direction. Normal specifies the Z axis, while Direction specifies the X-axis direction. Neither direction can be zero, and they cannot be parallel.</p>
+<h4 id="input">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Origin position.</td>
+</tr>
+<tr>
+<td>Normal</td>
+<td>Vector</td>
+<td><code>[0, 0, 1]</code></td>
+<td>Direction of the Z axis.</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Vector</td>
+<td><code>[1, 0, 0]</code></td>
+<td>Direction of the X axis.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Result that can be connected to another Node requiring a Plane.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="xy-plane">XY Plane</h3>
+<p>Creates a Plane at a specified position, aligned with the world XY plane.</p>
+<h4 id="input-2">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Position at which to create the Plane.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-2">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Result aligned with the world XY plane.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="xz-plane">XZ Plane</h3>
+<p>Creates a Plane at a specified position, aligned with the world XZ plane.</p>
+<h4 id="input-3">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Position at which to create the Plane.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-3">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Result aligned with the world XZ plane.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="yz-plane">YZ Plane</h3>
+<p>Creates a Plane at a specified position, aligned with the world YZ plane.</p>
+<h4 id="input-4">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Position at which to create the Plane.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-4">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Result aligned with the world YZ plane.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="plane-3pt">Plane 3Pt</h3>
+<p>Uses three Points to define an Origin, X-axis direction, and orientation. A Plane cannot be created if any input Points coincide or all three Points are collinear.</p>
+<h4 id="input-5">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Point 1</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Defines the Origin.</td>
+</tr>
+<tr>
+<td>Point 2</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Defines the X-axis direction together with Point 1.</td>
+</tr>
+<tr>
+<td>Point 3</td>
+<td>Point</td>
+<td><code>(0, 0, 0)</code></td>
+<td>Defines the orientation.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-5">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Result created from the three Points.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="edit"><em><strong>Edit</strong></em></h2>
+<h3 id="flip-plane">Flip Plane</h3>
+<p>Adjusts the axis directions of a Plane. The X and Y axes can be reversed independently, or the two axes can be swapped.</p>
+<h4 id="input-6">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Data to adjust.</td>
+</tr>
+<tr>
+<td>Reverse X</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Reverses the X axis when enabled.</td>
+</tr>
+<tr>
+<td>Reverse Y</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Reverses the Y axis when enabled.</td>
+</tr>
+<tr>
+<td>Swap Axes</td>
+<td>Boolean</td>
+<td><code>false</code></td>
+<td>Swaps the X and Y axes when enabled.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-6">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Result after the axes have been adjusted.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="get"><em><strong>Get</strong></em></h2>
+<h3 id="deconstruct-plane">Deconstruct Plane</h3>
+<p>Returns the Origin, Normal, and Direction separately for use by downstream Nodes.</p>
+<h4 id="input-7">Input</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td>Plane</td>
+<td>—</td>
+<td>Data to deconstruct.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="output-7">Output</h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Default / Options</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Origin</td>
+<td>Point</td>
+<td>—</td>
+<td>Origin position.</td>
+</tr>
+<tr>
+<td>Normal</td>
+<td>Vector</td>
+<td>—</td>
+<td>Direction of the Z axis.</td>
+</tr>
+<tr>
+<td>Direction</td>
+<td>Vector</td>
+<td>—</td>
+<td>Direction of the X axis.</td>
+</tr>
+</tbody>
+</table>
