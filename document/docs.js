@@ -3,11 +3,13 @@ const DEFAULT_LANGUAGE = 'zh-TW';
 const LANGUAGE_TEXT = {
   'zh-TW': {
     loading: '正在載入文件…',
+    navigation: '文件導覽',
     search: '搜尋文件、Group、Node',
     loadError: '無法讀取',
   },
   en: {
     loading: 'Loading documentation…',
+    navigation: 'Documentation',
     search: 'Search documents, groups, and nodes',
     loadError: 'Unable to load',
   },
@@ -20,12 +22,18 @@ const text = LANGUAGE_TEXT[language];
 
 const siteTitle = document.querySelector('.site-title');
 const languageSelect = document.querySelector('#language-select');
+const navigationToggle = document.querySelector('#navigation-toggle');
 const navigation = document.querySelector('#document-navigation');
 const navigationSearch = document.querySelector('#navigation-search');
 const content = document.querySelector('#document-content');
 
 let homeDocument;
 let documents;
+
+function setNavigationOpen(open) {
+  document.body.classList.toggle('navigation-open', open);
+  navigationToggle.setAttribute('aria-expanded', String(open));
+}
 
 function websiteUrl(path, hash = '') {
   const url = new URL(window.location.href);
@@ -63,7 +71,9 @@ function createTreeItem(label, children = [], target = null, searchText = label)
     labelElement.dataset.heading = target.hash;
   }
   if (children.length) {
+    item.classList.add('tree-parent');
     const summary = document.createElement('summary');
+    summary.setAttribute('aria-label', label);
     summary.append(labelElement);
     const list = document.createElement('div');
     list.className = 'tree-children';
@@ -163,7 +173,7 @@ function setActiveNavigation(path, hash = '') {
   headingLink?.setAttribute('aria-current', 'location');
   const activeLink = headingLink || documentLink;
   if (!activeLink) return;
-  for (let item = activeLink.parentElement; item; item = item.parentElement) {
+  for (let item = activeLink.closest('.tree-item')?.parentElement; item; item = item.parentElement) {
     if (item.matches('details.tree-item')) item.open = true;
   }
   activeLink.scrollIntoView({ block: 'nearest' });
@@ -210,6 +220,7 @@ async function initialize() {
   try {
     document.documentElement.lang = language;
     languageSelect.value = language;
+    navigationToggle.setAttribute('aria-label', text.navigation);
     navigationSearch.placeholder = text.search;
     navigationSearch.setAttribute('aria-label', text.search);
     content.querySelector('.document-state').textContent = text.loading;
@@ -231,8 +242,15 @@ document.addEventListener('click', (event) => {
   const link = event.target.closest('a[data-document]');
   if (link) {
     event.preventDefault();
+    setNavigationOpen(false);
     navigate(link.dataset.document, link.dataset.heading);
   }
+});
+navigationToggle.addEventListener('click', () => {
+  setNavigationOpen(!document.body.classList.contains('navigation-open'));
+});
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') setNavigationOpen(false);
 });
 navigationSearch.addEventListener('input', filterNavigation);
 languageSelect.addEventListener('change', () => {
