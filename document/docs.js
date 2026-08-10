@@ -59,17 +59,15 @@ async function loadDocument(path) {
   documentData.html = await response.text();
 }
 
-function createTreeItem(label, children = [], target = null, searchText = label) {
+function createTreeItem(label, target, children = [], searchText = label) {
   const item = document.createElement(children.length ? 'details' : 'div');
   item.className = 'tree-item';
   item.dataset.search = searchText.toLocaleLowerCase();
-  const labelElement = document.createElement(target ? 'a' : 'span');
+  const labelElement = document.createElement('a');
   labelElement.textContent = label;
-  if (target) {
-    labelElement.href = websiteUrl(target.path, target.hash);
-    labelElement.dataset.document = target.path;
-    labelElement.dataset.heading = target.hash;
-  }
+  labelElement.href = websiteUrl(target.path, target.hash);
+  labelElement.dataset.document = target.path;
+  labelElement.dataset.heading = target.hash;
   if (children.length) {
     item.classList.add('tree-parent');
     const summary = document.createElement('summary');
@@ -98,7 +96,6 @@ function documentTree(path) {
     } else if (group) {
       group.nodes.push(createTreeItem(
         heading.text,
-        [],
         { path, hash: heading.id },
       ));
     }
@@ -106,13 +103,13 @@ function documentTree(path) {
 
   const children = groups.map(({ heading, nodes }) => createTreeItem(
     heading.text,
-    nodes,
     { path, hash: heading.id },
+    nodes,
   ));
   return createTreeItem(
     documentData.title,
-    children,
     { path, hash: '' },
+    children,
     `${documentData.title} ${path.split('/').pop()}`,
   );
 }
@@ -121,10 +118,10 @@ function renderNavigation(sections) {
   const list = document.createElement('div');
   list.className = 'navigation-tree';
   const homeTitle = documents.get(homeDocument).title;
-  list.append(createTreeItem(homeTitle, [], { path: homeDocument, hash: '' }, homeDocument));
+  list.append(createTreeItem(homeTitle, { path: homeDocument, hash: '' }, [], homeDocument));
   sections.forEach(({ name, id, documents: paths }) => {
     const children = paths.map(documentTree);
-    const section = createTreeItem(name, children, { path: homeDocument, hash: id });
+    const section = createTreeItem(name, { path: homeDocument, hash: id }, children);
     section.open = true;
     list.append(section);
   });

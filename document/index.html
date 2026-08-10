@@ -110,8 +110,8 @@
       justify-self: center;
     }
     .tree-parent[open] > summary::before { transform: rotate(90deg); }
-    .tree-item > :is(a, span),
-    .tree-parent > summary > :is(a, span) {
+    .tree-item > a,
+    .tree-parent > summary > a {
       display: flex;
       min-width: 0;
       align-items: center;
@@ -193,8 +193,8 @@
       }
       .site-layout { display: block; }
       .tree-parent > summary { grid-template-columns: 40px minmax(0, 1fr); }
-      .tree-item > :is(a, span),
-      .tree-parent > summary > :is(a, span) { min-height: 40px; }
+      .tree-item > a,
+      .tree-parent > summary > a { min-height: 40px; }
       .tree-leaf { padding-left: 40px; }
       .sidebar {
         position: fixed;

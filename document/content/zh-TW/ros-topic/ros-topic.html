@@ -1,0 +1,297 @@
+<h1 id="ros-topic">ROS Topic</h1>
+<p>ROS Topic Node 將 ROS 2 Message 顯示於 RoboSim。每個 Node 保留 Topic Name 與 Message Type，並在 Inspector 提供對應的顯示設定。</p>
+<table>
+<thead>
+<tr>
+<th>Node</th>
+<th>支援的 Message Type</th>
+<th>顯示位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TF</td>
+<td><code>tf2_msgs/msg/TFMessage</code></td>
+<td>Viewport</td>
+</tr>
+<tr>
+<td>Pose</td>
+<td><code>geometry_msgs/msg/Pose</code>、<code>geometry_msgs/msg/PoseStamped</code></td>
+<td>Viewport</td>
+</tr>
+<tr>
+<td>Image</td>
+<td><code>sensor_msgs/msg/Image</code></td>
+<td>Camera</td>
+</tr>
+<tr>
+<td>Compressed Image</td>
+<td><code>sensor_msgs/msg/CompressedImage</code></td>
+<td>Camera</td>
+</tr>
+<tr>
+<td>Marker</td>
+<td><code>visualization_msgs/msg/Marker</code></td>
+<td>Viewport</td>
+</tr>
+<tr>
+<td>Marker Array</td>
+<td><code>visualization_msgs/msg/MarkerArray</code></td>
+<td>Viewport</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transform"><em><strong>Transform</strong></em></h2>
+<h3 id="tf">TF</h3>
+<p>顯示 ROS Frame 的名稱、座標軸與父子關係箭頭。RoboSim 會合併 <code>/tf</code> 與 <code>/tf_static</code> 的資料，因此一個 TF Node 即可顯示目前的 Frame 結構。</p>
+<h4 id="control">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>啟用或停止 TF 顯示。</td>
+</tr>
+<tr>
+<td>Show Names</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>顯示或隱藏 Frame 名稱。</td>
+</tr>
+<tr>
+<td>Show Axes</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>顯示或隱藏 Frame 座標軸。</td>
+</tr>
+<tr>
+<td>Show Arrows</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>顯示或隱藏父子 Frame 之間的箭頭。</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>調整名稱、座標軸與箭頭的顯示尺寸。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="pose"><em><strong>Pose</strong></em></h2>
+<h3 id="pose-2">Pose</h3>
+<p>以座標軸顯示位置與姿態。<code>Pose</code> 使用 World 座標；<code>PoseStamped</code> 會依 <code>header.frame_id</code> 轉換至 RoboSim World。</p>
+<p>當 <code>PoseStamped</code> 的 Frame 無法由 TF 解析時，該筆 Pose 不會顯示。</p>
+<h4 id="control-2">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>啟用或停止接收 Pose。</td>
+</tr>
+<tr>
+<td>Color</td>
+<td>Color</td>
+<td>專案預設顏色</td>
+<td>設定座標軸原點的顯示顏色與透明度。</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td>Number</td>
+<td><code>0.5</code></td>
+<td>調整 Pose 座標軸的顯示尺寸。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="image"><em><strong>Image</strong></em></h2>
+<h3 id="image-2">Image</h3>
+<p>顯示未壓縮的 ROS Image。建立 Node 後，畫面會出現在對應的 Camera 頁面。</p>
+<p>目前支援：</p>
+<ul>
+<li><code>rgb8</code></li>
+<li><code>bgr8</code></li>
+<li><code>rgba8</code></li>
+<li><code>bgra8</code></li>
+<li><code>mono8</code></li>
+</ul>
+<h4 id="control-3">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>啟用或停止接收影像。</td>
+</tr>
+<tr>
+<td>Fit</td>
+<td>Select</td>
+<td>Contain</td>
+<td>保留完整畫面，空白區域不裁切。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Cover</td>
+<td>填滿顯示區域，超出的部分會裁切。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Stretch</td>
+<td>拉伸影像以填滿顯示區域。</td>
+</tr>
+<tr>
+<td>Max FPS</td>
+<td>Number</td>
+<td><code>15</code></td>
+<td>限制畫面更新頻率。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="compressed-image">Compressed Image</h3>
+<p>顯示壓縮的 ROS Image。建立 Node 後，畫面會出現在對應的 Camera 頁面。</p>
+<p>目前支援 JPEG、JPG 與 PNG。</p>
+<h4 id="control-4">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>啟用或停止接收影像。</td>
+</tr>
+<tr>
+<td>Fit</td>
+<td>Select</td>
+<td>Contain</td>
+<td>保留完整畫面，空白區域不裁切。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Cover</td>
+<td>填滿顯示區域，超出的部分會裁切。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>Stretch</td>
+<td>拉伸影像以填滿顯示區域。</td>
+</tr>
+<tr>
+<td>Max FPS</td>
+<td>Number</td>
+<td><code>15</code></td>
+<td>限制畫面更新頻率。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="marker"><em><strong>Marker</strong></em></h2>
+<h3 id="marker-2">Marker</h3>
+<p>顯示單一 ROS Marker。位置會依 <code>header.frame_id</code> 轉換至 RoboSim World；Frame 無法解析時不顯示該 Marker。</p>
+<p>目前支援：</p>
+<ul>
+<li>Arrow</li>
+<li>Cube</li>
+<li>Sphere</li>
+<li>Cylinder</li>
+<li>Line Strip</li>
+<li>Line List</li>
+<li>Points</li>
+<li>Triangle List</li>
+</ul>
+<p>Marker 的 Add、Modify、Delete 與 Delete All 操作均會更新 Viewport；具有 Lifetime 的 Marker 會在期限後移除。</p>
+<h4 id="control-5">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>啟用或停止接收 Marker。</td>
+</tr>
+<tr>
+<td>Color</td>
+<td>Color</td>
+<td>Message 顏色</td>
+<td>覆寫 Marker 顏色與透明度；未設定時保留 Message 提供的顏色。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="marker-array">Marker Array</h3>
+<p>依 Message 順序顯示多個 ROS Markers。每個 Marker 使用自己的 namespace、id、Frame、形狀、顏色與 Lifetime。</p>
+<p>支援的形狀、操作與 Frame 規則和 Marker 相同。</p>
+<h4 id="control-6">Control</h4>
+<table>
+<thead>
+<tr>
+<th>名稱</th>
+<th>類型</th>
+<th>預設值／選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>Select</td>
+<td><code>true</code>、<code>false</code></td>
+<td>啟用或停止接收 Marker Array。</td>
+</tr>
+<tr>
+<td>Color</td>
+<td>Color</td>
+<td>Message 顏色</td>
+<td>覆寫所有 Marker 的顏色與透明度；未設定時保留各 Marker 的顏色。</td>
+</tr>
+</tbody>
+</table>

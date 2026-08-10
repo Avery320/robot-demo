@@ -1,0 +1,141 @@
+<h1 id="ros-操作指南">ROS 操作指南</h1>
+<p>ROS Topic 是使用 WebSocker 技術與 ROS2 後端進行連線，將 ROS Topic 顯示。</p>
+<h2 id="連線設定">連線設定</h2>
+<h3 id="選擇-bridge-與建立連線">選擇 Bridge 與建立連線</h3>
+<p>專案提供 ROS Bridge 與 Foxglove Bridge 兩種連接方法，點選 <code>Command/Ctrl + R</code> 開啟 Robot 設定，切換不同的連線方式。</p>
+<p>在 Ribbon 的 <strong>Robot</strong> 中，輸入 WebSocket URL，例如 <code>ws://localhost:9090</code>，進行連線，連線狀態會顯示於下方 log 中。</p>
+<table>
+<thead>
+<tr>
+<th>選項</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROS Bridge</td>
+<td>連接 rosbridge WebSocket。</td>
+</tr>
+<tr>
+<td>Foxglove Bridge</td>
+<td>連接 Foxglove Bridge WebSocket。</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="加入-ros-topic">加入 ROS Topic</h2>
+<h3 id="建立-topic-node">建立 Topic Node</h3>
+<ol>
+<li>先完成 ROS 連線。</li>
+<li>在 Station Tree 選擇要放置 Topic Node 的 Frame；未選擇適合的位置時，Node 會建立於 World。</li>
+<li>開啟 <strong>Tools &gt; ROS Topic</strong>。</li>
+<li>在 <strong>Topic Name</strong> 選擇 Topic。</li>
+<li>確認自動顯示的 <strong>Message Type</strong> 與 <strong>Display Type</strong>。</li>
+<li>點選 <strong>Add Topic</strong>。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>欄位</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Topic Name</td>
+<td>目前 Bridge 提供且 RoboSim 支援的 Topic。</td>
+</tr>
+<tr>
+<td>Message Type</td>
+<td>Topic 的 ROS 2 Message Type，由系統自動讀取。</td>
+</tr>
+<tr>
+<td>Display Type</td>
+<td>RoboSim 使用的顯示方式，由 Message Type 自動決定。</td>
+</tr>
+</tbody>
+</table>
+<p>Topic 清單只顯示目前支援的 Message Type。若清單顯示 <strong>ROS is not connected</strong>，請先建立連線；若顯示 <strong>No supported topics found</strong>，代表目前 ROS Graph 沒有可加入的 Topic。</p>
+<h2 id="topic-node-操作">Topic Node 操作</h2>
+<h3 id="inspector">Inspector</h3>
+<p>選擇 Station Tree 中的 ROS Topic Node，可在 Inspector 查看 Topic Name、Message Type 與 Display Type，並調整該顯示類型提供的設定。</p>
+<p>Topic Name、Message Type 與 Display Type 由建立時的 Topic 決定，不在 Inspector 中修改。需要更換 Topic 時，請刪除原 Node，再加入新的 Topic。</p>
+<h3 id="enabled-與-visible">Enabled 與 Visible</h3>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Enabled</td>
+<td>啟用或停止該 Node 接收與處理 Topic 資料。</td>
+</tr>
+<tr>
+<td>Visible</td>
+<td>使用 Station Tree 的眼睛圖示顯示或隱藏 Viewport 內容，不會停止 Topic 訂閱。</td>
+</tr>
+<tr>
+<td>Lock</td>
+<td>鎖定後無法修改 Inspector 設定。</td>
+</tr>
+</tbody>
+</table>
+<p>Image 與 Compressed Image 顯示於 Camera 頁面，不使用 Station Tree 的 Viewport Visible 狀態。</p>
+<h3 id="刪除-node">刪除 Node</h3>
+<p>刪除 ROS Topic Node 會停止該 Node 的 Topic 訂閱，並移除相關的 Viewport 或 Camera 顯示內容。</p>
+<h2 id="顯示方式">顯示方式</h2>
+<h3 id="viewport">Viewport</h3>
+<p>下列 Topic 會顯示於 3D Viewport：</p>
+<ul>
+<li>TF</li>
+<li>Pose</li>
+<li>Marker</li>
+<li>Marker Array</li>
+</ul>
+<p>PoseStamped、Marker 與 Marker Array 會使用 Message 的 <code>frame_id</code> 對齊 RoboSim 座標。若對應 Frame 尚未出現在 TF 中，該筆資料不會顯示。</p>
+<h3 id="camera">Camera</h3>
+<p>Image 與 Compressed Image 會建立 Camera 頁面。Camera 頁面可留在 ROS Topic 面板，也可移動至 Viewport 內容區域。</p>
+<h3 id="tf-graph">TF Graph</h3>
+<p>連線後可使用 TF Graph 查看目前接收到的 Frame 關係。TF Graph 讀取系統的 TF 資料，不需要建立額外的影像或 Marker Node。</p>
+<h2 id="專案存取">專案存取</h2>
+<p>RoboSim 專案會保存：</p>
+<ul>
+<li>選擇的 Bridge 與連線 URL。</li>
+<li>Station Tree 中的 ROS Topic Nodes。</li>
+<li>Enabled、顯示方式與各 Node 的調整值。</li>
+</ul>
+<p>專案不保存 ROS Message 內容。重新開啟專案後，必須連接 ROS，Topic Node 才能重新接收即時資料。</p>
+<h2 id="常見問題">常見問題</h2>
+<table>
+<thead>
+<tr>
+<th>狀況</th>
+<th>檢查方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Topic 清單無法選擇</td>
+<td>確認 ROS 已連線。</td>
+</tr>
+<tr>
+<td>找不到預期 Topic</td>
+<td>確認 Message Type 受 RoboSim 支援，並重新開啟 Topic 清單更新內容。</td>
+</tr>
+<tr>
+<td>Pose 或 Marker 沒有顯示</td>
+<td>確認 Message 的 <code>frame_id</code> 可由 TF 解析。</td>
+</tr>
+<tr>
+<td>Image 沒有畫面</td>
+<td>確認 Image encoding 或壓縮格式受支援，並檢查 Enabled。</td>
+</tr>
+<tr>
+<td>Marker 部分內容沒有顯示</td>
+<td>確認 Marker type、points 數量與 scale 符合該形狀需求。</td>
+</tr>
+</tbody>
+</table>
