@@ -47,6 +47,13 @@
             "node-editor/user-guide/math-nodes",
             "node-editor/user-guide/list-nodes"
           ]
+        },
+        {
+          "name": "Examples",
+          "id": "examples",
+          "documents": [
+            "examples/examples"
+          ]
         }
       ],
       "documents": {
@@ -82,6 +89,11 @@
               "level": 2,
               "text": "Node Editor",
               "id": "node-editor"
+            },
+            {
+              "level": 2,
+              "text": "Examples",
+              "id": "examples"
             }
           ],
           "content": "content/zh-TW/index.html"
@@ -1019,6 +1031,22 @@
             }
           ],
           "content": "content/zh-TW/node-editor/user-guide/list-nodes.html"
+        },
+        "examples/examples": {
+          "title": "範例",
+          "headings": [
+            {
+              "level": 1,
+              "text": "範例",
+              "id": "範例"
+            },
+            {
+              "level": 2,
+              "text": "YouTube",
+              "id": "youtube"
+            }
+          ],
+          "content": "content/zh-TW/examples/examples.html"
         }
       }
     },
@@ -1068,6 +1096,13 @@
             "node-editor/user-guide/math-nodes",
             "node-editor/user-guide/list-nodes"
           ]
+        },
+        {
+          "name": "Examples",
+          "id": "examples",
+          "documents": [
+            "examples/examples"
+          ]
         }
       ],
       "documents": {
@@ -1103,6 +1138,11 @@
               "level": 2,
               "text": "Node Editor",
               "id": "node-editor"
+            },
+            {
+              "level": 2,
+              "text": "Examples",
+              "id": "examples"
             }
           ],
           "content": "content/en/index.html"
@@ -1920,6 +1960,27 @@
             }
           ],
           "content": "content/en/node-editor/user-guide/list-nodes.html"
+        },
+        "examples/examples": {
+          "title": "Example",
+          "headings": [
+            {
+              "level": 1,
+              "text": "Example",
+              "id": "example"
+            },
+            {
+              "level": 2,
+              "text": "Olp IK-Solver",
+              "id": "olp-ik-solver"
+            },
+            {
+              "level": 2,
+              "text": "Olp IK-Solver & Collision Detection",
+              "id": "olp-ik-solver--collision-detection"
+            }
+          ],
+          "content": "content/en/examples/examples.html"
         }
       }
     }
