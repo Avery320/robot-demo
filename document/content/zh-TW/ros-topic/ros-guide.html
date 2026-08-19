@@ -1,13 +1,35 @@
-<h1 id="ros-操作指南">ROS 操作指南</h1>
-<p>ROS Topic 是使用 WebSocker 技術與 ROS2 後端進行連線，將 ROS Topic 顯示。</p>
-<h2 id="連線設定">連線設定</h2>
-<h3 id="選擇-bridge-與建立連線">選擇 Bridge 與建立連線</h3>
-<p>專案提供 ROS Bridge 與 Foxglove Bridge 兩種連接方法，點選 <code>Command/Ctrl + R</code> 開啟 Robot 設定，切換不同的連線方式。</p>
-<p>在 Ribbon 的 <strong>Robot</strong> 中，輸入 WebSocket URL，例如 <code>ws://localhost:9090</code>，進行連線，連線狀態會顯示於下方 log 中。</p>
+<h1 id="ros-與-bridge-操作指南">ROS 與 Bridge 操作指南</h1>
+<p>RoboSim 可透過 ROS Bridge 或 Foxglove Bridge 連接 ROS。Bridge 負責即時訊息傳輸；Robot Source 則決定 Viewport 載入哪一個 Robot，兩者不應混為同一設定。</p>
+<h2 id="連線架構">連線架構</h2>
+<table>
+<thead>
+<tr>
+<th>設定</th>
+<th>功能</th>
+<th>可用選項</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ROS Transport</td>
+<td>決定 ROS Topic、TF 與 Robot 訊息使用的傳輸方式。</td>
+<td>ROS Bridge、Foxglove Bridge</td>
+</tr>
+<tr>
+<td>Robot Source</td>
+<td>決定 Viewport 使用的 Robot 模型來源。</td>
+<td>Local Robot、Robot Library、Uploaded Robot、Foxglove Bridge 等</td>
+</tr>
+</tbody>
+</table>
+<p>Foxglove 可同時作為 ROS Transport 與 Robot Source，但這兩個選擇仍分別管理。只有選擇 Foxglove Bridge Robot Source 時，RoboSim 才會透過 Foxglove 讀取 <code>/robot_description</code> 與 Robot 資產。</p>
+<h2 id="bridge-選擇">Bridge 選擇</h2>
+<p>使用 <code>Command/Ctrl + R</code> 開啟 Robot Assets，在 <strong>ROS Bridge</strong> 欄位選擇傳輸方式。切換 Transport 時，系統會先中斷目前連線；ROS Bridge 與 Foxglove Bridge 會分別保留各自的 URL。</p>
 <table>
 <thead>
 <tr>
 <th>選項</th>
+<th>功能</th>
 <th>說明</th>
 </tr>
 </thead>
@@ -15,13 +37,23 @@
 <tr>
 <td>ROS Bridge</td>
 <td>連接 rosbridge WebSocket。</td>
+<td>適用於 rosbridge 提供的 Topic 通訊。</td>
 </tr>
 <tr>
 <td>Foxglove Bridge</td>
-<td>連接 Foxglove Bridge WebSocket。</td>
+<td>連接 Foxglove WebSocket。</td>
+<td>適用於 Foxglove Bridge 提供的 Topic 通訊與 Robot 資產讀取。</td>
 </tr>
 </tbody>
 </table>
+<h2 id="建立連線">建立連線</h2>
+<ol>
+<li>選擇 ROS Transport。</li>
+<li>在 Ribbon 的 <strong>Robot &gt; Connection</strong> 輸入該 Transport 的 WebSocket URL。</li>
+<li>點選 <strong>Connect</strong>。</li>
+<li>從 Runtime Log 確認 Connecting、Connected、Error 或 Disconnected 狀態。</li>
+</ol>
+<p>使用 <strong>ROS Refresh</strong> 可中斷後重新建立目前 Transport 的連線。</p>
 <hr>
 <h2 id="加入-ros-topic">加入 ROS Topic</h2>
 <h3 id="建立-topic-node">建立 Topic Node</h3>
@@ -107,35 +139,4 @@
 <li>Station Tree 中的 ROS Topic Nodes。</li>
 <li>Enabled、顯示方式與各 Node 的調整值。</li>
 </ul>
-<p>專案不保存 ROS Message 內容。重新開啟專案後，必須連接 ROS，Topic Node 才能重新接收即時資料。</p>
-<h2 id="常見問題">常見問題</h2>
-<table>
-<thead>
-<tr>
-<th>狀況</th>
-<th>檢查方式</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Topic 清單無法選擇</td>
-<td>確認 ROS 已連線。</td>
-</tr>
-<tr>
-<td>找不到預期 Topic</td>
-<td>確認 Message Type 受 RoboSim 支援，並重新開啟 Topic 清單更新內容。</td>
-</tr>
-<tr>
-<td>Pose 或 Marker 沒有顯示</td>
-<td>確認 Message 的 <code>frame_id</code> 可由 TF 解析。</td>
-</tr>
-<tr>
-<td>Image 沒有畫面</td>
-<td>確認 Image encoding 或壓縮格式受支援，並檢查 Enabled。</td>
-</tr>
-<tr>
-<td>Marker 部分內容沒有顯示</td>
-<td>確認 Marker type、points 數量與 scale 符合該形狀需求。</td>
-</tr>
-</tbody>
-</table>
+<p>專案不保存 ROS Message 內容。若專案儲存時處於連線狀態，重新開啟時會嘗試連接保存的 Bridge；連線成功後，Topic Node 才會重新接收即時資料。</p>

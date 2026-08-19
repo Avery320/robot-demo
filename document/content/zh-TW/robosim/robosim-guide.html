@@ -1,2 +1,54 @@
-<h1 id="robosim-操作指南">RoboSim 操作指南</h1>
-<p>此文件正在更新。</p>
+<h1 id="robosim-專案指南">RoboSim 專案指南</h1>
+<p>RoboSim 工作區由 Ribbon、Station Tree、Viewport、Tool Panel 與 Runtime Log 組成。本文件說明各區域的職責與共同操作；各系統的完整操作另見對應指南。</p>
+<h2 id="專案架構">專案架構</h2>
+<p>Station Tree、Viewport 與 Inspector 操作同一份專案資料。Inspector 的修改會透過專案操作系統更新對應物件，不建立另一份設定。</p>
+<h2 id="建立與開啟專案">建立與開啟專案</h2>
+<h3 id="建立專案">建立專案</h3>
+<h3 id="開啟專案">開啟專案</h3>
+<h2 id="儲存與關閉專案">儲存與關閉專案</h2>
+<h3 id="儲存專案">儲存專案</h3>
+<h3 id="關閉與離開">關閉與離開</h3>
+<h3 id="復原未儲存資料">復原未儲存資料</h3>
+<h2 id="robosim-專案資料"><code>.robosim</code> 專案資料</h2>
+<h3 id="專案資料">專案資料</h3>
+<p>專案保存 Station Tree、幾何與 Robot 資產、Node Graph、OLP 計算結果、顯示單位、顯示設定、ROS Bridge 偏好與工作區配置。</p>
+<h3 id="即時執行狀態">即時執行狀態</h3>
+<p>ROS 即時訊息、相機互動狀態、暫時顯示與 Ghost 執行狀態不作為專案資料保存。ROS Transport、URL 與儲存時的連線狀態會保存；重新開啟專案時，系統會依保存狀態嘗試重新連線。</p>
+<h3 id="介面設定">介面設定</h3>
+<h2 id="工作區架構">工作區架構</h2>
+<h3 id="station-tree">Station Tree</h3>
+<p>管理專案物件、階層、選取、顯示與鎖定狀態。</p>
+<h3 id="viewport">Viewport</h3>
+<p>顯示並操作 Robot、幾何、ROS 資料與 OLP 結果。</p>
+<h3 id="inspector">Inspector</h3>
+<p>Inspector 會依目前選取的物件顯示可查看或可修改的內容。</p>
+<h3 id="runtime-log">Runtime Log</h3>
+<p>Runtime Log 依來源與狀態顯示操作結果。建立連線、匯入幾何、載入 Robot、專案存取或運算失敗時，應先查看此區域。</p>
+<h2 id="工作區顯示與快捷鍵">工作區顯示與快捷鍵</h2>
+<table>
+<thead>
+<tr>
+<th>快捷鍵</th>
+<th>功能</th>
+<th>說明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Command/Ctrl + B</code></td>
+<td>Station Tree</td>
+<td>顯示或收合左側 Station Tree。</td>
+</tr>
+<tr>
+<td><code>Command/Ctrl + Option/Alt + B</code></td>
+<td>Tool Panel</td>
+<td>顯示或收合右側 Tool Panel。</td>
+</tr>
+<tr>
+<td><code>Command/Ctrl + J</code></td>
+<td>Runtime Log</td>
+<td>顯示或收合下方 Runtime Log。</td>
+</tr>
+</tbody>
+</table>
+<p>面板可使用分隔線調整尺寸。顯示狀態與尺寸會隨目前專案保存。</p>
